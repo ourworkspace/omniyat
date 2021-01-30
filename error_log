@@ -1,0 +1,3 @@
+[22-Jan-2021 09:51:54 UTC] PHP Fatal error:  Cannot redeclare App\Http\Controllers\WebsiteController::csr() in /home2/caferout/public_html/omniyat/admin/app/Http/Controllers/WebsiteController.php on line 203
+[22-Jan-2021 09:52:41 UTC] PHP Fatal error:  Cannot redeclare App\Http\Controllers\WebsiteController::csr() in /home2/caferout/public_html/omniyat/admin/app/Http/Controllers/WebsiteController.php on line 203
+[22-Jan-2021 09:53:33 UTC] PHP Fatal error:  Cannot redeclare App\Http\Controllers\WebsiteController::csr() in /home2/caferout/public_html/omniyat/admin/app/Http/Controllers/WebsiteController.php on line 203
