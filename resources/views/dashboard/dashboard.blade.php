@@ -27,24 +27,6 @@
             <div class="col-lg-3 col-md-6 mb-3">
                 <div class="d-flex card">
                     <div class="wrapper card-body">
-                        <h5 class="mb-0 font-weight-medium text-primary">Portfolio </h5>
-                        <h3 class="mb-0 font-weight-semibold">{{count($portfolios)}}</h3>
-                        <p class="mb-0 text-muted"><a href="{{route('portfolio.list')}}">Explore →</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-3">
-                <div class="d-flex card">
-                    <div class="wrapper card-body">
-                        <h5 class="mb-0 font-weight-medium text-primary">What's New </h5>
-                        <h3 class="mb-0 font-weight-semibold">{{count($whatsNew)}}</h3>
-                        <p class="mb-0 text-muted"><a href="{{route('whatsNew.list')}}">Explore →</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-3">
-                <div class="d-flex card">
-                    <div class="wrapper card-body">
                         <h5 class="mb-0 font-weight-medium text-primary">What's on media </h5>
                         <h3 class="mb-0 font-weight-semibold">{{count($WhatsOnMedia)}}</h3>
                         <p class="mb-0 text-muted"><a href="{{route('whatsOnMedia.list')}}">Explore →</a></p>
@@ -90,9 +72,27 @@
             <div class="col-lg-3 col-md-6 mb-3">
                 <div class="d-flex card">
                     <div class="wrapper card-body">
+                        <h5 class="mb-0 font-weight-medium text-primary">What's New </h5>
+                        <h3 class="mb-0 font-weight-semibold">{{count($whatsNew)}}</h3>
+                        <p class="mb-0 text-muted"><a href="{{route('whatsNew.list')}}">Explore →</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="d-flex card">
+                    <div class="wrapper card-body">
                         <h5 class="mb-0 font-weight-medium text-primary">Leadership </h5>
                         <h3 class="mb-0 font-weight-semibold">{{count($Leadership)}}</h3>
                         <p class="mb-0 text-muted"><a href="{{route('leadership.list')}}">Explore →</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="d-flex card">
+                    <div class="wrapper card-body">
+                        <h5 class="mb-0 font-weight-medium text-primary">Portfolio </h5>
+                        <h3 class="mb-0 font-weight-semibold">{{count($portfolios)}}</h3>
+                        <p class="mb-0 text-muted"><a href="{{route('portfolio.list')}}">Explore →</a></p>
                     </div>
                 </div>
             </div>

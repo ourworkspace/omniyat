@@ -41,10 +41,11 @@
                                                 </div>
 
                                                 <div class="desc">
-                                                    <span class="tss-mm fs-10 tss-text-red text-right w-100 mb-10 text-uppercase">{{strtoupper(date('d', strtotime($sponsorshipdata->date)))}} <sup>
-                                                     @if(date('d', strtotime($sponsorshipdata->date)) == 1) rd @elseif(date('d', strtotime($sponsorshipdata->date)) == 2) nd @elseif(date('d', strtotime($sponsorshipdata->date)) == 2) rd @else th @endif </sup> {{strtoupper(date('M Y', strtotime($sponsorshipdata->date)))}}</span>
+                                                    <span class="tss-mm fs-10 tss-text-red text-right w-100 mb-10 text-uppercase"> {!! htmlspecialchars_decode(date('j<\s\up>S</\s\up> M Y', strtotime($sponsorshipdata->date))) !!}
+                                                     </span>
                                                     <h5 class="tss-optima fs-16 tss-lh-1-2 text-black">{{$sponsorshipdata->title}}</h5>
-                                                    <p class="tss-mr fs-12 text-black">{{$sponsorshipdata->short_description}}</p>
+                                                    <p class="tss-mr fs-12 text-black">
+                                                        {{ strip_tags(substr($sponsorshipdata->short_description, 0, 60)) }}... </p>
                                                     <p class="text-right mb-0"><a href="{{route('site.sponsorships.details',['id'=>$sponsorshipdata->id])}}" class="tss-mb fs-11 text-black text-uppercase">explore more <span class="tss-text-red">➔</span></a></p>
                                                 </div>
                                             </div>
