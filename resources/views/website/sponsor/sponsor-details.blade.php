@@ -23,9 +23,9 @@
                 </div>
                 <div class="row row-display-flex-center pb-30">
                     <div class="col-md-6 pr-30" data-aos="fade-right" data-aos-duration="900">
-                        <p class="text-left"><span class="fs-12 text-black tss-mm text-uppercase">{{strtoupper(date('d', strtotime($ssd->date)))}}<sup>
-                                @if(date('d', strtotime($ssd->date)) == 1) rd @elseif(date('d', strtotime($ssd->date)) == 2) nd @elseif(date('d', strtotime($ssd->date)) == 2) rd @else th @endif
-                                </sup> {{strtoupper(date('M Y', strtotime($ssd->date)))}}</span></p>
+                        <p class="text-left"><span class="fs-12 text-black tss-mm text-uppercase">
+                            {!! htmlspecialchars_decode(date('j<\s\up>S</\s\up> M Y', strtotime($ssd->date))) !!}
+                        </p>
                         <h2 class="fs-28 tss-text-red tss-optima mt-5 mb-15">{{$ssd->title}}</h2>
                         <div class="ssd_large_content"><?php echo $ssd->long_description; ?></div>
                         
