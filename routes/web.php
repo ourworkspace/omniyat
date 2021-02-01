@@ -34,6 +34,9 @@ Route::get('/csr_details/{id}/detail', 'WebsiteController@csrdetails')->name('si
 Route::get('/terms_and_conditions', 'WebsiteController@TermsAndConductions')->name('site.terms.and.conditions');
 Route::get('/privacy_policy', 'WebsiteController@PrivacyPolicy')->name('site.privacy.policy');
 
+Route::post('save-inquireform-details','WebsiteController@saveContactdetails')->name('save.contact.inquire.details');
+
+
 route::post('/sponsorship/load_data','WebsiteController@sponsorshiploadmoredata')->name('sponsorship.load.more.data');
 route::post('/whats_on_media/load_data','WebsiteController@whatsonmedialoadmore')->name('whats_on_media.load.more.data');
 route::post('/pressrelease/load_data','WebsiteController@pressreleaseloadmore')->name('press.release.load.more.data');
