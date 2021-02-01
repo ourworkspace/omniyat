@@ -23,6 +23,7 @@ use App\PhilosophyModel as Philosophy;
 use App\ContactUsModel as ContactUs;
 use App\OmniyatTCPModel as OmniyatTCP;
 use App\PageSubTitlesModel as PageSubTitles;
+use App\InquireModel as Inquire;
 
 class WebsiteController extends Controller
 {
@@ -344,6 +345,48 @@ class WebsiteController extends Controller
 
     public function saveContactdetails(Request $request)
     {
-        return Response()->json($request->all());
+        if(!empty($request->first_name) && !empty($request->last_name) && !empty($request->email) && !empty($request->phone) && !empty($request->message)){
+            $saveInquire = Inquire::create(['first_name'=>$request->first_name,'last_name'=>$request->last_name,'email'=>$request->email,'mobile'=>$request->phone,'message'=>$request->message])->id;
+            if($saveInquire > 0){
+                //TODO : mail integration to active account
+                $send_to = [];
+                $send_to[] = ['yhvreddyinfo@gmail.com','Harsha']; //change mail-id
+                $sendto = [
+                    'sendForm'  =>  [$request->email, $request->first_name],
+                    'sendTo'    =>  $send_to,
+                    'subject'   =>  'Inquire details - sitename',
+                ];
+                $mdata = array('request' => $request);
+                $this->sendEmail('email.inquire_details',$mdata,$sendto);
+
+                $responce = array('response' => true,'message'=>'Inquire details as sent. We will get back soon!');
+            }else{
+                $responce = array('response' => false,'message'=>'Failed to send your inquire details!');
+            }
+        }else{
+            $responce = array('response' => false,'message'=>'Please fill all required fields..!');
+        }
+        return Response()->json($responce);
     }
+
+    public function sendEmail($mailView,$data,$sendto)
+    {
+        Mail::send($mailView, $data, function($message) use ($sendto) {
+
+            if(count($sendto['sendTo']) > 0){
+                foreach($sendto['sendTo'] as $to)
+                {
+                    $message->to($to[0], $to[1]);
+                }
+            }
+            $message->subject($sendto['subject']);
+            $message->from($sendto['sendForm'][0],$sendto['sendForm'][1]);
+        });
+        if(Mail::failures()) {
+            return false;
+        }else{
+            return true;
+        }
+    }
+    
 }
