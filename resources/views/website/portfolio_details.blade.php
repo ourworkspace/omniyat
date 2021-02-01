@@ -345,83 +345,51 @@
                                 <div class="col-md-4 text-center float-left pl-30">
 
                                     <h3 class="text-black text-uppercase tss-mb fs-20 m-0 my-15 ">Register your interest</h3>
-
+                                    <div id="FeedbackEnquerymessage"></div>
                                     <form method="POST" id="contactFormSubmit" action="javascript:0;">
-
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <div class="row">
-
                                             <div class="col-md-6 px-3">
-
                                                 <div class="form-group my-5">
-
                                                     <input type="text" class="form-control" id="f_name" placeholder="FIRST NAME" required name="first_name">
-
                                                 </div>
-
                                             </div>
 
                                             <div class="col-md-6 px-3">
-
                                                 <div class="form-group my-5">
-
                                                     <input type="text" class="form-control" id="l_name" placeholder="LAST NAME" required name="last_name">
-
                                                 </div>
-
                                             </div>
-
                                         </div>
 
                                         <div class="row">
-
                                             <div class="col-md-12 px-3">
-
                                                 <div class="form-group my-5">
-
                                                     <input type="email" class="form-control" id="email" placeholder="EMAIL" required name="email">
-
                                                 </div>
-
                                             </div>
-
                                         </div>
 
                                         <div class="row">
-
                                             <div class="col-md-12 px-3">
-
                                                 <div class="form-group my-5">
-
                                                     <input type="text" name="phone" class="form-control" id="phone" placeholder="PHONE" required>
-
                                                 </div>
-
                                             </div>
-
                                         </div>
 
                                         <div class="row">
-
                                             <div class="col-md-12 px-3">
-
                                                 <div class="form-group my-5">
-
                                                     <textarea class="form-control" rows="5" id="message" placeholder="MESSAGE" required name="message"></textarea>
-
                                                 </div>
-
                                             </div>
-
                                         </div>
 
                                         <div class="row">
-
                                             <div class="col-md-12 px-3">
-
                                                 <button type="submit" id="contactBtnReport" class="btn btn-link btn-red btn-block text-uppercase tss-msb py-10 px-45 my-5 fs-14">enquire more</button>
-
                                             </div>
-
                                         </div>
 
                                     </form>
@@ -992,82 +960,52 @@
 
                                 <h5 class="fs-14 tss-mb text-black mt-0 mb-10 text-uppercase tss-lh-1-3">Register your interest</h5>
 
+                                <div id="FeedbackEnqueryMobilemessage"></div>
                                 <form method="POST" id="contactFormSubmitMobile" action="javascript:0;">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                                     <div class="row">
-
                                         <div class="col-xs-6 col-sm-6 pr-5">
-
                                             <div class="form-group my-5">
-
                                                 <input type="text" class="form-control" id="f_name" placeholder="FIRST NAME" required="" name="first_name">
-
                                             </div>
-
                                         </div>
 
                                         <div class="col-xs-6 col-sm-6 pl-5">
-
                                             <div class="form-group my-5">
-
                                                 <input type="text" class="form-control" id="l_name" placeholder="LAST NAME" required="" name="last_name">
-
                                             </div>
-
                                         </div>
-
                                     </div>
 
                                     <div class="row">
-
                                         <div class="col-sm-12 ">
-
                                             <div class="form-group my-5">
-
                                                 <input type="text" class="form-control" id="phone" placeholder="Phone Number" required="" name="phone">
-
                                             </div>
-
                                         </div>
-
                                     </div>
 
                                     <div class="row">
-
                                         <div class="col-sm-12">
-
                                             <div class="form-group my-5">
-
                                                 <input type="email" class="form-control" id="email" placeholder="EMAIL" required="" name="email">
-
                                             </div>
-
                                         </div>
-
                                     </div>
 
                                     <div class="row">
-
                                         <div class="col-sm-12 ">
-
                                             <div class="form-group my-5">
-
                                                 <textarea class="form-control" rows="4" id="message" placeholder="MESSAGE" required="" name="message"></textarea>
-
                                             </div>
-
                                         </div>
-
                                     </div>
 
                                     <div class="row">
-
                                         <div class="col-sm-12 pull-right">
-
                                             <button type="submit" name="contactBtnReportMobile" class="btn btn-link btn-red text-uppercase tss-msb py-10 px-45 my-5 fs-11 mt-30">SUBMIT</button>
-
                                         </div>
-
                                     </div>
 
                                 </form>
@@ -1087,5 +1025,8 @@
         </div>
 
     </div> 
-
+    <script>
+        sentContactMails('contactFormSubmit', 'contactBtnReport', 'FeedbackEnquerymessage');
+        sentContactMails('contactFormSubmitMobile', 'contactBtnReportMobile', 'FeedbackEnqueryMobilemessage');
+    </script>
 @endsection
