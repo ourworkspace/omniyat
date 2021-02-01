@@ -27,27 +27,27 @@
                                         <th>Action</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    @foreach($leadershipList as $key => $value)
-                                        <tr>
-                                            <td width="80">{{$key+1}}</td>
-                                            <td width="80">
-                                                @if(isset($value->image) && file_exists($value->image))
-                                                    <img src="{{asset($value->image)}}">
-                                                @endif
-                                            </td>
-                                            <td> {{$value->leadership_name}} </td>
-                                            <td> {{$value->leadership_designation}} </td>
-                                            <td align="center" width="80">
-                                                <span>
-                                                    <a href="{{route('leadership.edit',['leadership'=>$value->id])}}"> <i class="fa fa-edit fa-1x"></i> </a>
-                                                </span>
-                                                <span>
-                                                    <a href="{{route('leadership.delete',['leadershipId'=>$value->id])}}" onclick="return confirm('Do you want to delete Leadership?')"> <i class="fa fa-trash-o fa-1x"></i> </a>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                    <tbody class="mysortabledata">
+                                        @foreach($leadershipList as $key => $value)
+                                            <tr id="{{$value->id}}">
+                                                <td width="80">{{$key+1}}</td>
+                                                <td width="80">
+                                                    @if(isset($value->image) && file_exists($value->image))
+                                                        <img src="{{asset($value->image)}}">
+                                                    @endif
+                                                </td>
+                                                <td> {{$value->leadership_name}} </td>
+                                                <td> {{$value->leadership_designation}} </td>
+                                                <td align="center" width="80">
+                                                    <span>
+                                                        <a href="{{route('leadership.edit',['leadership'=>$value->id])}}"> <i class="fa fa-edit fa-1x"></i> </a>
+                                                    </span>
+                                                    <span>
+                                                        <a href="{{route('leadership.delete',['leadershipId'=>$value->id])}}" onclick="return confirm('Do you want to delete Leadership?')"> <i class="fa fa-trash-o fa-1x"></i> </a>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -57,4 +57,34 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(function(){
+            $('.mysortabledata').sortable({
+                update:function(){
+                    var page_id_array = new Array();
+                    $('.mysortabledata tr').each(function (){
+                        id = $(this).attr('id');
+                        page_id_array.push(id);
+                    });
+                    //console.log(page_id_array);
+                    var url = "{{route('leadership.list.order.update')}}";
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: {page_id_array:page_id_array},
+                        success: function (response) {
+                            console.log(response);
+                            //console.log(response.order);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 @endsection

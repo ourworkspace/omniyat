@@ -247,6 +247,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('leadershipSave','LeadershipContoller@leadershipSave')->name('leadership.save');
         Route::post('leadershipUpdate','LeadershipContoller@leadershipUpdate')->name('leadership.update');
 
+        Route::post('/leadershipUpdate/updateOrder','LeadershipContoller@leadershipUpdateOrderPage')->name('leadership.list.order.update');
+
         //sub title
         Route::post('sub_title_save','OmniyatTCPController@subTitleSave')->name('sub.title.save');        
     });

@@ -46,6 +46,17 @@ class LeadershipContoller extends Controller
         return view('leadership.leadership_list', compact('leadershipList'));
     }
 
+    public function leadershipUpdateOrderPage(Request $request)
+    {
+        $leadership = Leadership::where(['status'=>1])->get();
+        $order = [];
+        foreach($leadership as $key => $value):
+            Leadership::where('id', $request->page_id_array[$key])->update(['ordered_by'=>$key+1]);
+            $order[] = ['id'=>$key+1];
+        endforeach;
+        return Response()->json(['message'=>'Order as been changed.','order'=>$order]);
+    }
+
     public function leadershipEdit(Request $request){
         $leadership = Leadership::where('id', $request->leadershipId)->first();
         return view('leadership.leadership', compact('leadership'));
