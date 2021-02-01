@@ -70,11 +70,13 @@
 </div>
 <script src="{{asset('public/assets/vendors/jquery/validation.min.js')}}"></script>
 <script type="text/javascript">
-        $(document).ready(function(){
+    $(document).ready(function(){
         for (var i in CKEDITOR.instances) {
             CKEDITOR.instances[i].on('change', function() {
                 if(CKEDITOR.instances.description.getData().length >  0) {
-                  $('label[for="description"]').hide();
+                    $('label[for="description"]').hide();
+                }else{
+                    $('label[for="description"]').show();
                 }
             });
         }
@@ -86,15 +88,15 @@
                     required: true,
                     maxlength: 50,
                 },
-                LogoImage: {
+                /*LogoImage: {
                     required:true,
-                },
+                },*/
                 image_text: {
                     required:true,
                 },
-                description: {
+                /*description: {
                     required: true
-                }
+                }*/
             }
         });
     });

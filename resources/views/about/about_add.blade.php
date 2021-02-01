@@ -3,8 +3,8 @@
         <h5 class="card-title">Add About Company</h5>
     </div>
     <div class="card-body">
-        <!-- <form action="{{route('about.company.save')}}" enctype="multipart/form-data" class="row" method="post" id="aboutCompany"> -->
-            <form id="add_rating" action="javascript:void(0);">
+        <form action="{{route('about.company.save')}}" enctype="multipart/form-data" class="row" method="post" id="aboutCompany">
+            <!-- <form id="add_rating" action="javascript:void(0);"> -->
             {{csrf_field()}}
 
             <div class="form-group col-md-12">
@@ -56,8 +56,8 @@
             </div>
 
             <div class="form-group col-md-12">
-                <button id="button2id" name="button2id" class="btn btn-black form-control">Save</button>
-                <!-- <input type="submit" value="Save" class="btn btn-success pull-left"> -->
+                <!-- <button id="button2id" name="button2id" class="btn btn-black form-control">Save</button> -->
+                <input type="submit" value="Save" class="btn btn-success pull-left">
             </div>
         </form>
     </div>
@@ -65,6 +65,15 @@
 <script src="{{asset('public/assets/vendors/jquery/validation.min.js')}}"></script>
 <script type="text/javascript">
     $(document).ready(function(){
+        for (var i in CKEDITOR.instances) {
+            CKEDITOR.instances[i].on('change', function() {
+                if(CKEDITOR.instances.description.getData().length >  0) {
+                    $('label[for="description"]').hide();
+                }else{
+                    $('label[for="description"]').show();
+                }
+            });
+        }
         $('#aboutCompany').validate({
             ignore: "not:hidden",
             rules: {
@@ -79,9 +88,9 @@
                     required:true,
                     maxlength: 100,
                 },
-                description: {
+                /*description: {
                     required: true
-                }
+                }*/
             }
         });
         /*for (var i in CKEDITOR.instances) {

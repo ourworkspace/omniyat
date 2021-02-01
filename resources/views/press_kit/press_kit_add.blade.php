@@ -2,8 +2,11 @@
 @section('page_title','PressKit : : Omniyat')
 @section('page_content')
     <style>
-        #cke_1_contents{
+        /*#cke_1_contents{
             height: 200px !important;
+        }*/
+        .error{
+            color: red !important;
         }
     </style>
     <!-- <div class="row page-title-header">
@@ -21,7 +24,7 @@
                     <h5 class="card-title">Add Press Kit</h5>
                 </div>
                 <div class="card-body">
-                    <form class="row" action="{{route('press.kit.save')}}" enctype="multipart/form-data" method="post">
+                    <form class="row" action="{{route('press.kit.save')}}" enctype="multipart/form-data" method="post" id="press_kit_form">
                         {{ csrf_field() }}
                         <div class="form-group col-md-12">
                             <label for="categoryId">Select Category <span class="text-danger">*</span></label>
@@ -68,4 +71,34 @@
             </div>      
         </div>
     </div>
+<script src="{{asset('public/assets/vendors/jquery/validation.min.js')}}"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        
+        
+        $('#press_kit_form').validate({
+            ignore: "not:hidden",
+            rules: {
+                categoryId: {
+                    required: true,
+                },
+                title: {
+                    required:true,
+                },
+                thumb_image: {
+                    required:true,
+                },
+                large_image: {
+                    required:true,
+                },
+                pdf_file: {
+                    required:true
+                }
+                /*long_description: {
+                    required:true,
+                }*/
+            }
+        });
+    });
+</script>    
 @endsection

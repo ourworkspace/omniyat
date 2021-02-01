@@ -9,7 +9,7 @@
                 <div class="col-lg-12 col-md-12 mb-3">
                     <div class="d-flex card">
                         <div class="card-header">
-                            <h5 class="card-title">Leadership List
+                            <h5 class="card-title">Leadership Team
                             <div class="pull-right">
                                 <button><a href="{{route('leadership.add')}}" class="btn btn-auto tss-msb px-45 py-15 fs-12">Add Leadership</a></button>
                             </div>
