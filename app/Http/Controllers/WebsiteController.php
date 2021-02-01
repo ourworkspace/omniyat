@@ -342,4 +342,9 @@ class WebsiteController extends Controller
         //echo "<pre>"; print_r($privacy_policy_data);exit();
         return view('website.privacy_policy', compact('privacy_policy_data'));
     }
+
+    public function saveContactdetails(Request $request)
+    {
+        return Response()->json($request->all());
+    }
 }
