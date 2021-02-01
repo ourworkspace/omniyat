@@ -35,7 +35,14 @@
                         </ol>
                     </div>
                     <div class="col-md-6">
-                        <p class="text-right"><a href="" class="fs-11 tss-mb text-uppercase text-black">NEXT <span class="tss-text-red">→</span></a></p>
+                        <div class="text-right">
+                            @if(isset($previous) && isset($previous->id))
+                                <a href="{{asset('whats_new_details').'/'.$previous->id}}" class="fs-11 tss-mb text-uppercase text-black"><span class="tss-text-red">&larr;</span> Previous </a> &nbsp;&nbsp; 
+                            @endif
+                            @if(isset($next) && isset($next->id))
+                                <a href="{{asset('whats_new_details').'/'.$next->id}}" class="fs-11 tss-mb text-uppercase text-black">NEXT <span class="tss-text-red">→</span></a>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>

@@ -104,7 +104,13 @@ class WebsiteController extends Controller
     public function whatsOnMediaDetails(Request $request){
         $page_sub_title = PageSubTitles::where('page_type',1)->first();
         $womd = WhatsOnMedia::where('id',$request->id)->orderBy('id','DESC')->first();
-        return view('website.what_on_media.whats_on_media_details', compact('womd','page_sub_title'));
+
+        // get previous
+        $previous = WhatsOnMedia::where('id', '<', $request->id)->latest('id')->first();
+        // get next
+        $next = WhatsOnMedia::where('id', '>', $request->id)->oldest('id')->first();
+
+        return view('website.what_on_media.whats_on_media_details', compact('womd','page_sub_title','previous','next'));
         //echo "string".$request->id;
     }
     public function pressRelease(){
@@ -175,8 +181,11 @@ class WebsiteController extends Controller
     public function whatsNewDetails(Request $request){
         $page_sub_title = PageSubTitles::where('page_type',6)->first();
         $wnd = WhatsNew::where('id',$request->id)->orderBy('id','DESC')->first();
-
-        return view('website.whats_new.whats_new_details', compact('wnd','page_sub_title'));
+        // get previous
+        $previous = WhatsNew::where('id', '<', $request->id)->latest('id')->first();
+        // get next
+        $next = WhatsNew::where('id', '>', $request->id)->oldest('id')->first();
+        return view('website.whats_new.whats_new_details', compact('wnd','page_sub_title','previous','next'));
 
     }
     public function pressKit(){

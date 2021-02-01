@@ -48,8 +48,14 @@
                             </ol>
                         </div>
                         <div class="col-md-6">
-
-                            <div class="text-right"><a href="whats-on-media-details.html" class="fs-11 tss-mb text-uppercase text-black"><span class="tss-text-red">&larr;</span> Previous </a> &nbsp;&nbsp; <a href="articles-3.html" class="fs-11 tss-mb text-uppercase text-black">NEXT <span class="tss-text-red">→</span></a></div>
+                            <div class="text-right">
+                                @if(isset($previous) && isset($previous->id))
+                                    <a href="{{asset('whats_on_media_details').'/'.$previous->id}}" class="fs-11 tss-mb text-uppercase text-black"><span class="tss-text-red">&larr;</span> Previous </a> &nbsp;&nbsp; 
+                                @endif
+                                @if(isset($next) && isset($next->id))
+                                    <a href="{{asset('whats_on_media_details').'/'.$next->id}}" class="fs-11 tss-mb text-uppercase text-black">NEXT <span class="tss-text-red">→</span></a>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
