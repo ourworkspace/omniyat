@@ -71,13 +71,13 @@
                         <a class="nav-link" href="{{route('press.kit.list')}}">Press Kit</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{{route('press.kit.category')}}">Press Kit Categories</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{route('csr.list')}}">Csr</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('sponsorships.list')}}">Sponsorships</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('press.kit.category')}}">Press Kit Categories</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('sponsorships.category')}}">Sponsorship Categories</a>

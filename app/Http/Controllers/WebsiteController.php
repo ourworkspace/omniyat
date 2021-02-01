@@ -289,9 +289,10 @@ class WebsiteController extends Controller
     }
     public function contactUs(){
         $contact_us_data = ContactUs::where('status',1)->orderBy('id','ASC')->get();
+        $map_locations = DB::table('contact_us as cu1')->select('cu1.type','cu1.title as latitude','cu1.description as longitude','cu2.description as location_name')->where(['cu1.type'=>8,'cu1.status'=>1])->leftjoin('contact_us as cu2','cu1.id','cu2.title')->get();
         /*echo "<pre>";
         print_r($contact_us_data);exit();*/
-        return view('website.contact_us',compact('contact_us_data'));
+        return view('website.contact_us',compact('contact_us_data','map_locations'));
     }
 
 

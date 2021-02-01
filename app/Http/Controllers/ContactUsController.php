@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ContactUsModel as ContactUs;
+use DB;
 
 class ContactUsController extends Controller
 {
@@ -28,7 +29,9 @@ class ContactUsController extends Controller
             $social_title = ContactUs::where(['type'=>5,'title'=>'social_title','status'=>1])->first();
             $terms_cond = ContactUs::where(['type'=>6,'status'=>1])->first();
             $privacy_polocy = ContactUs::where(['type'=>7,'status'=>1])->first();
-            return view('cms_pages.contact_us_edit', compact('locationDetails','contactusDetails','emails','facebook','instagram','twitter','linkedIn','youtube','contact_us','sub_title','form_title','location_title','social_title','terms_cond','privacy_polocy','contact_title'));
+            $map_locations = DB::table('contact_us as cu1')->select('cu1.*','cu2.description as location_name')->where(['cu1.type'=>8,'cu1.status'=>1])->leftjoin('contact_us as cu2','cu1.id','cu2.title')->get();
+            //print_r($map_locations);exit();
+            return view('cms_pages.contact_us_edit', compact('locationDetails','contactusDetails','emails','facebook','instagram','twitter','linkedIn','youtube','contact_us','sub_title','form_title','location_title','social_title','terms_cond','privacy_polocy','contact_title','map_locations'));
         else:
             return view('cms_pages.contact_us_add');
         endif;
@@ -69,6 +72,12 @@ class ContactUsController extends Controller
             ContactUs::create(['type' => 5,'title' => 'social_title','description'=>$request->section4_title]);
             ContactUs::create(['type' => 6,'title' => $request->terms_conditions_title,'description'=>$request->terms_conditions_url]);
             ContactUs::create(['type' => 7,'title' => $request->privacy_policy_title,'description'=>$request->privacy_policy_url]);
+
+            // map locations
+            foreach($request->latitude as $key => $evalue):
+                $location_id = ContactUs::create(['type' => 8,'title' => $evalue,'description'=>$request->longitude[$key]])->id;
+                ContactUs::create(['type' => 9,'title' => $location_id,'description'=>$request->location_name[$key]])->id;
+            endforeach;
 
             return redirect()->back()->with('success','Successfully saved contact details');
 
@@ -116,6 +125,12 @@ class ContactUsController extends Controller
             ContactUs::create(['type' => 5,'title' => 'social_title','description'=>$request->section4_title]);
             ContactUs::create(['type' => 6,'title' => $request->terms_conditions_title,'description'=>$request->terms_conditions_url]);
             ContactUs::create(['type' => 7,'title' => $request->privacy_policy_title,'description'=>$request->privacy_policy_url]);
+
+            // map locations
+            foreach($request->latitude as $key => $evalue):
+                $location_id = ContactUs::create(['type' => 8,'title' => $evalue,'description'=>$request->longitude[$key]])->id;
+                ContactUs::create(['type' => 9,'title' => $location_id,'description'=>$request->location_name[$key]])->id;
+            endforeach;
 
             return redirect()->back()->with('success','Successfully saved contact details');
 

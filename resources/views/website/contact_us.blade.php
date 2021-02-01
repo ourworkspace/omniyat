@@ -298,7 +298,16 @@
             
         </div>
     </div>
-
+    <input type="hidden" name="" id="locations_count" value="{{count($map_locations)}}">
+    @if(count($map_locations)>0)
+    @foreach($map_locations as $key=>$ml)
+    @if($ml->type == 8)
+    <input type="hidden" name="" id="loc_name_{{$key}}" value="{{$ml->location_name}}">
+    <input type="hidden" name="" id="latitude_{{$key}}" value="{{$ml->latitude}}">
+    <input type="hidden" name="" id="longitude_{{$key}}" value="{{$ml->longitude}}">
+    @endif
+    @endforeach
+    @endif
     <section class="w-100 mt-30 contact_us pb-30">
         <div class="map-responsive">
             <div id="map-canvas"></div>
@@ -311,11 +320,12 @@
     function initialise() {
     var center = new google.maps.LatLng(25.1883757,55.2605124); // Add the coordinates
 
-    var myLatlng = [
+    /*var myLatlng = [
       ['OMNIYAT SALES GALLERY', 25.18789, 55.261428, 2],
       ['OMNIYAT HEADQUARTERS', 25.187709, 55.2594579, 1],
-    ];
-
+    ];*/
+    var locations_count = $('#locations_count').val();
+    
 		var mapOptions = {
             styles:[
                       {
@@ -493,17 +503,18 @@
     var infowindow = new google.maps.InfoWindow();
 
     var marker, i;
-
-    for (i = 0; i < myLatlng.length; i++) {  
+    
+    
+    for (i = 0; i < locations_count; i++) {  
       marker = new google.maps.Marker({
-        position: new google.maps.LatLng(myLatlng[i][1], myLatlng[i][2]),
+        position: new google.maps.LatLng($('#latitude_'+i).val(),$('#longitude_'+i).val()),
         map: map,
         icon: image
       });
 
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
         return function() {
-          infowindow.setContent(myLatlng[i][0]);
+          infowindow.setContent($('#loc_name_'+i).val());
           infowindow.open(map, marker);
         }
       })(marker, i));
