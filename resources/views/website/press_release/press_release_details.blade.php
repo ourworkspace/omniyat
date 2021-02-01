@@ -52,8 +52,12 @@
                     <div class="col-md-6">
 
                         <div class="text-right">
-
-                            <a href="press-release-details-02.html" class="fs-11 tss-mb text-uppercase text-black">NEXT <span class="tss-text-red">→</span></a>
+                            @if(isset($previous) && isset($previous->id))
+                                <a href="{{asset('press_release_details').'/'.$previous->id}}" class="fs-11 tss-mb text-uppercase text-black"><span class="tss-text-red">&larr;</span> Previous </a> &nbsp;&nbsp; 
+                            @endif
+                            @if(isset($next) && isset($next->id))
+                                <a href="{{asset('press_release_details').'/'.$next->id}}" class="fs-11 tss-mb text-uppercase text-black">NEXT <span class="tss-text-red">→</span></a>
+                            @endif
                         </div>
                     </div>
                 </div>

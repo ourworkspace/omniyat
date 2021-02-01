@@ -145,7 +145,11 @@ class WebsiteController extends Controller
     public function pressReleaseDetails(Request $request){
         $page_sub_title = PageSubTitles::where('page_type',2)->first();
         $prd = PressRelease::where('id',$request->id)->orderBy('id','DESC')->first();
-        return view('website.press_release.press_release_details', compact('prd','page_sub_title'));
+        // get previous
+        $previous = PressRelease::where('id', '<', $request->id)->latest('id')->first();
+        // get next
+        $next = PressRelease::where('id', '>', $request->id)->oldest('id')->first();
+        return view('website.press_release.press_release_details', compact('prd','page_sub_title','previous','next'));
     }
 
     public function whatsNew(){
