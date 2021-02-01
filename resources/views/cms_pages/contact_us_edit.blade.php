@@ -271,10 +271,10 @@
                                                             <input type="text" class="form-control" name="location_name[]" required value="{{$mlvalue->location_name}}" placeholder="Location Name">
                                                         </div>
                                                         <div class="form-group col-md-12">
-                                                            <input type="number" class="form-control" name="latitude[]" required value="{{$mlvalue->title}}" placeholder="Latitude">
+                                                            <input type="text" class="form-control" name="latitude[]" required value="{{$mlvalue->title}}" placeholder="Latitude">
                                                         </div>
                                                         <div class="form-group col-md-12">
-                                                            <input type="number" class="form-control" name="longitude[]" required value="{{$mlvalue->description}}" placeholder="Longitude">
+                                                            <input type="text" class="form-control" name="longitude[]" required value="{{$mlvalue->description}}" placeholder="Longitude">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -295,10 +295,10 @@
                                                         <input type="text" class="form-control" name="location_name[]" required placeholder="Location Name">
                                                     </div>
                                                     <div class="form-group col-md-12">
-                                                        <input type="number" class="form-control" name="latitude[]" required placeholder="Latitude">
+                                                        <input type="text" class="form-control" name="latitude[]" required placeholder="Latitude">
                                                     </div>
                                                     <div class="form-group col-md-12">
-                                                        <input type="number" class="form-control" name="longitude[]" required rows="2" placeholder="Longitude">
+                                                        <input type="text" class="form-control" name="longitude[]" required rows="2" placeholder="Longitude">
                                                     </div>
                                                 </div>
                                             </div>
