@@ -219,6 +219,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('sponsorships_delete_image','SponsorshipsController@sponsorshipsDeleteImage')->name('sponsorships.delete.image');
 
         //Contact us
+        Route::get('inquire-details','ContactUsController@inquiredetailsList')->name('inquire.details.list');
+
         Route::get('ContactUs','ContactUsController@contactUsIndex')->name('contactus.index');
         Route::post('ContactUs/saveDetails','ContactUsController@contactUsSave')->name('contactus.save');
         Route::post('ContactUs/updateDetails','ContactUsController@contactUsUpdate')->name('contactus.update');

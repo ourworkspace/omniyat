@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ContactUsModel as ContactUs;
 use DB;
+use App\InquireModel as Inquire;
 
 class ContactUsController extends Controller
 {
@@ -31,7 +32,8 @@ class ContactUsController extends Controller
             $privacy_polocy = ContactUs::where(['type'=>7,'status'=>1])->first();
             $map_locations = DB::table('contact_us as cu1')->select('cu1.*','cu2.description as location_name')->where(['cu1.type'=>8,'cu1.status'=>1])->leftjoin('contact_us as cu2','cu1.id','cu2.title')->get();
             //print_r($map_locations);exit();
-            return view('cms_pages.contact_us_edit', compact('locationDetails','contactusDetails','emails','facebook','instagram','twitter','linkedIn','youtube','contact_us','sub_title','form_title','location_title','social_title','terms_cond','privacy_polocy','contact_title','map_locations'));
+            //'contact_us'
+            return view('cms_pages.contact_us_edit', compact('locationDetails','contactusDetails','emails','facebook','instagram','twitter','linkedIn','youtube','sub_title','form_title','location_title','social_title','terms_cond','privacy_polocy','contact_title','map_locations'));
         else:
             return view('cms_pages.contact_us_add');
         endif;
@@ -138,4 +140,12 @@ class ContactUsController extends Controller
             return redirect()->back()->with('error','Oop\'s error : '.$exception->getMessage());
         }
     }
+
+
+    public function inquiredetailsList(Request $request)
+    {
+        $inquireList = Inquire::where('status', 1)->get();
+        return view('inquire.inquire_list', compact('inquireList'));
+    }
+
 }
