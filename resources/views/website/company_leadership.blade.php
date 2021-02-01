@@ -42,10 +42,10 @@
                     </div>
                     <div class="col-md-6">
                         <p class="text-right">
-                            @if(isset($previous_leadership->id))
+                            @if(isset($previous_leadership->id)&&$previous_leadership->id<$leadership_data->id)
                             <a href="{{asset('leadership')}}?id={{$previous_leadership->id}}" class="fs-11 tss-mb text-uppercase text-black"><span class="tss-text-red">←</span> Previous </a>  &nbsp;&nbsp;  
                             @endif
-                            @if(isset($next_leadership->id))
+                            @if(isset($next_leadership->id)&&$next_leadership->id>$leadership_data->id)
                             <a href="{{asset('leadership')}}?id={{$next_leadership->id}}" class="fs-11 tss-mb text-uppercase text-black" style="text-decoration: none; border-bottom: 1px solid #c92136;">{{$next_leadership->leadership_name}} <span class="tss-text-red">→</span></a>
                             @endif
                         </p>

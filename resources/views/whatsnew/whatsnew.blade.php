@@ -2,8 +2,11 @@
 @section('page_title','WhatsNew : : Omniyat')
 @section('page_content')
     <style>
-        #cke_1_contents{
+        /*#cke_1_contents{
             height: 200px !important;
+        }*/
+        .error{
+            color: red !important;
         }
     </style>
     <div class="row page-title-header">

@@ -259,15 +259,17 @@ class WebsiteController extends Controller
         $first_leadership = Leadership::where('status',1)->first();
         
         if(isset($leadership_data->id) && $leadership_data->id == $last_leadership->id){
+            //echo "if";exit();
             $previous_leadership = Leadership::where('id', '<', $last_leadership->id)->orderBy('id','desc')->select('id','leadership_name')->first();
             $next_leadership = Leadership::where('status',1)->first();
 
         }elseif(isset($leadership_data->id) && $leadership_data->id == $first_leadership->id){
-
+            //echo "elseif";exit();
             $previous_leadership = Leadership::where('status',1)->orderBy('id','desc')->first();
             $next_leadership = Leadership::where('id', '>', $leadership_data->id)->select('id','leadership_name')->first();
            
         }else{
+            //echo "else";exit();
             if(isset($leadership_data->id)){
             $previous_leadership = Leadership::where('id', '<', $leadership_data->id)->select('id','leadership_name')->first();
             $next_leadership = Leadership::where('id', '>', $leadership_data->id)->select('id','leadership_name')->first(); 

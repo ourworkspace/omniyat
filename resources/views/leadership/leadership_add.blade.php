@@ -73,12 +73,12 @@
                 image: {
                     required:true,
                 },
-                long_description: {
+                /*long_description: {
                     required: function() 
                     {
                      CKEDITOR.instances.long_description.updateElement();
                     },
-                }
+                }*/
             }
         });
     });

@@ -85,9 +85,9 @@
                 leadership_designation: {
                     required:true,
                 },
-                long_description: {
+                /*long_description: {
                     required: true
-                }
+                }*/
             }
         });
     });

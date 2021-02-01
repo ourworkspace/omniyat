@@ -2,8 +2,11 @@
 @section('page_title','PressReleases : : Omniyat')
 @section('page_content')
     <style>
-        #cke_1_contents{
+        /*#cke_1_contents{
             height: 200px !important;
+        }*/
+        .error{
+            color: red !important;
         }
     </style>
     <!-- <div class="row page-title-header">
@@ -21,7 +24,7 @@
                     <h5 class="card-title">Add Press Releases</h5>
                 </div>
                 <div class="card-body">
-                    <form class="row" action="{{route('press.releases.save')}}" enctype="multipart/form-data" method="post">
+                    <form class="row" action="{{route('press.releases.save')}}" enctype="multipart/form-data" method="post" id="press_release_form">
                         {{ csrf_field() }}
                         <!-- <div class="form-group col-md-12">
                             <label for="categoryId">Select Category </label>
@@ -32,6 +35,13 @@
                                 @endforeach
                             </select>
                         </div> -->
+                        <div class="form-group col-md-12">
+                            <label>Publish Date <span class="text-danger">*</span></label>
+                            <input type="text" required name="date" value="" class="form-control datepicker" autocomplete="off">
+                            @if($errors->has('date'))
+                                <span class="text-danger">{{ $errors->first('date') }}</span>
+                            @endif
+                        </div>
                         <div class="form-group col-md-12">
                             <label>Title <span class="text-danger">*</span></label>
                             <input type="text" required name="title" class="form-control">
@@ -56,9 +66,7 @@
                         <div class="form-group col-md-12">
                             <label>Short Description </label>
                             <textarea class="form-control" name="ShortDescription" rows="4"></textarea>
-                            <script>
-                                //CKEditorChange('ShortDescription','myconfigText.js');
-                            </script>
+                            
                             @if($errors->has('description'))
                                 <span class="text-danger">{{ $errors->first('description') }}</span>
                             @endif
@@ -67,7 +75,7 @@
                             <label>Long Description </label>
                             <textarea class="form-control" name="longDescription" rows="4"></textarea>
                             <script>
-                                CKEditorChange('longDescription','myconfigText.js');
+                                CKEditorChange('longDescription','myconfig_images.js');
                             </script>
                             @if($errors->has('description'))
                                 <span class="text-danger">{{ $errors->first('description') }}</span>
@@ -81,13 +89,6 @@
                             @endif
                         </div>
                         <div class="form-group col-md-12">
-                            <label>Select Date <span class="text-danger">*</span></label>
-                            <input type="text" required name="date" value="" class="form-control datepicker" autocomplete="off">
-                            @if($errors->has('date'))
-                                <span class="text-danger">{{ $errors->first('date') }}</span>
-                            @endif
-                        </div>
-                        <div class="form-group col-md-12">
                             <input type="submit" value="Save" class="btn btn-success">
                         </div>
                     </form>
@@ -95,4 +96,48 @@
             </div>      
         </div>
     </div>
+<script src="{{asset('public/assets/vendors/jquery/validation.min.js')}}"></script>
+<script type="text/javascript">
+        $(document).ready(function(){
+            $('#date').datepicker({
+                autoclose: true
+            });
+        for (var i in CKEDITOR.instances) {
+            CKEDITOR.instances[i].on('change', function() {
+                
+                if(CKEDITOR.instances.longDescription.getData().length >  0) {
+                  $('label[for="longDescription"]').hide();
+                }
+            });
+        }
+        
+        $('#press_release_form').validate({
+            ignore: "not:hidden",
+            rules: {
+                /*date: {
+                    required: true,
+                },*/
+                title: {
+                    required:true,
+                },
+                thumb_image: {
+                    required:true,
+                },
+                large_image: {
+                    required:true,
+                },
+                ShortDescription: {
+                    required:true,
+                    maxlength:110
+                },
+                /*longDescription: {
+                    required:true,
+                }*/
+                document_pdf: {
+                    required: true
+                }
+            }
+        });
+    });
+</script>      
 @endsection

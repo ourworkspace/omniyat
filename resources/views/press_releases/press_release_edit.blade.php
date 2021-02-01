@@ -2,8 +2,11 @@
 @section('page_title','PressReleases : : Omniyat')
 @section('page_content')
     <style>
-        #cke_1_contents{
+        /*#cke_1_contents{
             height: 200px !important;
+        }*/
+        .error{
+            color: red !important;
         }
     </style>
     <!-- <div class="row page-title-header">
@@ -21,7 +24,7 @@
                     <h5 class="card-title">Edit Press Releases</h5>
                 </div>
                 <div class="card-body">
-                    <form class="row" action="{{route('press.releases.update')}}" enctype="multipart/form-data" method="post">
+                    <form class="row" action="{{route('press.releases.update')}}" enctype="multipart/form-data" method="post" id="press_release_form">
                         {{ csrf_field() }}
                         <input type="hidden" value="{{$pressRelease->id}}" name="Id">
                         <!-- <div class="form-group col-md-12">
@@ -33,6 +36,13 @@
                                 @endforeach
                             </select>
                         </div> -->
+                        <div class="form-group col-md-12">
+                            <label>Publish Date <span class="text-danger">*</span></label>
+                            <input type="text" required name="date" value="{{date('m/d/Y',strtotime($pressRelease->date))}}" class="form-control datepicker" autocomplete="off">
+                            @if($errors->has('date'))
+                                <span class="text-danger">{{ $errors->first('date') }}</span>
+                            @endif
+                        </div>
                         <div class="form-group col-md-12">
                             <label>Title <span class="text-danger">*</span></label>
                             <input type="text" required value="{{$pressRelease->title}}" name="title" class="form-control">
@@ -102,7 +112,7 @@
                             <label>Long Description </label>
                             <textarea class="form-control" name="longDescription" rows="4">{{$pressRelease->long_description}}</textarea>
                             <script>
-                                CKEditorChange('longDescription','myconfigText.js');
+                                CKEditorChange('longDescription','myconfig_images.js');
                             </script>
                             @if($errors->has('longDescription'))
                                 <span class="text-danger">{{ $errors->first('longDescription') }}</span>
@@ -114,7 +124,7 @@
                             @if(isset($pressRelease->pdf_file) && file_exists($pressRelease->pdf_file))
                                 <div class="row">
                                     <div class="col-md-11 mt-2">
-                                        <label>Upload pdf Document </label>
+                                        <label>Upload pdf Document </label><span class="pull-right">{{substr($pressRelease->pdf_file, strrpos($pressRelease->pdf_file, '/') + 1)}}</span>
                                         <input type="file" name="document_pdf" accept=".pdf" style="padding: 6px" class="form-control">
                                     </div>
                                     <div class="col-md-1 pt-4">
@@ -131,13 +141,6 @@
                             @endif
                         </div>
                         <div class="form-group col-md-12">
-                            <label>Select Date <span class="text-danger">*</span></label>
-                            <input type="text" required name="date" value="{{date('m/d/Y',strtotime($pressRelease->date))}}" class="form-control datepicker" autocomplete="off">
-                            @if($errors->has('date'))
-                                <span class="text-danger">{{ $errors->first('date') }}</span>
-                            @endif
-                        </div>
-                        <div class="form-group col-md-12">
                             <input type="submit" value="Update" class="btn btn-success">
                         </div>
                     </form>
@@ -145,4 +148,47 @@
             </div>      
         </div>
     </div>
+<script src="{{asset('public/assets/vendors/jquery/validation.min.js')}}"></script>
+<script type="text/javascript">
+        $(document).ready(function(){
+            $('#date').datepicker({
+                autoclose: true
+            });
+        for (var i in CKEDITOR.instances) {
+            CKEDITOR.instances[i].on('change', function() {
+                if(CKEDITOR.instances.long_description.getData().length >  0) {
+                  $('label[for="short_description"]').hide();
+                }
+                if(CKEDITOR.instances.long_description.getData().length >  0) {
+                  $('label[for="long_description"]').hide();
+                }
+            });
+        }
+        
+        $('#press_release_form').validate({
+            ignore: "not:hidden",
+            rules: {
+                /*date: {
+                    required: true,
+                },*/
+                title: {
+                    required:true,
+                },
+                /*thumb_image: {
+                    required:true,
+                },
+                large_image: {
+                    required:true,
+                },*/
+                short_description: {
+                    required:true,
+                    maxlength:110
+                },
+                /*long_description: {
+                    required:true,
+                }*/
+            }
+        });
+    });
+</script>      
 @endsection

@@ -2,8 +2,11 @@
 @section('page_title','Sponsorships : : Omniyat')
 @section('page_content')
     <style>
-        #cke_1_contents{
+        /*#cke_1_contents{
             height: 200px !important;
+        }*/
+        .error{
+            color: red !important;
         }
     </style>
     <!-- <div class="row page-title-header">
@@ -21,7 +24,7 @@
                     <h5 class="card-title">Add Sponsorships</h5>
                 </div>
                 <div class="card-body">
-                    <form class="row" action="{{route('sponsorships.save')}}" enctype="multipart/form-data" method="post">
+                    <form class="row" action="{{route('sponsorships.save')}}" enctype="multipart/form-data" method="post" id="sponsorship_form">
                         {{ csrf_field() }}
                         <div class="form-group col-md-12">
                             <label for="categoryId">Select Category <span class="text-danger">*</span></label>
@@ -33,6 +36,13 @@
                             </select>
                         </div>
                         <div class="form-group col-md-12">
+                            <label>Publish Date <span class="text-danger">*</span></label>
+                            <input type="text" name="date" value="" class="form-control datepicker" autocomplete="off">
+                            @if($errors->has('date'))
+                                <span class="text-danger">{{ $errors->first('date') }}</span>
+                            @endif
+                        </div>
+                        <div class="form-group col-md-12">
                             <label>Title <span class="text-danger">*</span></label>
                             <input type="text" required name="title" class="form-control">
                             @if($errors->has('title'))
@@ -40,7 +50,7 @@
                             @endif
                         </div>
                         <div class="form-group col-md-12">
-                            <label>Short Description </label>
+                            <label>Short Description <span class="text-danger">*</span></label>
                             <textarea class="form-control" name="short_description" rows="4"></textarea>
                             
                             @if($errors->has('short_description'))
@@ -48,10 +58,10 @@
                             @endif
                         </div>
                         <div class="form-group col-md-12">
-                            <label>Long Description </label>
+                            <label>Long Description <span class="text-danger">*</span></label>
                             <textarea class="form-control" name="long_description" rows="4"></textarea>
                             <script>
-                                CKEditorChange('long_description','myconfigText.js');
+                                CKEditorChange('long_description','myconfig_images.js');
                             </script>
                             @if($errors->has('long_description'))
                                 <span class="text-danger">{{ $errors->first('long_description') }}</span>
@@ -78,13 +88,7 @@
                                 <span class="text-danger">{{ $errors->first('document_pdf') }}</span>
                             @endif
                         </div> -->
-                        <div class="form-group col-md-12">
-                            <label>Select Date <span class="text-danger">*</span></label>
-                            <input type="text" required name="date" value="" class="form-control datepicker" autocomplete="off">
-                            @if($errors->has('date'))
-                                <span class="text-danger">{{ $errors->first('date') }}</span>
-                            @endif
-                        </div>
+                        
                         <div class="form-group col-md-12">
                             <label for="sponsorship_gallery_images">Gallery Images</label>
                             <input type="file" class="form-control fileInput4" accept=".jpg,.png,.jpeg" name="sponsorship_gallery_images[]" style="padding: 6px" multiple>
@@ -100,4 +104,45 @@
             </div>      
         </div>
     </div>
+<script src="{{asset('public/assets/vendors/jquery/validation.min.js')}}"></script>
+<script type="text/javascript">
+        $(document).ready(function(){
+            $('#date').datepicker({
+                autoclose: true
+            });
+        for (var i in CKEDITOR.instances) {
+            CKEDITOR.instances[i].on('change', function() {
+                
+                if(CKEDITOR.instances.long_description.getData().length >  0) {
+                  $('label[for="long_description"]').hide();
+                }
+            });
+        }
+        
+        $('#sponsorship_form').validate({
+            ignore: "not:hidden",
+            rules: {
+                categoryId: {
+                    required: true,
+                },
+                title: {
+                    required:true,
+                },
+                thumb_image: {
+                    required:true,
+                },
+                large_image: {
+                    required:true,
+                },
+                short_description: {
+                    required:true,
+                    maxlength:110
+                },
+                /*long_description: {
+                    required:true,
+                }*/
+            }
+        });
+    });
+</script>     
 @endsection
