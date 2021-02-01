@@ -33,7 +33,7 @@
                                                 <h4>{{$wnd->title}}</h4>
                                                 <p class="fs-11 tss-mr text-black py-15" style="text-transform: none;">{{$wnd->short_description}}</p>
                                                 <div class="text-right">
-                                                    <a href="whatsnew-detail-01.html" class="readmore_link">Read More <span>➜</span></a>
+                                                    <a href="{{asset('whats_new_details').'/'.$wnd->id}}" class="readmore_link">Read More <span>➜</span></a>
                                                 </div>
                                             </div>
                                         </a>
