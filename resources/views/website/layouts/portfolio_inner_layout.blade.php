@@ -17,6 +17,8 @@
     <link rel="stylesheet" type="text/css" href="{{asset('public/site/vendor/masonry/style.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{asset('public/site/vendor/slick/slick.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{asset('public/site/vendor/slick/slick-theme.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('public/site/vendor/custom_scrollbar/jquery.mCustomScrollbar.min.css')}}" />
+
     <!--mobile-->
     <link href="{{asset('public/site/vendor/lightbox/flexbin.css')}}" type="text/css" rel="stylesheet" media="all" />
     <link href="{{asset('public/site/vendor/lightbox/css/lightgallery.css')}}" rel="stylesheet">
@@ -25,6 +27,8 @@
     <link rel="stylesheet" href="{{asset('public/site/css/mobile.css')}}" />
     <link rel="stylesheet" href="{{asset('public/site/css/dynamic.css')}}" />
     <script src="{{asset('public/site/js/jquery-2.2.0.min.js')}}"></script>
+
+
     @include('website.layouts.inquire_script')
     <style>
         .dropbtn {/* background-color: #3498DB; */color: white;/* padding: 16px; */font-size: 16px;border: none;}
@@ -50,6 +54,7 @@
     <script src="{{asset('public/site/vendor/aosanimations/aos.js')}}"></script>
     <script src="{{asset('public/site/js/jquery.hoverCarousel.js')}}"></script>
     <script src="{{asset('public/site/vendor/masonry/script.js')}}"></script>
+    <script src="{{asset('public/site/vendor/custom_scrollbar/jquery.mCustomScrollbar.concat.min.js')}}"></script>
 
     <script>
         $(document).ready(function(){

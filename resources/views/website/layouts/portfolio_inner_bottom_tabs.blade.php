@@ -1,6 +1,7 @@
 <div class="bottom-links w-100">
+    <a href="{{route('site.portfolio')}}" class="back-list"><span>←</span> Back</a>
+
     <div class="header-container">
-        <!-- <a href="{{route('site.portfolio')}}" class="back-list"><span>←</span> Back</a> -->
         <ul class="nav nav-tabs nav-tabs-noborder portal_menu_ul">
             @if(isset($about))
                 <li class="active"><a data-toggle="tab" data-target="#about">about</a></li>
