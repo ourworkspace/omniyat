@@ -26,6 +26,13 @@
             <span class="text-danger">{{ $errors->first('design_description_s') }}</span>
         @endif
     </div>
+    <div class="form-group col-md-12">
+        <label for="design_gallery_images">Image </label>
+        <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="design_gallery_images" style="padding: 6px" id="design_gallery_images">
+        @if($errors->has('design_gallery_images'))
+            <span class="text-danger">{{ $errors->first('design_gallery_images') }}</span>
+        @endif
+    </div>
 </div>
 @else
     <div class="row">
@@ -44,6 +51,13 @@
             </script>
             @if($errors->has('design_description_s'))
                 <span class="text-danger">{{ $errors->first('design_description_s') }}</span>
+            @endif
+        </div>
+        <div class="form-group col-md-12">
+            <label for="design_gallery_images">Image <span class="text-danger">*</span></label>
+            <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="design_gallery_images" style="padding: 6px" required id="design_gallery_images">
+            @if($errors->has('design_gallery_images'))
+                <span class="text-danger">{{ $errors->first('design_gallery_images') }}</span>
             @endif
         </div>
     </div>

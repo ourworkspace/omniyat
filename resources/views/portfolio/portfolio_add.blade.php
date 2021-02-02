@@ -1,9 +1,7 @@
 @extends('layouts.layout')
 @section('page_title','Portfolio : : Omniyat')
 @section('page_content')
-    <?php
-        $textAlignments = ['left-top','left-middle','left-bottom','center-top','center-middle','center-bottom','right-top','right-middle','right-bottom'];
-    ?>
+
     <style>
         #cke_1_contents{
             height: 200px !important;
@@ -42,19 +40,19 @@
                                     @endif
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="ProjectName">Project Name <span class="text-danger">*</span></label>
+                                    <label for="ProjectName">Portfolio Title <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="portfolio_project_name" required>
                                     @if($errors->has('ProjectName'))
                                         <span class="text-danger">{{ $errors->first('ProjectName') }}</span>
                                     @endif
                                 </div>
-                                <div class="form-group col-md-6">
+                                <!--<div class="form-group col-md-6">
                                     <label for="TitleName">Title</label>
                                     <input type="text" class="form-control" name="portfolio_title_name">
                                     @if($errors->has('TitleName'))
                                         <span class="text-danger">{{ $errors->first('TitleName') }}</span>
                                     @endif
-                                </div>
+                                </div>-->
                                 <div class="form-group col-md-6">
                                     <label for="portfolio_project_image">Background Picture <span class="text-danger">*</span></label>
                                     <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="portfolio_project_image" required style="padding: 6px">
@@ -81,14 +79,16 @@
                         </div>
                         <div class="card-body">
                             <div class="row aboutTab">
-                               <div class="form-group col-md-12">
+                                <div class="form-group col-md-12">
                                     <div class="row">
+                                        <!-- <h6 class="col-md-12">Layout Settings</h6> -->
                                         <div class="col-md-6">
                                             <label for="aboutThemeColor">Theme Color <span class="text-danger">*</span></label>
                                             <select class="form-control" required name="about_theme_color">
                                                 <option value="">Select Theme Color</option>
-                                                <option value="dark">Dark Theme</option>
-                                                <option value="light">Light Theme</option>
+                                                @foreach($theme as $key => $value)
+                                                    <option value="{{$key}}">{{$value}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="col-md-6">
@@ -102,6 +102,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- <hr style="width:97%;margin-top: 2px;"> -->
                                 <div class="form-group col-md-12">
                                     <label for="TitleName">Title <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" required name="about_title_name">
@@ -164,8 +165,9 @@
                                             <label for="locationThemeColor">Theme Color <span class="text-danger">*</span></label>
                                             <select class="form-control" required name="location_theme_color">
                                                 <option value="">Select Theme Color</option>
-                                                <option value="dark">Dark Theme</option>
-                                                <option value="light">Light Theme</option>
+                                                @foreach($theme as $key => $value)
+                                                    <option value="{{$key}}">{{$value}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="col-md-6">
@@ -191,6 +193,13 @@
                                     <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="location_background_picture" required style="padding: 6px">
                                     @if($errors->has('location_background_picture'))
                                         <span class="text-danger">{{ $errors->first('location_background_picture') }}</span>
+                                    @endif
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="Logo">Location icon </label>
+                                    <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="location_icon_image" style="padding: 6px">
+                                    @if($errors->has('location_icon_image'))
+                                        <span class="text-danger">{{ $errors->first('location_icon_image') }}</span>
                                     @endif
                                 </div>
                                 <div class="form-group col-md-12">
@@ -248,13 +257,13 @@
                                     });
                                 </script>
                             </div>
-                            <div class="form-group col-md-12">
+                            <!-- <div class="form-group col-md-12">
                                 <label for="design_gallery_images">Gallery Images</label>
                                 <input type="file" class="form-control fileInput4" accept=".jpg,.png,.jpeg" name="design_gallery_images[]" style="padding: 6px" multiple>
                                 @if($errors->has('design_gallery_images'))
                                     <span class="text-danger">{{ $errors->first('design_gallery_images') }}</span>
                                 @endif
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -271,6 +280,13 @@
                                     <input type="text" class="form-control" required name="amenities_facilities_title_name">
                                     @if($errors->has('amenities_facilities_title_name'))
                                         <span class="text-danger">{{ $errors->first('amenities_facilities_title_name') }}</span>
+                                    @endif
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="amenities_facilities_logo">Logo Image</label>
+                                    <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="amenities_facilities_logo" style="padding: 6px" id="amenities_facilities_logo">
+                                    @if($errors->has('amenities_facilities_logo'))
+                                        <span class="text-danger">{{ $errors->first('amenities_facilities_logo') }}</span>
                                     @endif
                                 </div>
                                 <div class="col-md-12 form-group">
@@ -343,13 +359,35 @@
                                         <span class="text-danger">{{ $errors->first('lifeStyleDescription') }}</span>
                                     @endif
                                 </div>
-                                <div class="form-group col-md-12">
+                                <!-- <div class="form-group col-md-12">
                                     <label for="lifeStyleSliderImages">Slider Images</label>
                                     <input type="file" class="form-control fileInput4" accept=".jpg,.png,.jpeg" name="lifeStyle_slider_images[]" style="padding: 6px" multiple>
                                     @if($errors->has('lifeStyleSliderImages'))
                                         <span class="text-danger">{{ $errors->first('lifeStyleSliderImages') }}</span>
                                     @endif
+                                </div> -->
+                                <div class="form-group col-md-12">
+                                    <label for="lifeStyle_slider_images">Image <span class="text-danger">*</span></label>
+                                    <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="lifeStyle_slider_images" style="padding: 6px" required id="design_gallery_images">
+                                    @if($errors->has('lifeStyle_slider_images'))
+                                        <span class="text-danger">{{ $errors->first('lifeStyle_slider_images') }}</span>
+                                    @endif
                                 </div>
+
+                                <div id="lifestyleContentBox" class="col-md-12"></div>
+                                
+                                <script>
+                                    function lifestyleTabs(){
+                                        $.ajax({
+                                            type: "GET",
+                                            url: "{{url('cms/portfolio/lifestyleTabs')}}",
+                                            success: function (lifestyleFields) {
+                                                $("#lifestyleContentBox").html(lifestyleFields);
+                                            }
+                                        });
+                                    }
+                                    lifestyleTabs();
+                                </script>
                             </div>
                         </div>
                     </div>
@@ -403,8 +441,9 @@
                                             <label for="enquireThemeColor">Theme Color <span class="text-danger">*</span></label>
                                             <select class="form-control" required name="enquire_theme_color">
                                                 <option value="">Select Theme Color</option>
-                                                <option value="dark">Dark Theme</option>
-                                                <option value="light">Light Theme</option>
+                                                @foreach($theme as $key => $value)
+                                                    <option value="{{$key}}">{{$value}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="col-md-6">
@@ -462,12 +501,12 @@
                 <div class="col-lg-12 col-md-12 mb-3">
                     <div class="d-flex card">
                         <div class="card-header">
-                            <h5 class="card-title">Floor Plan <small>(upload only pdf file)</small></h5>
+                            <h5 class="card-title">Floor Plan <small>(upload only pdf files)</small></h5>
                         </div>
                         <div class="card-body">
                             <div class="row floorPlanTab">
                                 <div class="form-group col-md-12">
-                                    <input type="file" class="form-control" style="padding: 6px" name="floorplan_file" accept=".pdf">
+                                    <input type="file" class="form-control" style="padding: 6px" multiple name="floorplan_file[]" accept=".pdf">
                                 </div>
                             </div>
                         </div>

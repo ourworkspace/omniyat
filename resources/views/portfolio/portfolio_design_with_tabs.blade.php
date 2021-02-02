@@ -46,6 +46,10 @@
                         CKEditorChange('designDescription_0','myconfigText.js');
                     </script>
                 </div>
+                <div class="form-group col-md-12">
+                    <label for="design_gallery_images">Image <span class="text-danger">*</span></label>
+                    <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="design_gallery_images" style="padding: 6px" required id="design_gallery_images">
+                </div>
             </div>
             <div class="col-md-1">
                 <a href="javascript:0;" class="btn btn-success design_addBtn"> + </a>
@@ -61,7 +65,7 @@
 
     var x = 1; //Initial field counter is 1
     function appendFields(x){
-        var designFieldHTML = '<div class="row"><div class="col-md-11"><div class="form-group col-md-12"><input type="text" class="form-control" placeholder="Tab Name" name="design_tab_name[]"></div><div class="form-group col-md-12"><input type="text" class="form-control" placeholder="Title" name="design_title_name[]"></div><div class="form-group col-md-12"><textarea class="form-control" rows="6" id="designDescription_0'+x+'" name="design_description[]" placeholder="Description"></textarea></div></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success design_removeBtn"> - </a></div></div>'; //New input field html
+        var designFieldHTML = '<div class="row"><div class="col-md-11"><div class="form-group col-md-12"><input type="text" class="form-control" placeholder="Tab Name" name="design_tab_name[]"></div><div class="form-group col-md-12"><input type="text" class="form-control" placeholder="Title" name="design_title_name[]"></div><div class="form-group col-md-12"><textarea class="form-control" rows="6" id="designDescription_0'+x+'" name="design_description[]" placeholder="Description"></textarea></div><div class="form-group col-md-12"><label for="design_gallery_images">Image <span class="text-danger">*</span></label><input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="design_gallery_images" style="padding: 6px" required id="design_gallery_images"></div></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success design_removeBtn"> - </a></div></div>'; //New input field html
         return designFieldHTML;
     }
 

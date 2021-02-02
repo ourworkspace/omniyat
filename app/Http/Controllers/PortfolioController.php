@@ -14,11 +14,21 @@ use App\PortfolioGalleryDetailsModel as PortfolioGalleryDetails;
 
 class PortfolioController extends Controller
 {
+    protected $textAlignments;
+    protected $theme;
+    public function __construct()
+    {
+        $this->textAlignments = ['left-top','left-middle','left-bottom','center-top','center-middle','center-bottom','right-top','right-middle','right-bottom'];
+        $this->theme = ['dark'=>'Dark Theme','light'=>'Light Theme'];
+    }
+
     public function portfolioAdd(Request $request)
     {
         $categories = Categories::where('status', 1)->get();
         $amenities = AmenitiesData::where(['status'=>1])->orderBy('created_at','DESC')->get();
-        return view('portfolio.portfolio_add', compact('categories','amenities'));
+        $textAlignments = $this->textAlignments;
+        $theme = $this->theme;
+        return view('portfolio.portfolio_add', compact('categories','amenities','textAlignments','theme'));
     }
 
     public function portfolioTabType(Request $request)
@@ -40,6 +50,11 @@ class PortfolioController extends Controller
                 return view('portfolio.portfolio_design_without_tabs');
             endif;
         }
+    }
+
+    public function lifestyleTabs(Request $request)
+    {
+        return view('portfolio.portfolio_lifestyle_tabs');
     }
 
     public function portFoliosDataSave(Request $request)
