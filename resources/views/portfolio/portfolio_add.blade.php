@@ -441,8 +441,9 @@
                                             <label for="enquireThemeColor">Theme Color <span class="text-danger">*</span></label>
                                             <select class="form-control" required name="enquire_theme_color">
                                                 <option value="">Select Theme Color</option>
-                                                <option value="dark">Dark Theme</option>
-                                                <option value="light">Light Theme</option>
+                                                @foreach($theme as $key => $value)
+                                                    <option value="{{$key}}">{{$value}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="col-md-6">
@@ -500,12 +501,12 @@
                 <div class="col-lg-12 col-md-12 mb-3">
                     <div class="d-flex card">
                         <div class="card-header">
-                            <h5 class="card-title">Floor Plan <small>(upload only pdf file)</small></h5>
+                            <h5 class="card-title">Floor Plan <small>(upload only pdf files)</small></h5>
                         </div>
                         <div class="card-body">
                             <div class="row floorPlanTab">
                                 <div class="form-group col-md-12">
-                                    <input type="file" class="form-control" style="padding: 6px" name="floorplan_file" accept=".pdf">
+                                    <input type="file" class="form-control" style="padding: 6px" multiple name="floorplan_file[]" accept=".pdf">
                                 </div>
                             </div>
                         </div>
