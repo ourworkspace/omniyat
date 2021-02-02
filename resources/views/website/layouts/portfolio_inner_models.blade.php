@@ -122,9 +122,11 @@
             </div>
         </div>
     </div>    
-
+    <?php if(isset($brochure) && file_exists($brochure->links)):
+        $link = asset($brochure->links);
+    endif; ?>
 <script>
     
-    sentContactMails('contactFormSubmitPopUp', 'contactBtnReportPopUp', 'contactBtnReportMessagePopUp');
+    sentContactMails('contactFormSubmitPopUp', 'contactBtnReportPopUp', 'contactBtnReportMessagePopUp','download','{{$link}}');
     sentContactMails('floorPlanPopUp', 'floorPlanBtn', 'floorPlanMessagePopUp');
 </script> 
