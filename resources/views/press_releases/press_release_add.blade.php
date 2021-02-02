@@ -130,9 +130,12 @@
                     required:true,
                     maxlength:110
                 },
-                /*longDescription: {
-                    required:true,
-                }*/
+                longDescription: {
+                    required:function() 
+                    {
+                     CKEDITOR.instances.longDescription.updateElement();
+                    },
+                },
                 document_pdf: {
                     required: true
                 }

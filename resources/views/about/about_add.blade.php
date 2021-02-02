@@ -88,9 +88,12 @@
                     required:true,
                     maxlength: 100,
                 },
-                /*description: {
-                    required: true
-                }*/
+                description: {
+                    required: function() 
+                    {
+                     CKEDITOR.instances.description.updateElement();
+                    },
+                }
             }
         });
         /*for (var i in CKEDITOR.instances) {

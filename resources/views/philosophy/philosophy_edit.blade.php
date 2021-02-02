@@ -146,7 +146,6 @@
 <script src="{{asset('public/assets/vendors/jquery/validation.min.js')}}"></script>
 <script type="text/javascript">
     $(document).ready(function(){
-        $('#logo_image').attr('src', 'hello');
         for (var i in CKEDITOR.instances) {
             CKEDITOR.instances[i].on('change', function() {
                 if(CKEDITOR.instances.description_1.getData().length >  0) {
@@ -169,14 +168,23 @@
                     maxlength: 50,
                 },
                 description_1: {
-                    required:true,
+                    required:function() 
+                    {
+                     CKEDITOR.instances.description_1.updateElement();
+                    },
                 },
                 description_2: {
-                    required:true,
+                    required:function() 
+                    {
+                     CKEDITOR.instances.description_1.updateElement();
+                    },
                     maxlength: 602
                 },
                 description_3: {
-                    required:true,
+                    required:function() 
+                    {
+                     CKEDITOR.instances.description_1.updateElement();
+                    },
                 },
                 title_3: {
                     required: true

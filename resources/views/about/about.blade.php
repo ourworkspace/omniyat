@@ -113,7 +113,10 @@
                     required:true,
                 },
                 description: {
-                    required: true
+                    required: function() 
+                    {
+                     CKEDITOR.instances.description.updateElement();
+                    },
                 }
             }
         });

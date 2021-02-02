@@ -100,10 +100,13 @@
                 },
                 pdf_file: {
                     required:true
+                },
+                long_description: {
+                    required:function() 
+                    {
+                     CKEDITOR.instances.long_description.updateElement();
+                    },
                 }
-                /*long_description: {
-                    required:true,
-                }*/
             }
         });
     });
