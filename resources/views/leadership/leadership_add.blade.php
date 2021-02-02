@@ -21,7 +21,7 @@
             </div>
             <div class="form-group col-md-12">
                 <label>Image <span class="text-danger">*</span></label>
-                <input type="file" accept=".png,.jpeg,.jpg" name="image" style="padding: 6px" class="form-control">
+                <input type="file" accept=".png,.jpeg,.jpg" name="image" id="image" style="padding: 6px" class="form-control">
                 @if($errors->has('image'))
                     <span class="text-danger">{{ $errors->first('image') }}</span>
                 @endif
@@ -59,7 +59,12 @@
                 }
             });
         }
-        
+        $('#image').bind('change', function (e) { //dynamic property binding
+            var fileName = e.target.files[0].name;
+            if(fileName != ''){
+                $('label[for="image"]').hide();
+            }
+        });
         $('#form_leadership').validate({
             ignore: "not:hidden",
             rules: {
@@ -73,12 +78,12 @@
                 image: {
                     required:true,
                 },
-                /*long_description: {
+                long_description: {
                     required: function() 
                     {
                      CKEDITOR.instances.long_description.updateElement();
                     },
-                }*/
+                }
             }
         });
     });

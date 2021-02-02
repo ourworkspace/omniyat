@@ -138,9 +138,12 @@
                     required:true,
                     maxlength:110
                 },
-                /*long_description: {
-                    required:true,
-                }*/
+                long_description: {
+                    required:function() 
+                    {
+                     CKEDITOR.instances.long_description.updateElement();
+                    },
+                }
             }
         });
     });

@@ -17,7 +17,9 @@
                         <h2 class="fs-40 tss-text-red tss-optima mt-5 mb-5">{{$leadership_data->leadership_name}}</h2>
 						<h3 class="fs-16 text-black tss-msb mt-5 mb-15 text-uppercase">{{$leadership_data->leadership_designation}}</h3>
                         @if(strlen($leadership_data->long_description) > 900)
-                            <div id="less_data" class="d_description">{!! substr($leadership_data->long_description, 0, 900) !!}...
+                            <div id="less_data" class="d_description">
+                                @php($l_d = substr($leadership_data->long_description, 0, 900))
+                                {!! substr($l_d, 0, strrpos($l_d, ' ')) !!} ...
                                 <details>
                             <summary>
                                 <span id="more_data_btn" class="tss-msb fs-14 text-black text-uppercase">Read more</span></summary></details>
@@ -78,7 +80,8 @@
         <div class="row">
             <div class="col-md-12 pb-30 px-20">
                 @if(strlen($leadership_data->long_description) > 300)
-                    <div id="less_data_m" class="m_description">{!! substr($leadership_data->long_description, 0, 300) !!}...
+                    <div id="less_data_m" class="m_description">@php($l_d = substr($leadership_data->long_description, 0, 300))
+                                {!! substr($l_d, 0, strrpos($l_d, ' ')) !!} ...
                         <details>
                             <summary>
                             <span id="more_data_btn_m" class="tss-msb fs-14 text-black text-uppercase">Read more</span></summary>

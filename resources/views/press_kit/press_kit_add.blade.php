@@ -5,7 +5,7 @@
         /*#cke_1_contents{
             height: 200px !important;
         }*/
-        .error{
+        label.error{
             color: red !important;
         }
     </style>
@@ -44,21 +44,21 @@
                         </div>
                         <div class="form-group col-md-12">
                             <label>Thumb Image <span class="text-danger">*</span></label>
-                            <input type="file" required accept=".png,.jpeg,.jpg" name="thumb_image" style="padding: 6px" class="form-control">
+                            <input type="file" required accept=".png,.jpeg,.jpg" name="thumb_image" id="thumb_image" style="padding: 6px" class="form-control">
                             @if($errors->has('thumb_image'))
                                 <span class="text-danger">{{ $errors->first('thumb_image') }}</span>
                             @endif
                         </div>
                         <div class="form-group col-md-12">
                             <label>large Image <span class="text-danger">*</span></label>
-                            <input type="file" required name="large_image" accept=".png,.jpeg,.jpg" style="padding: 6px" class="form-control">
+                            <input type="file" required name="large_image" id="large_image" accept=".png,.jpeg,.jpg" style="padding: 6px" class="form-control">
                             @if($errors->has('large_image'))
                                 <span class="text-danger">{{ $errors->first('large_image') }}</span>
                             @endif
                         </div>
                         <div class="form-group col-md-12">
                             <label>Upload Document <span class="text-danger">*</span></label>
-                            <input type="file" required name="document_pdf" accept="" style="padding: 6px" class="form-control">
+                            <input type="file" required name="document_pdf" id="document_pdf" accept="" style="padding: 6px" class="form-control">
                             @if($errors->has('document_pdf'))
                                 <span class="text-danger">{{ $errors->first('document_pdf') }}</span>
                             @endif
@@ -74,7 +74,24 @@
 <script src="{{asset('public/assets/vendors/jquery/validation.min.js')}}"></script>
 <script type="text/javascript">
     $(document).ready(function(){
-        
+        $('#thumb_image').bind('change', function (e) { //dynamic property binding
+            var fileName = e.target.files[0].name;
+            if(fileName != ''){
+                $('label[for="thumb_image"]').hide();
+            }
+        });
+        $('#large_image').bind('change', function (e) { //dynamic property binding
+            var fileName = e.target.files[0].name;
+            if(fileName != ''){
+                $('label[for="large_image"]').hide();
+            }
+        });
+        $('#pdf_file').bind('change', function (e) { //dynamic property binding
+            var fileName = e.target.files[0].name;
+            if(fileName != ''){
+                $('label[for="pdf_file"]').hide();
+            }
+        });
         
         $('#press_kit_form').validate({
             ignore: "not:hidden",

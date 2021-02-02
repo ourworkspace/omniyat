@@ -5,7 +5,7 @@
         /*#cke_1_contents{
             height: 200px !important;
         }*/
-        .error{
+        label.error{
             color: red !important;
         }
     </style>
@@ -220,9 +220,12 @@
                     required:true,
                     maxlength:110
                 },
-                /*long_description: {
-                    required:true,
-                }*/
+                long_description: {
+                    required:function() 
+                    {
+                     CKEDITOR.instances.long_description.updateElement();
+                    },
+                }
             }
         });
     });

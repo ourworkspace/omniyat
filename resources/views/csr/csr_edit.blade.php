@@ -5,7 +5,7 @@
         /*#cke_1_contents{
             height: 200px !important;
         }*/
-        .error{
+        label.error{
             color: red !important;
         }
     </style>
@@ -149,7 +149,13 @@
                 autoclose: true
             });
         
-        
+        for (var i in CKEDITOR.instances) {
+            CKEDITOR.instances[i].on('change', function() {
+                if(CKEDITOR.instances.long_description.getData().length >  0) {
+                    $('label[for="long_description"]').hide();
+                }
+            });
+        }
         $('#csr_form').validate({
             ignore: "not:hidden",
             rules: {
@@ -169,9 +175,12 @@
                     required:true,
                     maxlength:110
                 },
-                /*long_description: {
-                    required:true,
-                }*/
+                long_description: {
+                    required:function() 
+                    {
+                     CKEDITOR.instances.long_description.updateElement();
+                    },
+                }
             }
         });
     });

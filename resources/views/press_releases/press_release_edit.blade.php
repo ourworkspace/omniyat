@@ -5,7 +5,7 @@
         /*#cke_1_contents{
             height: 200px !important;
         }*/
-        .error{
+        label.error{
             color: red !important;
         }
     </style>
@@ -100,9 +100,7 @@
                         <div class="form-group col-md-12">
                             <label>Short Description </label>
                             <textarea class="form-control" name="ShortDescription" rows="4">{{$pressRelease->short_description}}</textarea>
-                            <script>
-                                //CKEditorChange('ShortDescription','myconfigText.js');
-                            </script>
+                            
                             @if($errors->has('ShortDescription'))
                                 <span class="text-danger">{{ $errors->first('ShortDescription') }}</span>
                             @endif
@@ -156,11 +154,8 @@
             });
         for (var i in CKEDITOR.instances) {
             CKEDITOR.instances[i].on('change', function() {
-                if(CKEDITOR.instances.long_description.getData().length >  0) {
-                  $('label[for="short_description"]').hide();
-                }
-                if(CKEDITOR.instances.long_description.getData().length >  0) {
-                  $('label[for="long_description"]').hide();
+                if(CKEDITOR.instances.longDescription.getData().length >  0) {
+                  $('label[for="longDescription"]').hide();
                 }
             });
         }
@@ -180,13 +175,16 @@
                 large_image: {
                     required:true,
                 },*/
-                short_description: {
+                ShortDescription: {
                     required:true,
                     maxlength:110
                 },
-                /*long_description: {
-                    required:true,
-                }*/
+                longDescription: {
+                    required:true,function() 
+                    {
+                     CKEDITOR.instances.longDescription.updateElement();
+                    },
+                }
             }
         });
     });
