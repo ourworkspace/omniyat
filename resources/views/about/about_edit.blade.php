@@ -94,9 +94,12 @@
                 image_text: {
                     required:true,
                 },
-                /*description: {
-                    required: true
-                }*/
+                description: {
+                    required: function() 
+                    {
+                     CKEDITOR.instances.description.updateElement();
+                    },
+                }
             }
         });
     });

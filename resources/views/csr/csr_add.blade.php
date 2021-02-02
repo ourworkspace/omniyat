@@ -104,7 +104,13 @@
             $('#date').datepicker({
                 autoclose: true
             });
-        
+        for (var i in CKEDITOR.instances) {
+            CKEDITOR.instances[i].on('change', function() {
+                if(CKEDITOR.instances.long_description.getData().length >  0) {
+                    $('label[for="long_description"]').hide();
+                }
+            });
+        }
         $('#csr_form').validate({
             ignore: "not:hidden",
             rules: {
@@ -126,10 +132,13 @@
                 },
                 document_pdf: {
                     required:true,
+                },
+                long_description: {
+                    required:function() 
+                    {
+                     CKEDITOR.instances.long_description.updateElement();
+                    },
                 }
-                /*long_description: {
-                    required:true,
-                }*/
             }
         });
     });

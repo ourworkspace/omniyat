@@ -76,9 +76,7 @@
         });
         for (var i in CKEDITOR.instances) {
             CKEDITOR.instances[i].on('change', function() {
-                if(CKEDITOR.instances.long_description.getData().length >  0) {
-                  $('label[for="short_description"]').hide();
-                }
+                
                 if(CKEDITOR.instances.long_description.getData().length >  0) {
                   $('label[for="long_description"]').hide();
                 }
@@ -103,9 +101,12 @@
                 short_description: {
                     required:true,
                 },
-                /*long_description: {
-                    required:true,
-                }*/
+                long_description: {
+                    required:function() 
+                    {
+                     CKEDITOR.instances.long_description.updateElement();
+                    },
+                }
             }
         });
     });
