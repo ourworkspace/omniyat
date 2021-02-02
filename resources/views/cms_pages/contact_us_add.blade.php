@@ -201,10 +201,10 @@
                                                         <input type="text" class="form-control" name="location_name[]" required placeholder="Location Name">
                                                     </div>
                                                     <div class="form-group col-md-12">
-                                                        <input type="number" class="form-control" name="latitude[]" required placeholder="Latitude">
+                                                        <input type="text" class="form-control" name="latitude[]" required placeholder="Latitude">
                                                     </div>
                                                     <div class="form-group col-md-12">
-                                                        <input type="number" class="form-control" name="longitude[]" required rows="2" placeholder="Longitude">
+                                                        <input type="text" class="form-control" name="longitude[]" required rows="2" placeholder="Longitude">
                                                     </div>
                                                 </div>
                                             </div>
