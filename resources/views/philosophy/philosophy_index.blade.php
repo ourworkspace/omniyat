@@ -5,7 +5,7 @@
         /*#cke_1_contents{
             height: 200px !important;
         }*/
-        .error{
+        label.error{
             color: red !important;
         }
     </style>

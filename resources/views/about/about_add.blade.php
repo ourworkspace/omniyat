@@ -15,8 +15,8 @@
                 @endif
             </div>
             <div class="form-group col-md-12">
-                <label for="LogoImage">Image  <span class="text-danger">*</span></label>
-                <input type="file" class="form-control" accept=".jpg,.png,.jpeg" name="LogoImage" style="padding: 6px">
+                <label>Image  <span class="text-danger">*</span></label>
+                <input type="file" class="form-control" accept=".jpg,.png,.jpeg" name="LogoImage" id="LogoImage" style="padding: 6px">
                 @if($errors->has('LogoImage'))
                     <span class="text-danger">{{ $errors->first('LogoImage') }}</span>
                 @endif
@@ -74,6 +74,12 @@
                 }
             });
         }
+        $('#LogoImage').bind('change', function (e) { //dynamic property binding
+            var fileName = e.target.files[0].name;
+            if(fileName != ''){
+                $('label[for="LogoImage"]').hide();
+            }
+        });
         $('#aboutCompany').validate({
             ignore: "not:hidden",
             rules: {
@@ -96,77 +102,7 @@
                 }
             }
         });
-        /*for (var i in CKEDITOR.instances) {
-            CKEDITOR.instances[i].on('change', function() {
-                if(CKEDITOR.instances.description.getData().length >  0) {
-                    $('label[for="description"]').hide();
-                }else{
-                    $('label[for="description"]').show();
-                }
-            });
-        }
         
-        $('#aboutCompany').validate({
-            onsubmit: function(){
-                    CKEditorUpdate();
-                    return true;
-                },
-            rules: {
-                sub_title: {
-                    required: true,
-                    maxlength: 50,
-                },
-                LogoImage: {
-                    required:true,
-                },
-                image_text: {
-                    required:true,
-                    maxlength: 100,
-                },
-                description: {
-                    required: true
-                }
-            }
-        });
-        function CKEditorUpdate() {
-            for (instance in CKEDITOR.instances)
-                if(CKEDITOR.instances.description.getData().length >  0) {
-                    $('label[for="description"]').hide();
-                }
-                CKEDITOR.instances[instance].updateElement();
-        }*/
-        /*$('#aboutCompany').submit(function() {
-            
-            for (var i in CKEDITOR.instances) {
-                CKEDITOR.instances[i].on('change', function() {
-                    if(CKEDITOR.instances.description.getData().length >  0) {
-                        $('label[for="description"]').hide();
-                    }else{
-                        $('label[for="description"]').show();
-                    }
-                });
-            }
-            $('#aboutCompany').validate({
-                ignore: "not:hidden",
-                rules: {
-                    sub_title: {
-                        required: true,
-                        maxlength: 50,
-                    },
-                    LogoImage: {
-                        required:true,
-                    },
-                    image_text: {
-                        required:true,
-                        maxlength: 100,
-                    },
-                    description: {
-                        required: true
-                    }
-                }
-            });
-            alert("sdfsd");return;
-        });*/
     });
 
 </script>

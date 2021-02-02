@@ -5,7 +5,7 @@
     /*#cke_1_contents{
         height: 250px !important;
     }*/
-    .error{
+    label.error{
         color: red !important;
     }
 </style>
@@ -32,8 +32,8 @@
                             <div class="form-group col-md-12">
                                 <div class="row">
                                     <div class="col-md-10">
-                                        <label for="LogoImage">Image <span class="text-danger">*</span> </label>
-                                        <input type="file" class="form-control" accept=".jpg,.png,.jpeg" name="LogoImage" id="logo_image" style="padding: 6px" value="{{isset($about->image)?$about->image:''}}">
+                                        <label >Image <span class="text-danger">*</span> </label>
+                                        <input type="file" class="form-control" accept=".jpg,.png,.jpeg" name="LogoImage" id="LogoImage" style="padding: 6px" value="{{isset($about->image)?$about->image:''}}">
                                         @if($errors->has('LogoImage'))
                                         <span class="text-danger">{{ $errors->first('LogoImage') }}</span>
                                         @endif
@@ -90,7 +90,6 @@
 <script src="{{asset('public/assets/vendors/jquery/validation.min.js')}}"></script>
 <script type="text/javascript">
     $(document).ready(function(){
-        $('#logo_image').attr('src', 'hello');
         for (var i in CKEDITOR.instances) {
             CKEDITOR.instances[i].on('change', function() {
                 if(CKEDITOR.instances.description.getData().length >  0) {
@@ -98,7 +97,12 @@
                 }
             });
         }
-        
+        $('#LogoImage').bind('change', function (e) { //dynamic property binding
+            var fileName = e.target.files[0].name;
+            if(fileName != ''){
+                $('label[for="LogoImage"]').hide();
+            }
+        });
         $('#aboutCompany').validate({
             ignore: "not:hidden",
             rules: {

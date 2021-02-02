@@ -17,7 +17,7 @@
             &nbsp;&nbsp;&nbsp;<h4 style="padding-top: 30px;padding-bottom: 15px;">Section 1</h4>
             <div class="form-group col-md-12">
                 <label>Image  <span class="text-danger">*</span></label>
-                <input type="file" class="form-control" accept=".jpg,.png,.jpeg" name="image_1" style="padding: 6px">
+                <input type="file" class="form-control" accept=".jpg,.png,.jpeg" name="image_1" id="image_1" style="padding: 6px">
                 @if($errors->has('image_1'))
                     <span class="text-danger">{{ $errors->first('image_1') }}</span>
                 @endif
@@ -36,7 +36,7 @@
             &nbsp;&nbsp;&nbsp;<h4 style="padding-top: 30px;padding-bottom: 15px;">Section 2</h4>
             <div class="form-group col-md-12">
                 <label for="image_2_1">Image 1</label>
-                <input type="file" class="form-control" accept=".jpg,.png,.jpeg" name="image_2_1" style="padding: 6px">
+                <input type="file" class="form-control" accept=".jpg,.png,.jpeg" name="image_2_1" id="image_2_1" style="padding: 6px">
                 @if($errors->has('image_2_1'))
                     <span class="text-danger">{{ $errors->first('image_2_1') }}</span>
                 @endif
@@ -53,7 +53,7 @@
             </div>
             <div class="form-group col-md-12">
                 <label>Image 2</label>
-                <input type="file" class="form-control" accept=".jpg,.png,.jpeg" name="image_2_2" style="padding: 6px">
+                <input type="file" class="form-control" accept=".jpg,.png,.jpeg" name="image_2_2" id="image_2_2" style="padding: 6px">
                 @if($errors->has('image_2_2'))
                     <span class="text-danger">{{ $errors->first('image_2_2') }}</span>
                 @endif
@@ -130,7 +130,24 @@
                 }
             });
         }
-        
+        $('#image_1').bind('change', function (e) { //dynamic property binding
+            var fileName = e.target.files[0].name;
+            if(fileName != ''){
+                $('label[for="image_1"]').hide();
+            }
+        });
+        $('#image_2_1').bind('change', function (e) { //dynamic property binding
+            var fileName = e.target.files[0].name;
+            if(fileName != ''){
+                $('label[for="image_2_1"]').hide();
+            }
+        });
+        $('#image_2_2').bind('change', function (e) { //dynamic property binding
+            var fileName = e.target.files[0].name;
+            if(fileName != ''){
+                $('label[for="image_2_2"]').hide();
+            }
+        });
         $('#form_philosophy').validate({
             ignore: "not:hidden",
             rules: {
@@ -164,9 +181,6 @@
                     required: true
                 },
                 image_2_2: {
-                    required: true
-                },
-                image_3: {
                     required: true
                 },
                 title_3: {
