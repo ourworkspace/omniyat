@@ -61,13 +61,14 @@ class WebsiteController extends Controller
             $location  = PortfolioDetails::where(['tab_name'=>'Location','portfolio_id'=>$portfolio->id])->first();
             $design  = PortfolioDetails::where(['tab_name'=>'Design','portfolio_id'=>$portfolio->id])->get();
             $amenities_facilities  = PortfolioDetails::where(['tab_name'=>'Amenities & Facilities','portfolio_id'=>$portfolio->id])->first();
-            $lifeStyle  = PortfolioDetails::where(['tab_name'=>'LifeStyle','portfolio_id'=>$portfolio->id])->first();
+            $lifeStyle  = PortfolioDetails::where(['tab_name'=>'LifeStyle','sub_tab_name'=>'no','portfolio_id'=>$portfolio->id])->first();
+            $lifeStyleTabs  = PortfolioDetails::where(['tab_name'=>'LifeStyle','sub_tab_name'=>'yes','portfolio_id'=>$portfolio->id,'option_type'=>'tabs'])->get();
             $gallery  = PortfolioDetails::where(['tab_name'=>'Gallery','portfolio_id'=>$portfolio->id])->first();
             $enquire  = PortfolioDetails::where(['tab_name'=>'Enquire','portfolio_id'=>$portfolio->id])->first();
             $vitual_tour  = PortfolioDetails::where(['tab_name'=>'Vitual Tour','portfolio_id'=>$portfolio->id])->get();
-            $floorplan  = PortfolioDetails::where(['tab_name'=>'FloorPlan','portfolio_id'=>$portfolio->id])->first();
+            $floorplan  = PortfolioDetails::where(['tab_name'=>'FloorPlan','portfolio_id'=>$portfolio->id])->get();
             $brochure  = PortfolioDetails::where(['tab_name'=>'Brochure','portfolio_id'=>$portfolio->id])->first();
-            return view('website.portfolio_details', compact('portfolio','about','location','design','amenities_facilities','lifeStyle','gallery','enquire','vitual_tour','floorplan','brochure','portfolio_details'));
+            return view('website.portfolio_details', compact('portfolio','about','location','design','amenities_facilities','lifeStyle','lifeStyleTabs','gallery','enquire','vitual_tour','floorplan','brochure','portfolio_details'));
         else:
             return redirect()->back();
         endif;

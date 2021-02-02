@@ -100,6 +100,15 @@
                                                 @endforeach
                                             </select>
                                         </div>
+                                        <!-- <div class="col-md-4">
+                                            <label for="aboutThemeColor">Image Alignment <span class="text-danger">*</span></label>
+                                            <select class="form-control" required name="about_image_position">
+                                                <option value="">Select Image Alignment</option>
+                                                @foreach($imageSectionOptions as $key => $isovalue)
+                                                    <option value="{{$isovalue}}">{{$isovalue}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div> -->
                                     </div>
                                 </div>
                                 <!-- <hr style="width:97%;margin-top: 2px;"> -->
@@ -336,19 +345,19 @@
                         <div class="card-body">
                             <div class="row lifeStyleTab">
                                <div class="form-group col-md-12">
-                                    <label for="TitleName">Title <span class="text-danger">*</span></label>
+                                    <label for="lifeStyle_title_name">Title <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" required name="lifeStyle_title_name">
-                                    @if($errors->has('TitleName'))
-                                        <span class="text-danger">{{ $errors->first('TitleName') }}</span>
+                                    @if($errors->has('lifeStyle_title_name'))
+                                        <span class="text-danger">{{ $errors->first('lifeStyle_title_name') }}</span>
                                     @endif
                                 </div>
-                                <div class="form-group col-md-12">
+                                <!-- <div class="form-group col-md-12">
                                     <label for="lifeStyleLogo">Logo Image</label>
                                     <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="lifeStyle_logo" style="padding: 6px" multiple>
                                     @if($errors->has('lifeStyleLogo'))
                                         <span class="text-danger">{{ $errors->first('lifeStyleLogo') }}</span>
                                     @endif
-                                </div>
+                                </div> -->
                                 <div class="form-group col-md-12">
                                     <label for="lifeStyleDescription">Description</label>
                                     <textarea class="form-control" rows="6" id="lifeStyleDescription" name="lifeStyle_description"></textarea>
@@ -374,20 +383,35 @@
                                     @endif
                                 </div>
 
-                                <div id="lifestyleContentBox" class="col-md-12"></div>
                                 
-                                <script>
-                                    function lifestyleTabs(){
-                                        $.ajax({
-                                            type: "GET",
-                                            url: "{{url('cms/portfolio/lifestyleTabs')}}",
-                                            success: function (lifestyleFields) {
-                                                $("#lifestyleContentBox").html(lifestyleFields);
-                                            }
-                                        });
-                                    }
-                                    lifestyleTabs();
-                                </script>
+                                <div class="col-md-12 addMoreLifestyleTabsFields">
+                                    <!-- <div class="row">
+                                        <div class="col-md-11">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Tab Name" name="lifestyle_tab_name[]">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Title" name="lifestyle_tab_title_name[]">
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea class="form-control" rows="6" id="lifestyleDescription_0" name="lifestyle_tab_description[]" placeholder="Description"></textarea>
+                                                <script>
+                                                    CKEditorChange('lifestyleDescription_0','myconfigText.js');
+                                                </script>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="lifestyle_gallery_tab_images">Image </label>
+                                                <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="lifestyle_gallery_tab_images[]" style="padding: 6px" id="lifestyle_gallery_tab_images">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <a href="javascript:0;" class="btn btn-success lifestyleTabAddmoreBtn"> + </a>
+                                        </div>
+                                    </div> -->
+                                </div>
+                                <div class="col-md-12"><a href="javascript:0;" class="btn btn-success lifestyleTabAddmoreBtn"> Add tab </a></div>
+                               
+                                
                             </div>
                         </div>
                     </div>
@@ -472,7 +496,7 @@
                 <div class="col-lg-12 col-md-12 mb-3">
                     <div class="d-flex card">
                         <div class="card-header">
-                            <h5 class="card-title">Vitual Tour</h5>
+                            <h5 class="card-title">Virtual Tour</h5>
                         </div>
                         <div class="card-body">
                             <div class="row vitualTourTab">
@@ -505,8 +529,15 @@
                         </div>
                         <div class="card-body">
                             <div class="row floorPlanTab">
-                                <div class="form-group col-md-12">
-                                    <input type="file" class="form-control" style="padding: 6px" multiple name="floorplan_file[]" accept=".pdf">
+                                <div class="col-md-12 floorPlanTabFields">
+                                    <div class="row">
+                                        <div class="form-group col-md-11">
+                                            <input type="file" class="form-control" style="padding: 6px" name="floorplan_file[]" accept=".pdf">
+                                        </div>
+                                        <div class="col-md-1">
+                                            <a href="javascript:0;" class="btn btn-success floorPlanTabAddmoreBtn"> + </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -524,18 +555,21 @@
                                     <input type="file" class="form-control" style="padding: 6px" name="brochure_file" accept=".pdf">
                                 </div>
 
-                                <div class="form-group col-md-12">
-                                    <input type="submit" value="Save" class="btn btn-success pull-left">
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <input type="submit" value="Save" class="btn btn-success pull-left">
                 </div>
 
             </form>
         </div>
     </div>
 <script>
+
     function addDynamicFieldsProject(addButtonClass, fieldWrapper, numFields, fieldHTML, removeButtonClass){
         var maxField = numFields; //Input fields increment limitation
         var addButton = $(addButtonClass); //Add button selector
@@ -567,6 +601,36 @@
 
     var amtFtsFieldsSet = '<div class="row"><div class="col-md-11"><div class="row"><div class="form-group col-md-12"><input type="text" class="form-control" name="amenities_facilities_amenities[]" placeholder="Amenity Name"></div></div></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success amtFtsRemove"> - </a></div></div>';
     addDynamicFieldsProject('.amtFtsAddMore', '.amenitiesTextBox', 0, amtFtsFieldsSet, '.amtFtsRemove');
+
+    var floorPlanFileds = '<div class="row"><div class="form-group col-md-11"><input type="file" class="form-control" style="padding: 6px" name="floorplan_file[]" accept=".pdf"></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success floorPlanTabRemoveBtn"> - </a></div></div>';
+    addDynamicFieldsProject('.floorPlanTabAddmoreBtn', '.floorPlanTabFields', 0, floorPlanFileds, '.floorPlanTabRemoveBtn');
+
+    var lifestylemaxField = 0; //Input fields increment limitation
+    var lifestyleaddButton = $('.lifestyleTabAddmoreBtn'); //Add button selector
+    var lifestylewrapper = $('.addMoreLifestyleTabsFields'); //Input field wrapper
+    var tabx = 1;
+    function lifestyleTabsFields(tabx){
+        var lifestyleFieldHTML = '<div class="row mt-3"><div class="col-md-11"><div class="form-group"><input type="text" class="form-control" placeholder="Tab Name" name="lifestyle_tab_name[]"></div><div class="form-group"><input type="text" class="form-control" placeholder="Title" name="lifestyle_tab_title_name[]"></div><div class="form-group"><textarea class="form-control" rows="6" id="lifestyleDescription_0'+tabx+'" name="lifestyle_tab_description[]" placeholder="Description"></textarea></div><div class="form-group"><label for="lifestyle_gallery_tab_images">Image <span class="text-danger">*</span></label><input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="lifestyle_gallery_tab_images[]" style="padding: 6px" required id="lifestyle_gallery_tab_images"></div></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success lifestyleTabRemoveBtn"> - </a></div></div>'; //New input field html
+        return lifestyleFieldHTML;
+    }
+    //Once add button is clicked
+    $(lifestyleaddButton).click(function(){
+        //Check maximum number of input fields
+        //if(x < maxField){ 
+            tabx++; //Increment field counter
+            var dhtml = lifestyleTabsFields(tabx);
+            $(lifestylewrapper).append(dhtml); //Add field html
+            CKEditorChange('lifestyleDescription_0'+tabx,'myconfigText.js');
+        //}
+    });
+    
+    //Once remove button is clicked
+    $(lifestylewrapper).on('click', '.lifestyleTabRemoveBtn', function(e){
+        e.preventDefault();
+        $(this).parent().parent().remove(); //Remove field html
+        tabx--; //Decrement field counter
+    });
+    //addDynamicFieldsProject('.lifestyleTabAddmoreBtn', '.addMoreLifestyleTabsFields', 0, lifestyleFieldHTML, '.lifestyleTabRemoveBtn');
 
 </script>
 @endsection

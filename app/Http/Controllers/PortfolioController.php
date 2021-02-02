@@ -16,10 +16,21 @@ class PortfolioController extends Controller
 {
     protected $textAlignments;
     protected $theme;
+    protected $imageSectionOptions;
+    protected $gridColums;
+    protected $gridAlignmentOptions;
+    protected $gridContainerPositions;
+
+
     public function __construct()
     {
         $this->textAlignments = ['left-top','left-middle','left-bottom','center-top','center-middle','center-bottom','right-top','right-middle','right-bottom'];
         $this->theme = ['dark'=>'Dark Theme','light'=>'Light Theme'];
+
+        $this->imageSectionOptions = ['full-width','left-bottom','right-bottom'];
+        $this->gridColums = ['col-md-1','col-md-2','col-md-3','col-md-4','col-md-5','col-md-6','col-md-7','col-md-8','col-md-9','col-md-10','col-md-11','col-md-12'];
+        $this->gridAlignmentOptions = ['Pull-left','Pull-right','col-centered'];
+        $this->gridContainerPositions = ['container-vertical-middle','container-vertical-left-top','container-vertical-left-bottom','container-vertical-left-middle','container-vertical-right-top','container-vertical-right-bottom','container-vertical-right-middle'];
     }
 
     public function portfolioAdd(Request $request)
@@ -28,7 +39,11 @@ class PortfolioController extends Controller
         $amenities = AmenitiesData::where(['status'=>1])->orderBy('created_at','DESC')->get();
         $textAlignments = $this->textAlignments;
         $theme = $this->theme;
-        return view('portfolio.portfolio_add', compact('categories','amenities','textAlignments','theme'));
+        $imageSectionOptions = $this->imageSectionOptions;
+        $gridColums = $this->gridColums;
+        $gridAlignmentOptions = $this->gridAlignmentOptions;
+        $gridContainerPositions = $this->gridContainerPositions;
+        return view('portfolio.portfolio_add', compact('categories','amenities','textAlignments','theme','imageSectionOptions','gridColums','gridAlignmentOptions','gridContainerPositions'));
     }
 
     public function portfolioTabType(Request $request)
@@ -52,11 +67,6 @@ class PortfolioController extends Controller
         }
     }
 
-    public function lifestyleTabs(Request $request)
-    {
-        return view('portfolio.portfolio_lifestyle_tabs');
-    }
-
     public function portFoliosDataSave(Request $request)
     {
         //dd($request->all());
@@ -74,7 +84,8 @@ class PortfolioController extends Controller
                 $portfolio_project_image = '';
             endif;
 
-            $portfolio = Portfolios::create(['category_id'=>$request->portfolio_category,'project_name'=>$request->portfolio_project_name,'title'=>$request->portfolio_title_name,'logo'=>$portfolio_project_logo,'status'=>1,'image'=>$portfolio_project_image])->id;
+            $portfolio = Portfolios::create(['category_id'=>$request->portfolio_category,'project_name'=>$request->portfolio_project_name,'logo'=>$portfolio_project_logo,'status'=>1,'image'=>$portfolio_project_image])->id;
+            //Portfolio Tabs start. 
             if($portfolio > 0):
                 //About tab
                 if(isset($request->about_title_name)):
@@ -87,7 +98,7 @@ class PortfolioController extends Controller
                     if(isset($about_project_logo) && empty($about_project_logo)):
                         $about_project_logo = '';
                     endif;
-
+                    //'bg_image_position'=>$request->about_image_position,
                     $about = PortfolioDetails::create(['portfolio_id' => $portfolio,'tab_name'=> 'About','theme_color'=>$request->about_theme_color,'text_alignment'=>$request->about_text_alignment,'background_image'=>$about_background_picture,'logo'=>$about_project_logo,'title'=>$request->about_title_name,'description_1'=>$request->about_description,'description_2'=>$request->about_description_2])->id;
                 endif;
 
@@ -97,31 +108,45 @@ class PortfolioController extends Controller
                     if(isset($location_background_picture) && empty($location_background_picture)):
                         $location_background_picture = '';
                     endif;
-                    $location = PortfolioDetails::create(['portfolio_id'=>$portfolio,'tab_name'=>'Location','theme_color'=>$request->location_theme_color,'text_alignment'=>$request->location_text_alignment,'background_image'=>$location_background_picture,'title'=>$request->location_title_name,'description_1'=>$request->location_description])->id;
+
+                    $location_icon_image = $this->uploadFile($request,'location_icon_image','portfolio/locationImages/'.$request->portfolio_category.'');
+                    if(isset($location_icon_image) && empty($location_icon_image)):
+                        $location_icon_image = '';
+                    endif;
+
+                    $location = PortfolioDetails::create(['portfolio_id'=>$portfolio,'tab_name'=>'Location','theme_color'=>$request->location_theme_color,'text_alignment'=>$request->location_text_alignment,'background_image'=>$location_background_picture,'title'=>$request->location_title_name,'description_1'=>$request->location_description,'icon_image'=>$location_icon_image])->id;
                 endif;
 
                 //Design
                 if($request->design_tabs_type == 'withTabs'):
                     if(count($request->design_tab_name) > 0):
+                        $design_gallery_silders = $this->multiUploadFiles($request,'design_gallery_images','portfolio/designGalleryImages/'.$request->portfolio_category.'');
+
                         foreach($request->design_tab_name as $key => $tabname):
-                            $tab = PortfolioDetails::create(['portfolio_id' => $portfolio, 'tab_name' => 'Design', 'title' => $request->design_title_name[$key], 'description_1' => $request->design_description[$key], 'option_type' => 'withTabs','option_title' => $request->design_tab_name[$key]])->id;
+                            $tab = PortfolioDetails::create(['portfolio_id' => $portfolio, 'tab_name' => 'Design', 'title' => $request->design_title_name[$key], 'description_1' => $request->design_description[$key], 'option_type' => 'withTabs','option_title' => $request->design_tab_name[$key], 'background_image'=> $design_gallery_silders[$key]])->id;
                         endforeach;
 
-                        $design_gallery_silders = $this->multiUploadFiles($request,'design_gallery_images','portfolio/designGalleryImages/'.$request->portfolio_category.'');
-                        if(count($design_gallery_silders) > 0):
+                        
+                        /*if(count($design_gallery_silders) > 0):
                             foreach($design_gallery_silders as $gkey => $dgvalue):
                                 $designGalleryImages = PortfolioGalleryDetails::create(['tab_id'=>$portfolio,'title'=>'Design_Slider_'.$gkey,'image'=>$dgvalue,'type'=>'design_gallery_images'])->id;
                             endforeach;
-                        endif;
+                        endif;*/
                     endif;
                 elseif($request->design_tabs_type == 'withOutTabs'):
-                    $tab = PortfolioDetails::create(['portfolio_id' => $portfolio, 'tab_name' => 'Design', 'title' => $request->design_title_name_s, 'description_1' => $request->design_description_s, 'option_type' => 'withOutTabs'])->id;
-                    $design_gallery_silders = $this->multiUploadFiles($request,'design_gallery_images','portfolio/designGalleryImages/'.$request->portfolio_category.'');
-                    if(count($design_gallery_silders) > 0):
+
+                    $design_gallery_images = $this->uploadFile($request,'design_gallery_images','portfolio/designGalleryImages/'.$request->portfolio_category.'');
+                    if(isset($design_gallery_images) && empty($design_gallery_images)):
+                        $design_gallery_images = '';
+                    endif;
+
+                    $tab = PortfolioDetails::create(['portfolio_id' => $portfolio, 'tab_name' => 'Design', 'title' => $request->design_title_name_s, 'description_1' => $request->design_description_s, 'option_type' => 'withOutTabs','background_image'=> $design_gallery_images])->id;
+                    
+                    /*if(count($design_gallery_silders) > 0):
                         foreach($design_gallery_silders as $gkey => $dgvalue):
                             $designGalleryImages = PortfolioGalleryDetails::create(['tab_id'=>$portfolio,'title'=>'Design_Slider_'.$gkey,'image'=>$dgvalue,'type'=>'design_gallery_images'])->id;
                         endforeach;
-                    endif;
+                    endif;*/
                 endif;
 
                 //Amenities & Facilities
@@ -131,7 +156,13 @@ class PortfolioController extends Controller
                     else:
                         $amenities = '';
                     endif;
-                    $amenities_facilities = PortfolioDetails::create(['portfolio_id' => $portfolio,'tab_name' => 'Amenities & Facilities','title' => $request->amenities_facilities_title_name,'description_1' => $request->amenities_facilities_description,'amenities' => $amenities])->id;
+
+                    $amenities_facilities_logo = $this->uploadFile($request,'amenities_facilities_logo','portfolio/logoImages/'.$request->portfolio_category.'');
+                    if(isset($amenities_facilities_logo) && empty($amenities_facilities_logo)):
+                        $amenities_facilities_logo = '';
+                    endif;
+
+                    $amenities_facilities = PortfolioDetails::create(['portfolio_id' => $portfolio,'tab_name' => 'Amenities & Facilities','title' => $request->amenities_facilities_title_name,'description_1' => $request->amenities_facilities_description,'amenities' => $amenities,'logo'=>$amenities_facilities_logo])->id;
 
                     $amenitieSliders = $this->multiUploadFiles($request,'amenities_facilities_gallery_images','portfolio/amenitieSliders/'.$request->portfolio_category.'');
                     if(count($amenitieSliders) > 0):
@@ -143,19 +174,38 @@ class PortfolioController extends Controller
 
                 //LifeStyle
                 if(isset($request->lifeStyle_title_name)):
-                    $lifeStyle_logo = $this->uploadFile($request,'lifeStyle_logo','portfolio/lifeStyle/'.$request->portfolio_category.'');
-                    if(isset($lifeStyle_logo) && empty($lifeStyle_logo)):
-                        $lifeStyle_logo = '';
+                    // $lifeStyle_logo = $this->uploadFile($request,'lifeStyle_logo','portfolio/lifeStyle/'.$request->portfolio_category.'');
+                    // if(isset($lifeStyle_logo) && empty($lifeStyle_logo)):
+                    //     $lifeStyle_logo = '';
+                    // endif; 'logo'=>$lifeStyle_logo,
+
+                    $lifeStyle_slider_images = $this->uploadFile($request,'lifeStyle_slider_images','portfolio/lifeStyle/sliderImages/'.$request->portfolio_category.'');
+                    if(isset($lifeStyle_slider_images) && empty($lifeStyle_slider_images)):
+                        $lifeStyle_slider_images = '';
                     endif;
 
-                    $lifeStyle = PortfolioDetails::create(['portfolio_id'=> $portfolio,'tab_name'=>'LifeStyle','logo'=>$lifeStyle_logo,'title'=>$request->lifeStyle_title_name,'description_1'=>$request->lifeStyle_description])->id;
+                    $lifeStyle = PortfolioDetails::create(['portfolio_id'=> $portfolio,'tab_name'=>'LifeStyle','sub_tab_name'=>'no','title'=>$request->lifeStyle_title_name,'description_1'=>$request->lifeStyle_description,'background_image'=>$lifeStyle_slider_images])->id;
 
-                    $lifeStyle_slider_images = $this->multiUploadFiles($request,'lifeStyle_slider_images','portfolio/lifeStyleSliders/'.$request->portfolio_category.'');
+                    /*$lifeStyle_slider_images = $this->multiUploadFiles($request,'lifeStyle_slider_images','portfolio/lifeStyleSliders/'.$request->portfolio_category.'');
                     if(count($lifeStyle_slider_images) > 0):
                         foreach($lifeStyle_slider_images as $key => $lsivalue):
                             $lifeStyleImage = PortfolioGalleryDetails::create(['tab_id'=>$portfolio,'title'=>'Slider_'.$key,'image'=>$lsivalue,'type'=>'lifeStyle_slider_images'])->id;
                         endforeach;
+                    endif;*/
+
+                    if(count($request->lifestyle_tab_name) > 0): // 
+                        $lifestyle_gallery_tab_images = $this->multiUploadFiles($request,'lifestyle_gallery_tab_images','portfolio/lifestyleTabImages/'.$request->portfolio_category.'');
+
+                        foreach($request->lifestyle_tab_name as $key => $tabname):
+                            if(isset($lifestyle_gallery_tab_images[$key])):
+                                $lifestyleGalleryTabImages = $lifestyle_gallery_tab_images[$key];
+                            else:
+                                $lifestyleGalleryTabImages = '';
+                            endif;
+                            $tab = PortfolioDetails::create(['portfolio_id' => $portfolio, 'tab_name' => 'LifeStyle','sub_tab_name'=>'yes', 'title' => $request->lifestyle_tab_title_name[$key], 'description_1' => $request->lifestyle_tab_description[$key], 'option_type' => 'tabs','option_title' => $request->lifestyle_tab_name[$key], 'background_image'=> $lifestyleGalleryTabImages])->id;
+                        endforeach;
                     endif;
+
                 endif;
 
                 //Gallery
@@ -189,11 +239,19 @@ class PortfolioController extends Controller
 
                 //floorplan_file
                 if(isset($request->floorplan_file)):
-                    $floorplan_file = $this->uploadFile($request,'floorplan_file','portfolio/floorplan/'.$request->portfolio_category.'');
-                    if(isset($floorplan_file) && empty($floorplan_file)):
-                        $floorplan_file = '';
+                    //$floorplan_file = $this->uploadFile($request,'floorplan_file','portfolio/floorplan/'.$request->portfolio_category.'');
+
+                    $floorplan_file = $this->multiUploadFiles($request,'floorplan_file','portfolio/floorplan/'.$request->portfolio_category.'');
+
+                    // if(isset($floorplan_file) && empty($floorplan_file)):
+                    //     $floorplan_file = '';
+                    // endif;
+                    if(count($floorplan_file) > 0):
+                        foreach($floorplan_file as $key => $fpvalue):
+                            PortfolioDetails::create(['portfolio_id'=> $portfolio,'tab_name'=>'FloorPlan','title'=>'Floorplan File','links'=>$fpvalue])->id;
+                        endforeach;
                     endif;
-                    $lifeStyle = PortfolioDetails::create(['portfolio_id'=> $portfolio,'tab_name'=>'FloorPlan','title'=>'Floorplan File','links'=>$floorplan_file])->id;
+                    //$lifeStyle = PortfolioDetails::create(['portfolio_id'=> $portfolio,'tab_name'=>'FloorPlan','title'=>'Floorplan File','links'=>$floorplan_file])->id;
                 endif;
 
                 //Brochure file
@@ -204,15 +262,25 @@ class PortfolioController extends Controller
                     endif;
                     $lifeStyle = PortfolioDetails::create(['portfolio_id'=> $portfolio,'tab_name'=>'Brochure','title'=>'Brochure File','links'=>$brochure_file]);
                 endif;
-               
+
+                
+                //dd($request->all());
                 //dd($insertDataPre);
                 return redirect()->route('portfolio.list')->with('success','Successfully saved portfolio');
             else:
-                //print_r('Failed to save portfolio details');
+                // echo $portfolio;
+                // print_r('Failed to save portfolio details');
+                PortfolioDetails::where(['portfolio_id'=> $portfolio])->delete();
+                PortfolioGalleryDetails::where(['tab_id'=>$portfolio])->delete();
+                Portfolios::where(['id'=> $portfolio])->delete();
                 return redirect()->back()->with('failed','Failed to save portfolio details');
             endif;
         }catch (\Exception $exception) {
-            //print_r($exception->getMessage());
+            // echo $portfolio;
+            // print_r($exception->getMessage());
+            PortfolioDetails::where(['portfolio_id'=> $portfolio])->delete();
+            PortfolioGalleryDetails::where(['tab_id'=>$portfolio])->delete();
+            Portfolios::where(['id'=> $portfolio])->delete();
             return redirect()->back()->with('error','Oop\'s error : '.$exception->getMessage());
         }
     }

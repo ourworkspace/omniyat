@@ -65,7 +65,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/portfolioAdd', 'PortfolioController@portfolioAdd')->name('portfolio.add');
         //tabs
         Route::get('/portfolio/designTabs/{tabType}', 'PortfolioController@portfolioTabType');
-        Route::get('/portfolio/lifestyleTabs', 'PortfolioController@lifestyleTabs');
         
         Route::post('/portfolio/savePortfolio', 'PortfolioController@portFoliosDataSave')->name('portfolio.save');
         //Route::post('/portfolio/savePortfolio', 'PortfolioController@savePortfolio')->name('portfolio.save');

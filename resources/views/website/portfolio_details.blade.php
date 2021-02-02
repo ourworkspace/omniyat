@@ -83,9 +83,11 @@
                             </div>
 
                         </div>
-
-                        <a href="" class="location_map_pointer"><img src="{{asset('public/site/img/icons/mappin.png')}}"></a>
-
+                        @if(isset($location->icon_image) && file_exists($location->icon_image))
+                            <a href="" class="location_map_pointer"><img src="{{asset($location->icon_image)}}"></a>
+                        @else
+                            <a href="" class="location_map_pointer"><img src="{{asset('public/site/img/icons/mappin.png')}}"></a>
+                        @endif
                     </section>
 
                 </div>
