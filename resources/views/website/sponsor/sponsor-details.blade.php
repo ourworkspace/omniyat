@@ -1,7 +1,7 @@
 @extends('website.layouts.inner_layout')
 @section('title','Press Kit')
 @section('pageContent') 
-    
+<link rel="stylesheet" type="text/css" href="{{asset('public/assets/vendors/masonry-gallery/css/style.css')}}">
 <div class="inner-page desktop_view">
     <section class="page-title text-center w-100 pb-30">
         <h1 class="tss-text-black text-uppercase fs-40 my-0 tss-optima" data-aos="fade-up" data-aos-duration="600">omniyat sponsorships</h1>
@@ -41,43 +41,22 @@
             </div>
         </div>
     </section>
-    <!--<section class="w-100 my-30 press_list" id="gallery_sec" data-aos="fade-up" data-aos-duration="900">
+    @if(count($ss_gallery_images)>0)
+    <section class="w-100 my-30 press_list" id="gallery_sec" data-aos="fade-up" data-aos-duration="900">
         <section class="page-title text-center w-100 pb-15 pt-45">
             <h1 class="tss-text-black text-uppercase fs-40 my-0 tss-optima">Event gallery</h1>   
         </section>
         <div class="w-100">
             <div class="grid effect-2" id="grid">
-                <div class="gallery item" data-flashy-title="" href="img/sponsor/gallery/01.jpg">
-                    <img src="img/sponsor/gallery/01.jpg">
+                @foreach($ss_gallery_images as $ssgi)
+                <div class="gallery item" data-flashy-title="" href="{{asset($ssgi->image)}}">
+                    <img src="{{asset($ssgi->image)}}">
                 </div>
-
-                <div class="gallery item" data-flashy-title="" href="img/sponsor/gallery/02.jpg">
-                    <img src="img/sponsor/gallery/02.jpg">
-                </div>
-
-                <div class="gallery item" data-flashy-title="" href="img/sponsor/gallery/03.jpg">
-                    <img src="img/sponsor/gallery/03.jpg">
-                </div>
-
-                <div class="gallery item" data-flashy-title="" href="img/sponsor/gallery/04.jpg">
-                    <img src="img/sponsor/gallery/04.jpg">
-                </div>
-
-                <div class="gallery item" data-flashy-title="" href="img/sponsor/gallery/05.jpg">
-                    <img src="img/sponsor/gallery/05.jpg">
-                </div>
-
-                <div class="gallery item" data-flashy-title="" href="img/sponsor/gallery/06.jpg">
-                    <img src="img/sponsor/gallery/06.jpg">
-                </div>
-                
-                <div class="gallery item" data-flashy-title="" href="img/sponsor/gallery/07.jpg">
-                    <img src="img/sponsor/gallery/07.jpg">
-                </div>
+                @endforeach
             </div>
-            
         </div>
-    </section>-->
+    </section>
+    @endif
     @if(count($sslist) > 0)
         <section class="w-100 mt-30 press_list">
             <hr style="max-width: 46%;margin: 20px auto 0;">
@@ -135,36 +114,24 @@
             <div class="ssd_mobile_large_content"><?php echo $ssd->long_description; ?></div>
         </div>
     </section>
-    <!--<section class="press_list w-100 m_gallery_sec">
+    @if(count($ss_gallery_images)>0)
+    <section class="press_list w-100 m_gallery_sec">
         <section class="page-title text-center w-100 mt-30 ">
             <h1 class="tss-text-black text-uppercase fs-24 my-0 tss-optima">Event gallery</h1>
             <div class="slide-count"></div>
             <section class="sponsor_gallery slider list_items px-5 w-100">
+                @foreach($ss_gallery_images as $ssgi)
                 <div class="image relative">
-                    <img src="img/sponsor/gallery/01.jpg" alt="galery">
+                    <img src="{{asset($ssgi->image)}}" alt="galery">
                 </div>
-                <div class="image relative">
-                    <img src="img/sponsor/gallery/02.jpg" alt="galery">
-                </div>
-                <div class="image relative">
-                    <img src="img/sponsor/gallery/03.jpg" alt="galery">
-                </div>
-                <div class="image relative">
-                    <img src="img/sponsor/gallery/04.jpg" alt="galery">
-                </div>
-                <div class="image relative">
-                    <img src="img/sponsor/gallery/05.jpg" alt="galery">
-                </div>
-                <div class="image relative">
-                    <img src="img/sponsor/gallery/06.jpg" alt="galery">
-                </div>
-                <div class="image relative">
-                    <img src="img/sponsor/gallery/07.jpg" alt="galery">
-                </div>
+                @endforeach
+                
             </section>
         </section>
-        
-    </section>-->
+    </section>
+    @endif
+
+   
     <hr style="width: calc(100% - 10px); margin:45px 5px 0 5px;padding: 0;float: left;border-color: rgb(0 0 0 / 0.6);">
     @if(count($sslist) > 0)
         <section class="m_similar_events press_list mb-100 w-100 more_events">
@@ -206,4 +173,6 @@
     </div>
     
 </div>
+<script src="{{asset('public/assets/vendors/masonry-gallery/js/masonry.pkgd.js')}}"></script>
+<script src="{{asset('public/assets/vendors/masonry-gallery/js/index.js')}}"></script>
 @endsection
