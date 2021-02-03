@@ -599,10 +599,10 @@
     var vitualTourAddFields  =  '<div class="row"><div class="col-md-11"><div class="row"><div class="form-group col-md-12"><input type="text" class="form-control" name="vitual_tour_title[]" required placeholder="Title"></div><div class="form-group col-md-12"><input type="url" class="form-control" name="vitual_tour_url[]" required placeholder="Link"></div></div></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success vitualTourRemove"> - </a></div></div>';
     addDynamicFieldsProject('.vitualTourAddMore', '.vitualTourBox', 5, vitualTourAddFields, '.vitualTourRemove');
 
-    var amtFtsFieldsSet = '<div class="row"><div class="col-md-11"><div class="row"><div class="form-group col-md-12"><input type="text" class="form-control" name="amenities_facilities_amenities[]" placeholder="Amenity Name"></div></div></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success amtFtsRemove"> - </a></div></div>';
+    var amtFtsFieldsSet = '<div class="row"><div class="col-md-11"><div class="row"><div class="form-group col-md-12"><input type="text" class="form-control" name="amenities_facilities_amenities[]" required placeholder="Amenity Name"></div></div></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success amtFtsRemove"> - </a></div></div>';
     addDynamicFieldsProject('.amtFtsAddMore', '.amenitiesTextBox', 0, amtFtsFieldsSet, '.amtFtsRemove');
 
-    var floorPlanFileds = '<div class="row"><div class="form-group col-md-11"><input type="file" class="form-control" style="padding: 6px" name="floorplan_file[]" accept=".pdf"></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success floorPlanTabRemoveBtn"> - </a></div></div>';
+    var floorPlanFileds = '<div class="row"><div class="form-group col-md-11"><input type="file" class="form-control" style="padding: 6px" name="floorplan_file[]" accept=".pdf" required></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success floorPlanTabRemoveBtn"> - </a></div></div>';
     addDynamicFieldsProject('.floorPlanTabAddmoreBtn', '.floorPlanTabFields', 0, floorPlanFileds, '.floorPlanTabRemoveBtn');
 
     var lifestylemaxField = 0; //Input fields increment limitation

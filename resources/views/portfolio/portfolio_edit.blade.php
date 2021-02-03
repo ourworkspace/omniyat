@@ -20,6 +20,7 @@
             <form action="{{route('portfolio.update')}}" enctype="multipart/form-data" class="row" method="post">
                 {{csrf_field()}}
                 <input type="hidden" value="{{$portfolio->id}}" name="portfolio_id">
+                <!-- Portfolio details -->
                 <div class="col-lg-12 col-md-12 mb-3">
                     <div class="d-flex card">
                         <div class="card-header">
@@ -111,6 +112,7 @@
                     </div>
                 </div>
 
+                <!-- About details -->
                 <div class="col-lg-12 col-md-12 mb-3">
                     <div class="d-flex card">
                         <div class="card-header">
@@ -230,6 +232,7 @@
                     </div>
                 </div>
 
+                <!-- Location details -->
                 <div class="col-lg-12 col-md-12 mb-3">
                     <div class="d-flex card">
                         <div class="card-header">
@@ -333,6 +336,7 @@
                     </div>
                 </div>
 
+                <!-- Design Details -->
                 <div class="col-lg-12 col-md-12 mb-3">
                     <div class="d-flex card">
                         <div class="card-header">
@@ -421,6 +425,7 @@
                     </div>
                 </div>
 
+                <!-- Amenities & Facilities Details -->
                 <div class="col-lg-12 col-md-12 mb-3">
                     <div class="d-flex card">
                         <div class="card-header">
@@ -512,7 +517,8 @@
                         </div>
                     </div>
                 </div>
-
+                
+                <!-- LifeStyle Details -->
                 <div class="col-lg-12 col-md-12 mb-3">
                     <div class="d-flex card">
                         <div class="card-header">
@@ -545,26 +551,81 @@
                                     @endif
                                 </div>
                                 <div class="form-group col-md-12">
-                                    <label for="lifeStyleSliderImages">Slider Images</label>
-                                    <input type="file" class="form-control fileInput4" accept=".jpg,.png,.jpeg" name="lifeStyle_slider_images[]" style="padding: 6px" multiple>
-                                    @if(count($lifeStyle_gallery) > 0)
-                                        <label>Uploaded Gallery Images</label>
+                                    @if(isset($lifeStyle->background_image) && file_exists($lifeStyle->background_image))
                                         <div class="row">
-                                            <?php foreach($lifeStyle_gallery as $afkey => $lifeStyle_gallery_image): ?>
-                                                <div class="col-md-3" id="lifeStyleUploadImage_<?=$afkey?>">
-                                                    <img src="<?=asset($lifeStyle_gallery_image->image)?>" class="img-thumbnail" style="width: 100%;height: 140px;margin:5px 0px">
-                                                    <a href="javascript:0;" onClick="deleteImage('lifeStyleUploadImage_<?=$afkey?>','<?=$lifeStyle_gallery_image->id?>',<?=$lifestyle_id?>);" style="position: absolute;top: 15px;right: 25px;font-size: 20px;color: red;"><i class="fa fa-trash-o"></i></a>
-                                                    <input type="hidden" name="lifeStyle_uploaded_images[]" value="<?=$lifeStyle_gallery_image->id?>">
-                                                </div>
-                                            <?php endforeach; ?>
+                                            <div class="col-md-11">
+                                                <label for="lifeStyle_slider_images">Image </label>
+                                                <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="lifeStyle_slider_images" style="padding: 6px" id="design_gallery_images">
+                                                @if($errors->has('lifeStyle_slider_images'))
+                                                    <span class="text-danger">{{ $errors->first('lifeStyle_slider_images') }}</span>
+                                                @endif
+                                            </div>
+                                            <div class="col-md-1" style="padding-top:5px">
+                                                <a href="{{asset($lifeStyle->background_image)}}" target="_blank">
+                                                    <img src="{{asset($lifeStyle->background_image)}}" />
+                                                </a>
+                                            </div>
                                         </div>
+                                    @else
+                                        <label for="lifeStyle_slider_images">Image <span class="text-danger">*</span></label>
+                                        <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="lifeStyle_slider_images" style="padding: 6px" required id="design_gallery_images">
+                                        @if($errors->has('lifeStyle_slider_images'))
+                                            <span class="text-danger">{{ $errors->first('lifeStyle_slider_images') }}</span>
+                                        @endif
                                     @endif
                                 </div>
+
+                                <div class="col-md-12 addMoreLifestyleTabsFields">
+                                    @if(count($lifeStyleTabs) > 0)
+                                        @foreach($lifeStyleTabs as $key => $lifeStyleTab)
+                                            <div class="row">
+                                                <div class="col-md-11">
+                                                    <input type="hidden" value="{{$lifeStyleTab->id}}" name="lifestyle_tab_id[]">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" value="{{$lifeStyleTab->option_title}}" placeholder="Tab Name" name="lifestyle_tab_name[]">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" value="{{$lifeStyleTab->title}}" placeholder="Title" name="lifestyle_tab_title_name[]">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <textarea class="form-control" rows="6" id="lifestyleDescription_up0{{$key+1}}" name="lifestyle_tab_description[]" placeholder="Description">{{$lifeStyleTab->description_1}}</textarea>
+                                                        <script>
+                                                            CKEditorChange('lifestyleDescription_up0{{$key+1}}','myconfigText.js');
+                                                        </script>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        @if(isset($lifeStyleTab->background_image) && file_exists($lifeStyleTab->background_image))
+                                                            <div class="row">
+                                                                <div class="col-md-11">
+                                                                    <label for="lifestyle_gallery_tab_images">Image </label>
+                                                                    <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="lifestyle_gallery_tab_images[]" style="padding: 6px">
+                                                                </div>
+                                                                <div class="col-md-1" style="padding-top:5px">
+                                                                    <a href="{{asset($lifeStyleTab->background_image)}}" target="_blank">
+                                                                        <img src="{{asset($lifeStyleTab->background_image)}}" style="height:50px;width:100%;"/>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        @else
+                                                            <label for="lifestyle_gallery_tab_images">Image <span>*</span></label>
+                                                            <input type="file" class="form-control filer_plugin_single" required accept=".jpg,.png,.jpeg" name="lifestyle_gallery_tab_images[]" style="padding: 6px">
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <a href="javascript:0;" class="btn btn-success lifestyleTabRemoveBtn"> - </a>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                </div>
+                                <div class="col-md-12"><a href="javascript:0;" class="btn btn-success lifestyleTabAddmoreBtn"> Add tab </a></div>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <!-- Gallery Details -->
                 <div class="col-lg-12 col-md-12 mb-3">
                     <div class="d-flex card">
                         <div class="card-header">
@@ -614,6 +675,7 @@
                     </div>
                 </div>
 
+                <!-- Enquire details -->
                 <div class="col-lg-12 col-md-12 mb-3">
                     <div class="d-flex card">
                         <div class="card-header">
@@ -674,10 +736,11 @@
                     </div>
                 </div>
 
+                <!-- Virtual Tour Details -->
                 <div class="col-lg-12 col-md-12 mb-3">
                     <div class="d-flex card">
                         <div class="card-header">
-                            <h5 class="card-title">Vitual Tour</h5>
+                            <h5 class="card-title">Virtual Tour</h5>
                         </div>
                         <div class="card-body">
                             <div class="row vitualTourTab">
@@ -728,31 +791,63 @@
                     </div>
                 </div>
 
+                <!-- Floor Plan details -->
                 <div class="col-lg-12 col-md-12 mb-3">
                     <div class="d-flex card">
                         <div class="card-header">
-                            <h5 class="card-title">Floor Plan <small>(upload only pdf file)</small></h5>
+                            <h5 class="card-title">Floor Plan <small>(upload only pdf files)</small></h5>
                         </div>
                         <div class="card-body">
                             <div class="row floorPlanTab">
-                                <input type="hidden" value="{{isset($floorplan_file)?$floorplan_file->id:''}}" name="floorplan_file_id">
-                                @if(isset($floorplan_file) && file_exists($floorplan_file->links))
-                                    <div class="form-group col-md-11">
-                                        <input type="file" class="form-control" style="padding: 6px" name="floorplan_file" accept=".pdf">
-                                    </div>
-                                    <div class="col-md-1">
-                                        <a href="{{asset($floorplan_file->links)}}" target="_blank"><i class="fa fa-download" style="font-size: 30px;padding: 5px 10px;"></i></a>
-                                    </div>
-                                @else
-                                    <div class="form-group col-md-12">
-                                        <input type="file" class="form-control" style="padding: 6px" name="floorplan_file" accept=".pdf">
-                                    </div>
-                                @endif
+                                <div class="col-md-12 floorPlanTabFields">
+                                    @if(count($floorplan_file) > 0)
+                                        @foreach($floorplan_file as $fpkey => $fpvalue)
+                                            @if(isset($fpvalue) && file_exists($fpvalue->links))
+                                                <?php 
+                                                    $path = $fpvalue->links;
+                                                    $floorPlanFileName = basename($path);         // $file is set to "index.php"
+                                                    //$file = basename($path, ".php"); // $file is set to "index"
+                                                ?>
+                                                <div class="row">
+                                                    <input type="hidden" value="{{$fpvalue->id}}" name="floorplan_file_ids[]">
+                                                    <input type="hidden" value="{{$fpvalue->links}}" name="floorplan_uploaded_files[]">
+                                                    <div class="form-group col-md-11">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-11">
+                                                                <input type="file" class="form-control" style="padding: 6px" name="floorplan_file[]" accept=".pdf">
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <a href="{{asset($fpvalue->links)}}" title="{{$floorPlanFileName}}" target="_blank"><i class="fa fa-download" style="font-size: 30px;padding: 5px 10px;"></i></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        @if($fpkey == 0)
+                                                            <a href="javascript:0;" class="btn btn-success floorPlanTabAddmoreBtn"> + </a>
+                                                        @else
+                                                            <a href="javascript:0;" class="btn btn-success floorPlanTabRemoveBtn"> - </a>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                    @else
+                                        <div class="row">
+                                            <div class="form-group col-md-11">
+                                                <input type="file" class="form-control" style="padding: 6px" name="floorplan_file[]" accept=".pdf">
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a href="javascript:0;" class="btn btn-success floorPlanTabAddmoreBtn"> + </a>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <!-- Brochure details -->
                 <div class="col-lg-12 col-md-12 mb-3">
                     <div class="d-flex card">
                         <div class="card-header">
@@ -760,28 +855,32 @@
                         </div>
                         <div class="card-body">
                             <div class="row enquiryBox">
-                                <input type="hidden" value="{{isset($brochure_file)?$brochure_file->id:''}}" name="brochure_file_id">
                                 @if(isset($brochure_file) && file_exists($brochure_file->links))
+                                    <input type="hidden" value="{{isset($brochure_file)?$brochure_file->id:''}}" name="brochure_file_id">
+                                    <?php 
+                                        $brochure_path = $fpvalue->links;
+                                        $brochureFileName = basename($brochure_path);         // $file is set to "index.php"
+                                        //$file = basename($path, ".php"); // $file is set to "index"
+                                    ?>
                                     <div class="form-group col-md-11">
                                         <input type="file" class="form-control" style="padding: 6px" name="brochure_file" accept=".pdf">
                                     </div>
                                     <div class="col-md-1">
-                                        <a href="{{asset($brochure_file->links)}}" target="_blank"><i class="fa fa-download" style="font-size: 30px;padding: 5px 10px;"></i></a>
+                                        <a href="{{asset($brochure_file->links)}}" title="{{$brochureFileName}}" target="_blank"><i class="fa fa-download" style="font-size: 30px;padding: 5px 10px;"></i></a>
                                     </div>
                                 @else
                                     <div class="form-group col-md-12">
                                         <input type="file" class="form-control" style="padding: 6px" name="brochure_file" accept=".pdf">
                                     </div>
                                 @endif
-
-                                <div class="form-group col-md-12">
-                                    <input type="submit" value="Update" class="btn btn-success pull-left">
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <div class="form-group col-md-12">
+                    <input type="submit" value="Update" class="btn btn-success pull-left">
+                </div>
             </form>
         </div>
     </div>
@@ -815,8 +914,38 @@
     var vitualTourAddFields  =  '<div class="row"><div class="col-md-11"><div class="row"><div class="form-group col-md-12"><input type="text" class="form-control" name="vitual_tour_title[]" required placeholder="Title"></div><div class="form-group col-md-12"><input type="url" class="form-control" name="vitual_tour_url[]" required placeholder="Link"></div></div></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success vitualTourRemove"> - </a></div></div>';
     addDynamicFieldsProject('.vitualTourAddMore', '.vitualTourBox', 5, vitualTourAddFields, '.vitualTourRemove');
 
-    var amtFtsFieldsSet = '<div class="row"><div class="col-md-11"><div class="row"><div class="form-group col-md-12"><input type="text" class="form-control" name="amenities_facilities_amenities[]" placeholder="Amenity Name"></div></div></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success amtFtsRemove"> - </a></div></div>';
+    var amtFtsFieldsSet = '<div class="row"><div class="col-md-11"><div class="row"><div class="form-group col-md-12"><input type="text" class="form-control" name="amenities_facilities_amenities[]" required placeholder="Amenity Name"></div></div></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success amtFtsRemove"> - </a></div></div>';
     addDynamicFieldsProject('.amtFtsAddMore', '.amenitiesTextBox', 0, amtFtsFieldsSet, '.amtFtsRemove');
+
+    var floorPlanFileds = '<div class="row"><div class="form-group col-md-11"><input type="file" class="form-control" style="padding: 6px" name="floorplan_file[]" accept=".pdf" required></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success floorPlanTabRemoveBtn"> - </a></div></div>';
+    addDynamicFieldsProject('.floorPlanTabAddmoreBtn', '.floorPlanTabFields', 0, floorPlanFileds, '.floorPlanTabRemoveBtn');
+
+    var lifestylemaxField = 0; //Input fields increment limitation
+    var lifestyleaddButton = $('.lifestyleTabAddmoreBtn'); //Add button selector
+    var lifestylewrapper = $('.addMoreLifestyleTabsFields'); //Input field wrapper
+    var tabx = 1;
+    function lifestyleTabsFields(tabx){
+        var lifestyleFieldHTML = '<div class="row mt-3"><div class="col-md-11"><div class="form-group"><input type="text" class="form-control" placeholder="Tab Name" name="lifestyle_tab_name[]"></div><div class="form-group"><input type="text" class="form-control" placeholder="Title" name="lifestyle_tab_title_name[]"></div><div class="form-group"><textarea class="form-control" rows="6" id="lifestyleDescription_0'+tabx+'" name="lifestyle_tab_description[]" placeholder="Description"></textarea></div><div class="form-group"><label for="lifestyle_gallery_tab_images">Image <span class="text-danger">*</span></label><input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="lifestyle_gallery_tab_images[]" style="padding: 6px" required id="lifestyle_gallery_tab_images"></div></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success lifestyleTabRemoveBtn"> - </a></div></div>'; //New input field html
+        return lifestyleFieldHTML;
+    }
+    //Once add button is clicked
+    $(lifestyleaddButton).click(function(){
+        //Check maximum number of input fields
+        //if(x < maxField){ 
+            tabx++; //Increment field counter
+            var dhtml = lifestyleTabsFields(tabx);
+            $(lifestylewrapper).append(dhtml); //Add field html
+            CKEditorChange('lifestyleDescription_0'+tabx,'myconfigText.js');
+        //}
+    });
+    
+    //Once remove button is clicked
+    $(lifestylewrapper).on('click', '.lifestyleTabRemoveBtn', function(e){
+        e.preventDefault();
+        $(this).parent().parent().remove(); //Remove field html
+        tabx--; //Decrement field counter
+    });
+    //addDynamicFieldsProject('.lifestyleTabAddmoreBtn', '.addMoreLifestyleTabsFields', 0, lifestyleFieldHTML, '.lifestyleTabRemoveBtn');
 
 </script>
 <script>

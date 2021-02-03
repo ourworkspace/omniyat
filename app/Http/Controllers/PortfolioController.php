@@ -296,6 +296,7 @@ class PortfolioController extends Controller
             'SubTitleName'  =>  'string|max:255',
             'Logo' =>  'image|mimes:jpeg,png,jpg',
         ]);
+
         try {
             $logoImage = $this->uploadFile($request,'Logo','portfolio/logo');
             $sliderImages = $this->multiUploadFiles($request,'Images','portfolio/images');
@@ -355,7 +356,7 @@ class PortfolioController extends Controller
             $gallery  = PortfolioDetails::where(['tab_name'=>'Gallery','portfolio_id'=>$portfolio->id])->first();
             $enquire  = PortfolioDetails::where(['tab_name'=>'Enquire','portfolio_id'=>$portfolio->id])->first();
             $vitual_tour  = PortfolioDetails::where(['tab_name'=>'Vitual Tour','portfolio_id'=>$portfolio->id])->get();
-            $floorplan_file  = PortfolioDetails::where(['tab_name'=>'FloorPlan','portfolio_id'=>$portfolio->id])->first();
+            $floorplan_file  = PortfolioDetails::where(['tab_name'=>'FloorPlan','portfolio_id'=>$portfolio->id])->get();
             $brochure_file  = PortfolioDetails::where(['tab_name'=>'Brochure','portfolio_id'=>$portfolio->id])->first();
 
             return view('portfolio.portfolio_edit', compact('categories','portfolio','amenities','about','location','design','amenities_facilities','lifeStyle','lifeStyleTabs','gallery','vitual_tour','floorplan_file','brochure_file','enquire','textAlignments','theme','imageSectionOptions','gridColums','gridAlignmentOptions','gridContainerPositions'));
@@ -366,63 +367,69 @@ class PortfolioController extends Controller
 
     public function updatePortfolio(Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
         try{
             $portfolio = Portfolios::where('id', $request->portfolio_id)->first();
-
+            //dd($portfolio);
             $portfolio_project_logo = $this->uploadFile($request,'portfolio_project_logo','portfolio/logo/'.$request->portfolio_category.'');
-            if(isset($portfolio_project_logo) && empty($portfolio_project_logo)):
-                $portfolio_project_logo = $portfolio->logo;
-            else:
+            if(isset($portfolio_project_logo) && file_exists($portfolio_project_logo)):
                 if(file_exists($portfolio->logo)):
                     unlink($portfolio->logo);
                 endif;
-            endif;
-            //dd($portfolio_project_logo);
-
-            $portfolio_project_image = $this->uploadFile($request,'portfolio_project_image','portfolio/images/'.$request->portfolio_category.'');
-            if(isset($portfolio_project_image) && empty($portfolio_project_image)):
-                $portfolio_project_image = $portfolio->image;
+                $portfolio_project_logo = $portfolio_project_logo;
             else:
+                $portfolio_project_logo = $portfolio->logo;
+            endif;
+            //echo $portfolio_project_logo;
+            $portfolio_project_image = $this->uploadFile($request,'portfolio_project_image','portfolio/images/'.$request->portfolio_category.'');
+            if(isset($portfolio_project_image) && file_exists($portfolio_project_image)):
                 if(file_exists($portfolio->image)):
                     unlink($portfolio->image);
                 endif;
+                $portfolio_project_image = $portfolio_project_image;
+            else:
+                $portfolio_project_image = $portfolio->image;
             endif;
-
-            $portfolio_update = Portfolios::where('id', $portfolio->id)->update(['category_id'=>$request->portfolio_category,'project_name'=>$request->portfolio_project_name,'title'=>$request->portfolio_title_name,'logo'=>$portfolio_project_logo,'image'=>$portfolio_project_image]);
-            // echo $portfolio_update;
-            //dd($portfolio);
+            //echo $portfolio_project_image;
+            //exit;
+            $portfolio_update = Portfolios::where('id', $portfolio->id)->update(['category_id'=>$request->portfolio_category,'project_name'=>$request->portfolio_project_name,'logo'=>$portfolio_project_logo,'image'=>$portfolio_project_image]);
             if($portfolio_update > 0):
+                
                 //About update data
                 if(isset($request->about_title_name)):
                     $about = PortfolioDetails::where(['tab_name'=>'About','id'=>$request->about_id,'portfolio_id'=>$portfolio->id])->first();
                     $about_background_picture = $this->uploadFile($request,'about_background_picture','portfolio/backgroundImages/'.$request->portfolio_category.'');
                     $about_project_logo = $this->uploadFile($request,'about_project_logo','portfolio/logo/'.$request->portfolio_category.'');
                     if(isset($about->id) && $about->id == $request->about_id):
-                        if(isset($about_background_picture) && empty($about_background_picture)):
-                            $about_background_picture = $about->background_image;
-                        else:
+                        
+                        if(isset($about_background_picture) && file_exists($about_background_picture)):
                             if(file_exists($about->background_image)):
                                 unlink($about->background_image);
                             endif;
+                            $about_background_picture = $about_background_picture;
+                        else:
+                            $about_background_picture = $about->background_image;
                         endif;
 
-                        if(isset($about_project_logo) && empty($about_project_logo)):
-                            $about_project_logo = $about->logo;
-                        else:
+                        if(isset($about_project_logo) && file_exists($about_project_logo)):
                             if(file_exists($about->logo)):
                                 unlink($about->logo);
                             endif;
-                        endif;
-                        $about = PortfolioDetails::where(['portfolio_id'=>$portfolio->id,'id'=>$request->about_id])->update(['tab_name'=> 'About','theme_color'=>$request->about_theme_color,'text_alignment'=>$request->about_text_alignment,'background_image'=>$about_background_picture,'logo'=>$about_project_logo,'title'=>$request->about_title_name,'description_1'=>$request->about_description,'description_2'=>$request->about_description_2]);
-                    else:
-                        if(isset($about_background_picture) && empty($about_background_picture)):
-                            $about_background_picture = '';
+                            $about_project_logo = $about_project_logo;
+                        else:
+                            $about_project_logo = $about->logo;
                         endif;
 
-                        if(isset($about_project_logo) && empty($about_project_logo)):
+                        $about = PortfolioDetails::where(['portfolio_id'=>$portfolio->id,'id'=>$request->about_id])->update(['theme_color'=>$request->about_theme_color,'text_alignment'=>$request->about_text_alignment,'background_image'=>$about_background_picture,'logo'=>$about_project_logo,'title'=>$request->about_title_name,'description_1'=>$request->about_description,'description_2'=>$request->about_description_2]);
+                    else:
+                        if(isset($about_background_picture) && !file_exists($about_background_picture)):
+                            $about_background_picture = '';
+                        endif;
+    
+                        if(isset($about_project_logo) && !file_exists($about_project_logo)):
                             $about_project_logo = '';
                         endif;
+                        //'bg_image_position'=>$request->about_image_position,
                         $about = PortfolioDetails::create(['portfolio_id' => $portfolio->id,'tab_name'=> 'About','theme_color'=>$request->about_theme_color,'text_alignment'=>$request->about_text_alignment,'background_image'=>$about_background_picture,'logo'=>$about_project_logo,'title'=>$request->about_title_name,'description_1'=>$request->about_description,'description_2'=>$request->about_description_2])->id;
                     endif;
                 endif;
@@ -430,99 +437,90 @@ class PortfolioController extends Controller
                 //Location Tab
                 if(isset($request->location_title_name)):
                     $location = PortfolioDetails::where(['tab_name'=>'Location','id'=>$request->location_id,'portfolio_id'=>$portfolio->id])->first();
+
                     $location_background_picture = $this->uploadFile($request,'location_background_picture','portfolio/backgroundImages/'.$request->portfolio_category.'');
+                    $location_icon_image = $this->uploadFile($request,'location_icon_image','portfolio/locationImages/'.$request->portfolio_category.'');
 
                     if(isset($location->id) && $location->id == $request->location_id):
-                        if(isset($location_background_picture) && empty($location_background_picture)):
-                            $location_background_picture = $location->background_image;
-                        else:
+
+                        if(isset($location_background_picture) && file_exists($location_background_picture)):
                             if(file_exists($location->background_image)):
                                 unlink($location->background_image);
                             endif;
+                            $location_background_picture = $location_background_picture;
+                        else:
+                            $location_background_picture = $location->background_image;
                         endif;
-                        $location = PortfolioDetails::where(['tab_name'=>'Location','id'=>$location->id,'portfolio_id' => $portfolio->id])->update(['theme_color' => $request->location_theme_color,'text_alignment' => $request->location_text_alignment,'background_image' => $location_background_picture,'title' => $request->location_title_name, 'description_1' => $request->location_description]);
+
+                        if(isset($location_icon_image) && file_exists($location_icon_image)):
+                            if(file_exists($location->icon_image)):
+                                unlink($location->icon_image);
+                            endif;
+                            $location_icon_image = $location_icon_image;
+                        else:
+                            $location_icon_image = $location->icon_image;
+                        endif;
+
+                        $location = PortfolioDetails::where(['tab_name'=>'Location','id'=>$location->id,'portfolio_id' => $portfolio->id])->update(['theme_color' => $request->location_theme_color,'text_alignment' => $request->location_text_alignment,'background_image' => $location_background_picture,'title' => $request->location_title_name, 'description_1' => $request->location_description,'icon_image'=>$location_icon_image]);
                     else:
-                        if(isset($location_background_picture) && empty($location_background_picture)):
+                        if(isset($location_background_picture) && !file_exists($location_background_picture)):
                             $location_background_picture = '';
                         endif;
-                        $location = PortfolioDetails::create(['portfolio_id'=>$portfolio->id,'tab_name'=>'Location','theme_color'=>$request->location_theme_color,'text_alignment'=>$request->location_text_alignment,'background_image'=>$location_background_picture,'title'=>$request->location_title_name,'description_1'=>$request->location_description])->id;
+
+                        if(isset($location_icon_image) && !file_exists($location_icon_image)):
+                            $location_icon_image = '';
+                        endif;
+
+                        $location = PortfolioDetails::create(['portfolio_id'=>$portfolio->id,'tab_name'=>'Location','theme_color'=>$request->location_theme_color,'text_alignment'=>$request->location_text_alignment,'background_image'=>$location_background_picture,'title'=>$request->location_title_name,'description_1'=>$request->location_description,'icon_image'=>$location_icon_image])->id;
                     endif;
-                    
-                    
                 endif;
 
-                //enquiry
-                if(isset($request->enquire_theme_color) && isset($request->enquire_text_alignment)):
-                    $enquire = $enquire  = PortfolioDetails::where(['tab_name'=>'Enquire','id'=>$request->enquire_id,'portfolio_id'=>$portfolio->id])->first();
-                    $enquireImage = $this->uploadFile($request,'enquire_background_image','portfolio/enquire/'.$request->portfolio_category.'');
-                    if(isset($enquire) && $enquire->id == $request->enquire_id):
-                        if(isset($enquireImage) && empty($enquireImage)):
-                            $enquireImage = $enquire->background_image;
+                //Amenities & Facilities
+                if(isset($request->amenities_facilities_title_name)):
+
+                    $amenities_facilities_logo = $this->uploadFile($request,'amenities_facilities_logo','portfolio/logoImages/'.$request->portfolio_category.'');
+
+                    $amenities_facilities = PortfolioDetails::where(['tab_name'=>'Amenities & Facilities','portfolio_id'=>$portfolio->id,'id'=>$request->amenities_facilities_id])->first();
+
+                    $amenities = '';
+                    if(count($request->amenities_facilities_amenities) > 0):
+                        $amenities = implode(',',$request->amenities_facilities_amenities);
+                    endif;
+
+                    if(isset($amenities_facilities) && $amenities_facilities->id == $request->amenities_facilities_id):
+
+                        if(isset($amenities_facilities_logo) && file_exists($amenities_facilities_logo)):
+                            if(file_exists($amenities_facilities->logo)): unlink($amenities_facilities->logo); endif;
+                            $amenities_facilities_logo = $amenities_facilities_logo;
                         else:
-                            if(file_exists($enquire->background_image)):
-                                unlink($enquire->background_image);
-                            endif;
+                            $amenities_facilities_logo = $amenities_facilities->logo;
                         endif;
-                        PortfolioDetails::where(['tab_name'=>'Enquire','id'=>$request->enquire_id,'portfolio_id'=>$portfolio->id])->update(['theme_color'=>$request->enquire_theme_color,'text_alignment'=>$request->enquire_text_alignment,'background_image'=>$enquireImage,]);
+
+                        $amenities_facilities = PortfolioDetails::where(['tab_name'=>'Amenities & Facilities','portfolio_id'=>$portfolio->id,'id'=>$request->amenities_facilities_id])->update(['title' => $request->amenities_facilities_title_name,'description_1' => $request->amenities_facilities_description,'amenities' => $amenities,'logo'=>$amenities_facilities_logo]);
+
+                        $amenitieSliders = $this->multiUploadFiles($request,'amenities_facilities_gallery_images','portfolio/amenitieSliders/'.$request->portfolio_category.'');
+                        if(count($amenitieSliders) > 0):
+                            foreach($amenitieSliders as $key => $aivalue):
+                                $amenitieImage = PortfolioGalleryDetails::create(['tab_id'=>$portfolio->id,'title'=>'Amenities_Slider_'.$key,'image'=>$aivalue,'type'=>'amenities_facilities_gallery_images']);
+                            endforeach;
+                        endif;
                     else:
-                        if(isset($enquireImage) && empty($enquireImage)):
-                            $enquireImage = '';
+                        
+                        if(isset($amenities_facilities_logo) && !file_exists($amenities_facilities_logo)):
+                            $amenities_facilities_logo = '';
                         endif;
-                        PortfolioDetails::create(['portfolio_id'=> $portfolio->id,'tab_name'=> 'Enquire','theme_color'=>$request->enquire_theme_color,'text_alignment'=>$request->enquire_text_alignment,'background_image'=>$enquireImage,])->id;
+
+                        $amenities_facilities = PortfolioDetails::create(['portfolio_id' => $portfolio->id,'tab_name' => 'Amenities & Facilities','title' => $request->amenities_facilities_title_name,'description_1' => $request->amenities_facilities_description,'amenities' => $amenities,'logo'=>$amenities_facilities_logo])->id;
+
+                        $amenitieSliders = $this->multiUploadFiles($request,'amenities_facilities_gallery_images','portfolio/amenitieSliders/'.$request->portfolio_category.'');
+                        if(count($amenitieSliders) > 0):
+                            foreach($amenitieSliders as $key => $aivalue):
+                                $amenitieImage = PortfolioGalleryDetails::create(['tab_id'=>$portfolio->id,'title'=>'Amenities_Slider_'.$key,'image'=>$aivalue,'type'=>'amenities_facilities_gallery_images']);
+                            endforeach;
+                        endif;
                     endif;
                 endif;
-
-                //Vitual Tour
-                if(count($request->vitual_tour_title) > 0):
-                    PortfolioDetails::where(['portfolio_id' => $portfolio->id,'tab_name'=>'Vitual Tour'])->delete();
-                    foreach($request->vitual_tour_title as $key => $vtvalue):
-                        $vitual_tour  = PortfolioDetails::create(['portfolio_id' => $portfolio->id,'tab_name'=>'Vitual Tour','title'=>$vtvalue,'links'=>$request->vitual_tour_url[$key]])->id;
-                    endforeach;
-                endif;
-
-                //floorplan_file
-                if(isset($request->floorplan_file)):
-                    $floorplan = PortfolioDetails::where(['tab_name'=>'FloorPlan','id'=>$request->floorplan_file_id,'portfolio_id'=>$portfolio->id])->first();
-                    $floorplan_file = $this->uploadFile($request,'floorplan_file','portfolio/floorplan/'.$request->portfolio_category.'');
-                    if(isset($floorplan) && $floorplan->id == $request->floorplan_file_id):
-                        if(isset($floorplan_file) && empty($floorplan_file)):
-                            $floorplan_file = $floorplan->links;
-                        else:
-                            if(file_exists($floorplan->links)):
-                                unlink($floorplan->links);
-                            endif;
-                        endif;
-                        $lifeStyle = PortfolioDetails::where(['tab_name'=>'FloorPlan','id'=>$request->floorplan_file_id,'portfolio_id'=>$portfolio->id])->update(['portfolio_id'=> $portfolio->id,'tab_name'=>'FloorPlan','title'=>'Floorplan File','links'=>$floorplan_file]);
-                    else:
-                        if(isset($floorplan_file) && empty($floorplan_file)):
-                            $floorplan_file = '';
-                        endif;
-                        $lifeStyle = PortfolioDetails::create(['portfolio_id'=> $portfolio->id,'tab_name'=>'FloorPlan','title'=>'Floorplan File','links'=>$floorplan_file])->id;
-                    endif;
-                endif;
-
-                //Brochure file
-                if(isset($request->brochure_file)):
-                    $brochure  = PortfolioDetails::where(['tab_name'=>'Brochure','id'=>$request->brochure_file_id,'portfolio_id'=>$portfolio->id])->first();
-                    $brochure_file = $this->uploadFile($request,'brochure_file','portfolio/floorplan/'.$request->portfolio_category.'');
-
-                    if(isset($brochure) && $brochure->id == $request->brochure_file_id):
-                        if(isset($brochure_file) && empty($brochure_file)):
-                            $brochure_file = $brochure->links;
-                        else:
-                            if(file_exists($brochure->links)):
-                                unlink($brochure->links);
-                            endif;
-                        endif;
-                        $lifeStyle = PortfolioDetails::where(['tab_name'=>'Brochure','id'=>$request->brochure_file_id,'portfolio_id'=>$portfolio->id])->update(['title'=>'Brochure File','links'=>$brochure_file]);
-                    else:
-                        if(!isset($brochure_file) && empty($brochure_file)):
-                            $brochure_file = '';
-                        endif;
-                        $lifeStyle = PortfolioDetails::create(['portfolio_id'=> $portfolio->id,'tab_name'=>'Brochure','title'=>'Brochure File','links'=>$brochure_file]);
-                    endif;
-                endif;
-
+                
                 //Gallery
                 if(isset($request->gallery_title_name)):
                     $gallery = PortfolioDetails::where(['tab_name'=>'Gallery','id'=>$request->gallery_id,'portfolio_id'=>$portfolio->id])->first();
@@ -547,117 +545,113 @@ class PortfolioController extends Controller
                     endif;
                 endif;
 
-                //LifeStyle
-                if(isset($request->lifeStyle_title_name)):
+                //Virtual Tour
+                if(count($request->vitual_tour_title) > 0):
+                    PortfolioDetails::where(['portfolio_id' => $portfolio->id,'tab_name'=>'Vitual Tour'])->delete();
+                    foreach($request->vitual_tour_title as $key => $vtvalue):
+                        $vitual_tour  = PortfolioDetails::create(['portfolio_id' => $portfolio->id,'tab_name'=>'Vitual Tour','title'=>$vtvalue,'links'=>$request->vitual_tour_url[$key]])->id;
+                    endforeach;
+                endif;
 
-                    $lifeStyle = PortfolioDetails::where(['tab_name'=>'LifeStyle','id'=>$request->lifestyle_id,'portfolio_id'=>$portfolio->id])->first();
-
-                    $lifeStyle_logo = $this->uploadFile($request,'lifeStyle_logo','portfolio/lifeStyle/'.$request->portfolio_category.'');
-                    
-                    if(isset($lifeStyle) && $lifeStyle->id == $request->lifestyle_id):
-                        if(isset($lifeStyle_logo) && empty($lifeStyle_logo)):
-                            $lifeStyle_logo = $lifeStyle->logo;
-                        else:
-                            if(file_exists($lifeStyle->logo)):
-                                unlink($lifeStyle->logo);
+                //enquiry
+                if(isset($request->enquire_theme_color) && isset($request->enquire_text_alignment)):
+                    $enquire = $enquire  = PortfolioDetails::where(['tab_name'=>'Enquire','id'=>$request->enquire_id,'portfolio_id'=>$portfolio->id])->first();
+                    $enquireImage = $this->uploadFile($request,'enquire_background_image','portfolio/enquire/'.$request->portfolio_category.'');
+                    if(isset($enquire) && $enquire->id == $request->enquire_id):
+                        if(isset($enquireImage) && file_exists($enquireImage)):
+                            if(file_exists($enquire->background_image)):
+                                unlink($enquire->background_image);
                             endif;
+                            $enquireImage = $enquireImage;
+                        else:
+                            $enquireImage = $enquire->background_image;
                         endif;
-
-                        $updateLifeStyle = PortfolioDetails::where(['tab_name' => 'LifeStyle','id' => $request->lifestyle_id, 'portfolio_id' => $portfolio->id])->update(['logo' => $lifeStyle_logo,'title' => $request->lifeStyle_title_name, 'description_1'=> $request->lifeStyle_description]);
-
-                        $lifeStyle_slider_images = $this->multiUploadFiles($request,'lifeStyle_slider_images','portfolio/lifeStyleSliders/'.$request->portfolio_category.'');
-                        if(count($lifeStyle_slider_images) > 0):
-                            foreach($lifeStyle_slider_images as $key => $lsivalue):
-                                $lifeStyleImage = PortfolioGalleryDetails::create(['tab_id'=>$portfolio->id,'title'=>'Slider_'.$key,'image'=>$lsivalue,'type'=>'lifeStyle_slider_images'])->id;
-                            endforeach;
-                        endif;
-
+                        PortfolioDetails::where(['tab_name'=>'Enquire','id'=>$request->enquire_id,'portfolio_id'=>$portfolio->id])->update(['theme_color'=>$request->enquire_theme_color,'text_alignment'=>$request->enquire_text_alignment,'background_image'=>$enquireImage,]);
                     else:
-                        if(isset($lifeStyle_logo) && empty($lifeStyle_logo)):
-                            $lifeStyle_logo = '';
+                        if(isset($enquireImage) && !file_exists($enquireImage)):
+                            $enquireImage = '';
                         endif;
-                        $lifeStyle = PortfolioDetails::create(['portfolio_id'=> $portfolio->id,'tab_name'=>'LifeStyle','logo'=>$lifeStyle_logo,'title'=>$request->lifeStyle_title_name,'description_1'=>$request->lifeStyle_description])->id;
-
-                        $lifeStyle_slider_images = $this->multiUploadFiles($request,'lifeStyle_slider_images','portfolio/lifeStyleSliders/'.$request->portfolio_category.'');
-                        if(count($lifeStyle_slider_images) > 0):
-                            foreach($lifeStyle_slider_images as $key => $lsivalue):
-                                $lifeStyleImage = PortfolioGalleryDetails::create(['tab_id'=>$portfolio->id,'title'=>'Slider_'.$key,'image'=>$lsivalue,'type'=>'lifeStyle_slider_images'])->id;
-                            endforeach;
-                        endif;
+                        PortfolioDetails::create(['portfolio_id'=> $portfolio->id,'tab_name'=> 'Enquire','theme_color'=>$request->enquire_theme_color,'text_alignment'=>$request->enquire_text_alignment,'background_image'=>$enquireImage,])->id;
                     endif;
                 endif;
 
-                //Amenities & Facilities
-                if(isset($request->amenities_facilities_title_name)):
+                //Brochure file
+                if(isset($request->brochure_file)):
+                    $brochure  = PortfolioDetails::where(['tab_name'=>'Brochure','id'=>$request->brochure_file_id,'portfolio_id'=>$portfolio->id])->first();
+                    $brochure_file = $this->uploadFile($request,'brochure_file','portfolio/floorplan/'.$request->portfolio_category.'');
 
-                    $amenities_facilities = PortfolioDetails::where(['tab_name'=>'Amenities & Facilities','portfolio_id'=>$portfolio->id,'id'=>$request->amenities_facilities_id])->first();
-
-                    $amenities = '';
-                    if(count($request->amenities_facilities_amenities) > 0):
-                        $amenities = implode(',',$request->amenities_facilities_amenities);
-                    endif;
-
-                    if(isset($amenities_facilities) && $amenities_facilities->id == $request->amenities_facilities_id):
-                        $amenities_facilities = PortfolioDetails::where(['tab_name'=>'Amenities & Facilities','portfolio_id'=>$portfolio->id,'id'=>$request->amenities_facilities_id])->update(['title' => $request->amenities_facilities_title_name,'description_1' => $request->amenities_facilities_description,'amenities' => $amenities]);
-
-                        $amenitieSliders = $this->multiUploadFiles($request,'amenities_facilities_gallery_images','portfolio/amenitieSliders/'.$request->portfolio_category.'');
-                        if(count($amenitieSliders) > 0):
-                            foreach($amenitieSliders as $key => $aivalue):
-                                $amenitieImage = PortfolioGalleryDetails::create(['tab_id'=>$portfolio->id,'title'=>'Amenities_Slider_'.$key,'image'=>$aivalue,'type'=>'amenities_facilities_gallery_images']);
-                            endforeach;
+                    if(isset($brochure) && $brochure->id == $request->brochure_file_id):
+                        if(isset($brochure_file) && file_exists($brochure_file)):
+                            if(file_exists($brochure->links)):
+                                unlink($brochure->links);
+                            endif;
+                            $brochure_file = $brochure_file;
+                        else:
+                            $brochure_file = $brochure->links;
                         endif;
+                        $lifeStyle = PortfolioDetails::where(['tab_name'=>'Brochure','id'=>$request->brochure_file_id,'portfolio_id'=>$portfolio->id])->update(['links'=>$brochure_file]);
                     else:
-                        $amenities_facilities = PortfolioDetails::create(['portfolio_id' => $portfolio->id,'tab_name' => 'Amenities & Facilities','title' => $request->amenities_facilities_title_name,'description_1' => $request->amenities_facilities_description,'amenities' => $amenities])->id;
+                        if(isset($brochure_file) && !file_exists($brochure_file)):
+                            $brochure_file = '';
+                        endif;
+                        $lifeStyle = PortfolioDetails::create(['portfolio_id'=> $portfolio->id,'tab_name'=>'Brochure','title'=>'Brochure File','links'=>$brochure_file]);
+                    endif;
+                endif;
 
-                        $amenitieSliders = $this->multiUploadFiles($request,'amenities_facilities_gallery_images','portfolio/amenitieSliders/'.$request->portfolio_category.'');
-                        if(count($amenitieSliders) > 0):
-                            foreach($amenitieSliders as $key => $aivalue):
-                                $amenitieImage = PortfolioGalleryDetails::create(['tab_id'=>$portfolio->id,'title'=>'Amenities_Slider_'.$key,'image'=>$aivalue,'type'=>'amenities_facilities_gallery_images']);
+                //floorplan_file  - check it once.
+                if(isset($request->floorplan_file)):
+                    if(count($request->floorplan_file_ids) > 0):
+                        $floorplans = PortfolioDetails::where(['tab_name'=>'FloorPlan','portfolio_id'=>$portfolio->id])->get();
+                        $floorplan_file = $this->multiUploadFiles($request,'floorplan_file','portfolio/floorplan/'.$request->portfolio_category.'');
+                        foreach($floorplan_file as $fpkey => $fps):
+                            if(in_array($floorplans[$fpkey]->id, $request->floorplan_file_ids)):
+                                //echo "Id exist update";
+                                if(isset($floorplan_file[$fpkey]) && file_exists($floorplan_file[$fpkey])):
+                                    if(file_exists($floorplans[$fpkey]->links)):
+                                        unlink($floorplans[$fpkey]->links);
+                                    endif;
+                                    $floorPlanFile = $fps;
+                                else:
+                                    $floorPlanFile = $floorplans[$fpkey]->links;
+                                endif;
+                                PortfolioDetails::where(['tab_name'=>'FloorPlan','id'=>$floorplans[$fpkey]->id,'portfolio_id'=>$portfolio->id])->update(['portfolio_id'=> $portfolio->id,'links'=>$floorPlanFile]);
+                            else:
+                                //echo "Delete Id";
+                                if(isset($floorplans[$fpkey]->links) && file_exists($floorplans[$fpkey]->links)):
+                                    @unlink($floorplans[$fpkey]->links);
+                                endif;
+                                PortfolioDetails::where(['tab_name'=>'FloorPlan','id'=>$floorplans[$fpkey]->id,'portfolio_id'=>$portfolio->id])->delete();
+                                
+                                //echo "Insert New";
+                                if(isset($floorplan_file[$fpkey]) && file_exists($floorplan_file[$fpkey])):
+                                    PortfolioDetails::create(['portfolio_id'=> $portfolio,'tab_name'=>'FloorPlan','title'=>'Floorplan File','links'=>$floorplan_file[$fpkey]])->id;
+                                endif;
+                            endif;
+                        endforeach;
+                    else:
+                        $floorplan_file = $this->multiUploadFiles($request,'floorplan_file','portfolio/floorplan/'.$request->portfolio_category.'');
+                        if(count($floorplan_file) > 0):
+                            foreach($floorplan_file as $key => $fpvalue):
+                                if(isset($fpvalue) && file_exists($fpvalue)):
+                                    PortfolioDetails::create(['portfolio_id'=> $portfolio,'tab_name'=>'FloorPlan','title'=>'Floorplan File','links'=>$fpvalue])->id;
+                                endif;
                             endforeach;
                         endif;
                     endif;
                 endif;
 
-                //Design
-                if($request->design_tabs_type == 'withTabs'):
-                    if(count($request->design_tab_name) > 0):
-                        PortfolioDetails::where(['portfolio_id' => $portfolio->id,'tab_name' => 'Design','option_type' => 'withTabs'])->delete();
-                        //PortfolioDetails::where(['portfolio_id' => $portfolio->id,'tab_name' => 'Design','option_type' => 'withTabs'])->delete();
-                        foreach($request->design_tab_name as $key => $tabname):
-                            $tab = PortfolioDetails::create(['portfolio_id' => $portfolio->id, 'tab_name' => 'Design', 'title' => $request->design_title_name[$key], 'description_1' => $request->design_description[$key], 'option_type' => 'withTabs','option_title' => $request->design_tab_name[$key]])->id;
-                        endforeach;
-                    endif;
 
-                    $design_gallery_silders = $this->multiUploadFiles($request,'design_gallery_images','portfolio/designGalleryImages/'.$request->portfolio_category.'');
-                    if(count($design_gallery_silders) > 0):
-                        foreach($design_gallery_silders as $gkey => $dgvalue):
-                            $designGalleryImages = PortfolioGalleryDetails::create(['tab_id'=>$portfolio->id,'title'=>'Design_Slider_'.$gkey,'image'=>$dgvalue,'type'=>'design_gallery_images'])->id;
-                        endforeach;
-                    endif;
 
-                elseif($request->design_tabs_type == 'withOutTabs'):
-                    PortfolioDetails::where(['portfolio_id' => $portfolio->id,'tab_name' => 'Design','option_type' => 'withOutTabs'])->delete();
-
-                    PortfolioDetails::create(['portfolio_id' => $portfolio->id, 'tab_name' => 'Design', 'title' => $request->design_title_name_s, 'description_1' => $request->design_description_s, 'option_type' => 'withOutTabs'])->id;
-                    
-                    $design_gallery_silders = $this->multiUploadFiles($request,'design_gallery_images','portfolio/designGalleryImages/'.$request->portfolio_category.'');
-                    if(count($design_gallery_silders) > 0):
-                        foreach($design_gallery_silders as $gkey => $dgvalue):
-                            $designGalleryImages = PortfolioGalleryDetails::create(['tab_id'=>$portfolio->id,'title'=>'Design_Slider_'.$gkey,'image'=>$dgvalue,'type'=>'design_gallery_images'])->id;
-                        endforeach;
-                    endif;
-                endif;
-
-                //dd($request->all());
-                return redirect()->route('portfolio.list')->with('success','Successfully updated portfolio');
+                dd($request->all());
+                //return redirect()->route('portfolio.list')->with('success','Successfully updated portfolio');
             else:
                 echo "Failed to update portfolio details";
-                return redirect()->back()->with('failed','Failed to update portfolio details');
+                //return redirect()->back()->with('failed','Failed to update portfolio details');
             endif;
 
         }catch (\Exception $exception) {
-            //print_r($exception->getMessage());
-            return redirect()->back()->with('error','Oop\'s error : '.$exception->getMessage());
+            print_r($exception->getMessage());
+            //return redirect()->back()->with('error','Oop\'s error : '.$exception->getMessage());
         }
     }
 
