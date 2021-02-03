@@ -1,12 +1,3 @@
-<!--<script src="{{asset('public/assets/vendors/jquery/jquery-3.1.1.min.js')}}"></script>
-<script src="{{asset('public/assets/vendors/ckeditor/ckeditor.js')}}"></script>
-<script>
-    function CKEditorChange(name,fileName) {
-        CKEDITOR.replace(name,{
-            customConfig: fileName,
-        });
-    }
-</script>-->
 @if(isset($portfolio_design))
 <div class="row">
     <div class="form-group col-md-12">
@@ -27,11 +18,30 @@
         @endif
     </div>
     <div class="form-group col-md-12">
-        <label for="design_gallery_images">Image </label>
-        <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="design_gallery_images" style="padding: 6px" id="design_gallery_images">
-        @if($errors->has('design_gallery_images'))
-            <span class="text-danger">{{ $errors->first('design_gallery_images') }}</span>
-        @endif
+        <div class="row">
+            @if(isset($portfolio_design->background_image) && file_exists($portfolio_design->background_image))
+                <div class="col-md-11">
+                    <label for="design_gallery_images">Image </label>
+                    <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="design_gallery_images" style="padding: 6px">
+                    @if($errors->has('design_gallery_images'))
+                        <span class="text-danger">{{ $errors->first('design_gallery_images') }}</span>
+                    @endif
+                </div>
+                <div class="col-md-1" style="padding-top: 5px;">
+                    <a href="{{asset($portfolio_design->background_image)}}" target="_blank">
+                        <img src="{{asset($portfolio_design->background_image)}}"  style="width:100%;height:50px"/>
+                    </a>
+                </div>
+            @else
+                <div class="col-md-12">
+                    <label for="design_gallery_images">Image  <span class="text-danger">*</span></label>
+                    <input type="file" class="form-control filer_plugin_single" required accept=".jpg,.png,.jpeg" name="design_gallery_images" style="padding: 6px">
+                    @if($errors->has('design_gallery_images'))
+                        <span class="text-danger">{{ $errors->first('design_gallery_images') }}</span>
+                    @endif
+                </div>
+            @endif
+        </div>
     </div>
 </div>
 @else

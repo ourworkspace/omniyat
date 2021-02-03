@@ -1,9 +1,7 @@
 @extends('layouts.layout')
-@section('page_title','Portfolio : : Omniyat')
+@section('page_title','Edit Portfolio : : Omniyat')
 @section('page_content')
-    <?php
-        $textAlignments = ['left-top','left-middle','left-bottom','center-top','center-middle','center-bottom','right-top','right-middle','right-bottom'];
-    ?>
+
     <style>
         #cke_1_contents{
             height: 200px !important;
@@ -42,19 +40,19 @@
                                     @endif
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="ProjectName">Project Name <span class="text-danger">*</span></label>
+                                    <label for="ProjectName">Portfolio Title <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" value="{{$portfolio->project_name}}" name="portfolio_project_name" required>
                                     @if($errors->has('ProjectName'))
                                         <span class="text-danger">{{ $errors->first('ProjectName') }}</span>
                                     @endif
                                 </div>
-                                <div class="form-group col-md-6">
+                                <!-- <div class="form-group col-md-6">
                                     <label for="TitleName">Title </label>
                                     <input type="text" class="form-control" value="{{$portfolio->title}}" name="portfolio_title_name">
                                     @if($errors->has('TitleName'))
                                         <span class="text-danger">{{ $errors->first('TitleName') }}</span>
                                     @endif
-                                </div>
+                                </div> -->
                                 <div class="form-group col-md-6">
                                     <div class="row">
                                         @if(isset($portfolio->image) && file_exists($portfolio->image))
@@ -127,8 +125,9 @@
                                             <label for="aboutThemeColor">Theme Color <span class="text-danger">*</span></label>
                                             <select class="form-control" required name="about_theme_color">
                                                 <option value="">Select Theme Color</option>
-                                                <option value="dark" {{($about->theme_color == 'dark')?'selected' :''}} >Dark Theme</option>
-                                                <option value="light" {{($about->theme_color == 'light')?'selected' :''}}>Light Theme</option>
+                                                @foreach($theme as $key => $value)
+                                                    <option value="{{$key}}" {{($about->theme_color == $key)?'selected' :''}} >{{$value}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="col-md-6">
@@ -149,15 +148,42 @@
                                         <span class="text-danger">{{ $errors->first('TitleName') }}</span>
                                     @endif
                                 </div>
-                                
+
+                                <div class="form-group col-md-6">
+                                    <div class="row">
+                                        @if(isset($about->background_image) && file_exists($about->background_image))
+                                            <div class="col-md-10">
+                                                <label for="about_background_picture">Background Picture </label>
+                                                <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="about_background_picture" style="padding: 6px">
+                                                @if($errors->has('about_background_picture'))
+                                                    <span class="text-danger">{{ $errors->first('about_background_picture') }}</span>
+                                                @endif
+                                            </div>
+                                            <div class="col-md-2 pt-2 pl-0">
+                                                <a href="{{asset($about->background_image)}}" target="_blank">
+                                                    <img src="{{asset($about->background_image)}}"  style="width:100%;height:50px"/>
+                                                </a>
+                                            </div>
+                                        @else
+                                            <div class="col-md-12">
+                                                <label for="about_background_picture">Background Picture <span class="text-danger">*</span></label>
+                                                <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="about_background_picture" required style="padding: 6px">
+                                                @if($errors->has('about_background_picture'))
+                                                    <span class="text-danger">{{ $errors->first('about_background_picture') }}</span>
+                                                @endif
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+
                                 <div class="form-group col-md-6">
                                     <div class="row">
                                         @if(isset($about->logo) && file_exists($about->logo))
                                             <div class="col-md-10">
-                                                <label for="Logo">Logo </label>
+                                                <label for="about_project_logo">Logo </label>
                                                 <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="about_project_logo" style="padding: 6px">
-                                                @if($errors->has('Logo'))
-                                                    <span class="text-danger">{{ $errors->first('Logo') }}</span>
+                                                @if($errors->has('about_project_logo'))
+                                                    <span class="text-danger">{{ $errors->first('about_project_logo') }}</span>
                                                 @endif
                                             </div>
                                             <div class="col-md-2 pt-2 pl-0">
@@ -167,18 +193,16 @@
                                             </div>
                                         @else
                                             <div class="col-md-12">
-                                                <label for="Logo">Logo </label>
+                                                <label for="about_project_logo">Logo </label>
                                                 <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="about_project_logo" style="padding: 6px">
-                                                @if($errors->has('Logo'))
-                                                    <span class="text-danger">{{ $errors->first('Logo') }}</span>
+                                                @if($errors->has('about_project_logo'))
+                                                    <span class="text-danger">{{ $errors->first('about_project_logo') }}</span>
                                                 @endif
                                             </div>
                                         @endif
                                     </div>
-
-                                    
                                 </div>
-                               
+
                                 <div class="form-group col-md-12">
                                     <label for="Description">Description </label>
                                     <textarea class="form-control" rows="6" id="about_description" name="about_description">{{$about->description_1}}</textarea>
@@ -268,7 +292,32 @@
                                         @endif
                                     </div>
                                 </div>
-                               
+                                <div class="form-group col-md-12">
+                                    <div class="row">
+                                        @if(isset($location->icon_image) && file_exists($location->icon_image))
+                                            <div class="col-md-11">
+                                                <label for="Logo">Location icon </label>
+                                                <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="location_icon_image" style="padding: 6px">
+                                                @if($errors->has('location_icon_image'))
+                                                    <span class="text-danger">{{ $errors->first('location_icon_image') }}</span>
+                                                @endif
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a href="{{asset($location->icon_image)}}" target="_blank">
+                                                    <img src="{{asset($location->icon_image)}}"  style="width:100%;height:50px"/>
+                                                </a>
+                                            </div>
+                                        @else
+                                            <div class="col-md-12">
+                                                <label for="Logo">Location icon </label>
+                                                <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="location_icon_image" style="padding: 6px">
+                                                @if($errors->has('location_icon_image'))
+                                                    <span class="text-danger">{{ $errors->first('location_icon_image') }}</span>
+                                                @endif
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
                                 <div class="form-group col-md-12">
                                     <label for="Description">Description</label>
                                     <textarea class="form-control" rows="6" id="location_description" name="location_description">{{$location->description_1}}</textarea>
@@ -331,37 +380,9 @@
                                             });
                                         });
                                     </script>
-
-                                    <div class="form-group col-md-12">
-                                        <label for="design_gallery_images">Gallery Images</label>
-                                        <input type="file" class="form-control fileInput4" accept=".jpg,.png,.jpeg" name="design_gallery_images[]" style="padding: 6px" multiple>
-                                        @if($errors->has('design_gallery_images'))
-                                            <span class="text-danger">{{ $errors->first('design_gallery_images') }}</span>
-                                        @endif
-                                    
-                                        @if(count($design_gallery) > 0)
-                                            <label>Uploaded Gallery Images</label>
-                                            <div class="row">
-                                                <?php foreach($design_gallery as $key => $image): ?>
-                                                    <div class="col-md-3" id="uploadImage_<?=$key?>">
-                                                        <img src="<?=asset($image->image)?>" class="img-thumbnail" style="width: 100%;height: 140px;margin:5px 0px">
-                                                        <a href="javascript:0;" onClick="deleteImage('uploadImage_<?=$key?>','<?=$image->id?>',<?=$project_id?>);" style="position: absolute;top: 15px;right: 25px;font-size: 20px;color: red;"><i class="fa fa-trash-o"></i></a>
-                                                        <input type="hidden" name="uploaded_images[]" value="<?=$image->id?>">
-                                                    </div>
-                                                <?php endforeach; ?>
-                                            </div>
-                                        @endif
-                                    </div>
                                 </div>
                             @else
                                 <div class="row designTab">
-                                    <div class="form-group col-md-12">
-                                        <label for="design_gallery_images">Gallery Images</label>
-                                        <input type="file" class="form-control fileInput4" accept=".jpg,.png,.jpeg" name="design_gallery_images[]" style="padding: 6px" multiple>
-                                        @if($errors->has('design_gallery_images'))
-                                            <span class="text-danger">{{ $errors->first('design_gallery_images') }}</span>
-                                        @endif
-                                    </div>
                                     <div class="col-md-12 mb-2">
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <input type="radio" class="custom-control-input" id="customRadio" name="design_tabs_type" value="withTabs" checked>
@@ -504,6 +525,7 @@
                                     $lifeStyle_gallery = DB::table('portfolios_details_gallery')->where(['tab_id'=>$lifeStyle->portfolio_id,'type'=>'lifeStyle_slider_images'])->get();
                                 ?>
                                 <input type="hidden" value="{{$lifeStyle->id}}" name="lifestyle_id">
+                                
                                 <div class="form-group col-md-12">
                                     <label for="TitleName">Title <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" required value="{{$lifeStyle->title}}" name="lifeStyle_title_name">
@@ -511,35 +533,6 @@
                                         <span class="text-danger">{{ $errors->first('TitleName') }}</span>
                                     @endif
                                 </div>
-
-                                <div class="form-group col-md-12">
-                                    <div class="row">
-                                        @if(isset($lifeStyle->logo) && file_exists($lifeStyle->logo))
-                                            <div class="col-md-11">
-                                                <label for="lifeStyleLogo">Logo Image</label>
-                                                <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="lifeStyle_logo" style="padding: 6px" multiple>
-                                                @if($errors->has('lifeStyleLogo'))
-                                                    <span class="text-danger">{{ $errors->first('lifeStyleLogo') }}</span>
-                                                @endif
-                                            </div>
-                                            <div class="col-md-1">
-                                                <a href="{{asset($lifeStyle->logo)}}" target="_blank">
-                                                    <img src="{{asset($lifeStyle->logo)}}"  style="width:100%;height:50px"/>
-                                                </a>
-                                            </div>
-                                        @else 
-                                            <div class="col-md-12">
-                                                <label for="lifeStyleLogo">Logo Image</label>
-                                                <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="lifeStyle_logo" style="padding: 6px" multiple>
-                                                @if($errors->has('lifeStyleLogo'))
-                                                    <span class="text-danger">{{ $errors->first('lifeStyleLogo') }}</span>
-                                                @endif
-                                            </div>
-                                        @endif
-                                    </div>
-                                </div>
-                                
-                               
                             
                                 <div class="form-group col-md-12">
                                     <label for="lifeStyleDescription">Description</label>
