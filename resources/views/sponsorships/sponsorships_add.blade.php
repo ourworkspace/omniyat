@@ -51,7 +51,7 @@
                         </div>
                         <div class="form-group col-md-12">
                             <label>Short Description <span class="text-danger">*</span></label>
-                            <textarea class="form-control" name="short_description" rows="4"></textarea>
+                            <textarea class="form-control" name="short_description" maxlength="110" rows="4"></textarea>
                             
                             @if($errors->has('short_description'))
                                 <span class="text-danger">{{ $errors->first('short_description') }}</span>

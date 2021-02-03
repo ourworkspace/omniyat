@@ -231,25 +231,25 @@ class WebsiteController extends Controller
         if($request->ajax())
         {
             $sponsorships_categories = SponsorshipsCategories::where('status',1)->get();
-
+            $limit = 9;
             if($request->id > 0){
-                $sponsorships_data = Sponsorships::join('sponsorships_categories','sponsorships_categories.id','=','sponsorships.category_id')->select('sponsorships.*','sponsorships_categories.name as category_name','sponsorships_categories.id as category_id')->where('sponsorships.status',1)->where('sponsorships.id', '<', $request->id)->orderBy('sponsorships.id','DESC')->limit(3)->get();
+                $sponsorships_data = Sponsorships::join('sponsorships_categories','sponsorships_categories.id','=','sponsorships.category_id')->select('sponsorships.*','sponsorships_categories.name as category_name','sponsorships_categories.id as category_id')->where('sponsorships.status',1)->where('sponsorships.id', '<', $request->id)->orderBy('sponsorships.id','DESC')->limit($limit)->get();
             }else{
-                $sponsorships_data = Sponsorships::join('sponsorships_categories','sponsorships_categories.id','=','sponsorships.category_id')->select('sponsorships.*','sponsorships_categories.name as category_name','sponsorships_categories.id as category_id')->where('sponsorships.status',1)->orderBy('sponsorships.id','DESC')->limit(3)->get();
+                $sponsorships_data = Sponsorships::join('sponsorships_categories','sponsorships_categories.id','=','sponsorships.category_id')->select('sponsorships.*','sponsorships_categories.name as category_name','sponsorships_categories.id as category_id')->where('sponsorships.status',1)->orderBy('sponsorships.id','DESC')->limit($limit)->get();
             }
             //dd($sponsorships_data);
             $output = '';
             if(!$sponsorships_data->isEmpty())
             {
-                $output = view('website.sponsor.sponsor-load-more-list',compact('sponsorships_categories','sponsorships_data'));
+                $output = view('website.sponsor.sponsor-load-more-list',compact('sponsorships_categories','sponsorships_data','limit'));
             }
             else
             {
                 $output .= '<div class="col-sm-12" data-aos="fade-down" data-aos-duration="300">
-                                <div class="loadmore_btn text-center py-30">
-                                    <button name="load_more_button"  type="button" class="btn btn-link btn-red text-uppercase tss-msb py-10 px-45 my-5 fs-11">No Data Found</button>
-                                </div>
-                            </div>';
+                    <div class="loadmore_btn text-center py-30">
+                        <button name="load_more_button"  type="button" class="btn btn-link btn-red text-uppercase tss-msb py-10 px-45 my-5 fs-11">No Data Found</button>
+                    </div>
+                </div>';
             }
             echo $output;
         }

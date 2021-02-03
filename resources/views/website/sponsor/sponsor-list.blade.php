@@ -16,54 +16,25 @@
               <div class="list_items pb-30 w-100 px-45">
                   <div class="row row-flex">
                     {{ csrf_field() }}
-                    <div class="col-sm-12" data-aos="fade-up" id="sponsorshipDataList">
+                    <div class="col-sm-12" data-aos="fade-up">
                         <section class="portfolio section">
-                            
-                            <div class="filters">
-                                <ul>
-                                    <li class="active text-uppercase fs-13 tss-mb" data-filter=".all">ALL</li>
-                                    @foreach($sponsorships_categories as $category)
-                                        <li data-filter=".category_{{strtolower(urlencode(str_replace(' ','_',$category->id)))}}" class="text-uppercase fs-13 tss-mb">{{$category->name}}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                           
-                            <div class="filters-content">
-                                <div class="row grid_div">
-                                    @foreach($sponsorships_data as $sponsorshipdata)
-                                        <?php //print_r($sponsorshipdata); ?>
-                                        <div class="col-sm-4 px-5 all category_{{strtolower(urlencode(str_replace(' ','_',$sponsorshipdata->category_id)))}}">
-                                            <div class="item w-100">
-                                                <div class="image w-100 relative">
-                                                    <a href="{{route('site.sponsorships.details',['id'=>$sponsorshipdata->id])}}"><img src="{{asset($sponsorshipdata->thumb_image)}}" alt="Work 1" class="w-100"></a>
-                                                    <div class="labal text-uppercase text-black fs-10 tss-mm">{{$sponsorshipdata->category_name}}</div>
-                                                    <div class="icon"><a href="{{route('site.sponsorships.details',['id'=>$sponsorshipdata->id])}}#{{strtolower(urlencode(str_replace(' ','_',$sponsorshipdata->category_name)))}}"><img src="{{asset('public/site/img/icons/gallery-icon.png')}}"></a></div>
-                                                </div>
-
-                                                <div class="desc">
-                                                    <span class="tss-mm fs-10 tss-text-red text-right w-100 mb-10 text-uppercase"> {!! htmlspecialchars_decode(date('j<\s\up>S</\s\up> M Y', strtotime($sponsorshipdata->date))) !!}
-                                                     </span>
-                                                    <h5 class="tss-optima fs-16 tss-lh-1-2 text-black">{{$sponsorshipdata->title}}</h5>
-                                                    <p class="tss-mr fs-12 text-black">
-                                                        {{ strip_tags(substr($sponsorshipdata->short_description, 0, 60)) }}... </p>
-                                                    <p class="text-right mb-0"><a href="{{route('site.sponsorships.details',['id'=>$sponsorshipdata->id])}}" class="tss-mb fs-11 text-black text-uppercase">explore more <span class="tss-text-red">➔</span></a></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
+                            @if(count($sponsorships_categories) > 0 && count($sponsorships_data) > 0)
+                                <div class="filters">
+                                    <ul>
+                                        <li class="active text-uppercase fs-13 tss-mb" data-filter=".all">ALL</li>
+                                        @foreach($sponsorships_categories as $category)
+                                            @if(count($category->SponsorshipsDetails) > 0)
+                                                <li data-filter=".category_{{strtolower(urlencode(str_replace(' ','_',$category->id)))}}" class="text-uppercase fs-13 tss-mb">{{$category->name}}</li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
                                 </div>
-                                
+                            @endif
+                            <div class="row filters-content" id="sponsorshipDataList">
                                 
                             </div>
                         </section>
 
-                        <div class="row">
-                            <div class="col-sm-12" data-aos="fade-down" data-aos-duration="300">
-                                <div class="loadmore_btn text-center py-30">
-                                    <button type="submit" class="btn btn-link btn-red text-uppercase tss-msb py-10 px-45 my-5 fs-11">Load more</button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                   </div>
                   
@@ -94,16 +65,16 @@
     $(document).ready(function(){
 
         var _token = $('input[name="_token"]').val();
-        //load_data('', _token);
-        function load_data(id="", _token)
-        {
+        load_data('', _token);
+        function load_data(id="", _token){
             $.ajax({
                 url:"{{ route('sponsorship.load.more.data') }}",
                 method:"POST",
                 data:{id:id, _token:_token},
                 success:function(data)
                 {
-                    $('#load_more_button').remove();
+                    $('#loadmoreBtnBox').remove();
+                    //$('#load_more_button').remove();
                     $('#sponsorshipDataList').append(data);
                 }
             })
@@ -113,7 +84,7 @@
             var id = $(this).data('id');
             $('#load_more_button').html('<b>Loading...</b>');
             $("#loadmoreBtnBox").remove();
-            //load_data(id, _token);
+            load_data(id, _token);
         });
 
     });
