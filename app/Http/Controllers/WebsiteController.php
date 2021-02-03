@@ -24,6 +24,7 @@ use App\ContactUsModel as ContactUs;
 use App\OmniyatTCPModel as OmniyatTCP;
 use App\PageSubTitlesModel as PageSubTitles;
 use App\InquireModel as Inquire;
+use App\SponsorshipGalleryImagesModel as SponsorshipGalleryImages;
 
 class WebsiteController extends Controller
 {
@@ -256,9 +257,11 @@ class WebsiteController extends Controller
 
     public function sponsorshipsDetails(Request $request){
         $page_sub_title = PageSubTitles::where('page_type',5)->first();
+        $ss_gallery_images = SponsorshipGalleryImages::where('sponsorship_id',$request->id)->get();
+
         $ssd = Sponsorships::join('sponsorships_categories','sponsorships_categories.id','=','sponsorships.category_id')->select('sponsorships.*','sponsorships_categories.name as category_name','sponsorships_categories.id as category_id')->where('sponsorships.id', $request->id)->orderBy('id','DESC')->first();
         $sslist = Sponsorships::join('sponsorships_categories','sponsorships_categories.id','=','sponsorships.category_id')->select('sponsorships.*','sponsorships_categories.name as category_name','sponsorships_categories.id as category_id')->where('sponsorships.category_id', $ssd->category_id)->where('sponsorships.id', '!=', $request->id)->orderBy('id','DESC')->limit(3)->get();
-        return view('website.sponsor.sponsor-details', compact('ssd','sslist','page_sub_title'));
+        return view('website.sponsor.sponsor-details', compact('ssd','sslist','page_sub_title','ss_gallery_images'));
     }
 
     public function leadership(Request $request){

@@ -21,8 +21,7 @@
                     <div class="col-md-6" data-aos="fade-left" data-aos-duration="900">
                         <p class="w-100 mb-15 pb-15">
                             <span class="fs-12 pull-left text-uppercase bg_red text-white py-3 px-15">latest news</span>
-                            <span class="fs-12 pull-right text-black tss-mm text-uppercase mt-5">{{date('jS-M-Y', strtotime($wnd->date))}}</span>
-                        </p>
+                            <span class="fs-12 pull-right text-black tss-mm text-uppercase mt-5">{{date('F j,Y', strtotime($wnd->date))}}</span> </p>
                         <h2 class="fs-28 text-black tss-optima mt-15 mb-15 pb-15">{{$wnd->title}}</h2>
                         {!! $wnd->long_description !!}
                     </div>
@@ -67,7 +66,7 @@
         </div>
         <div class="desc py-15 px-15">
             <p class="w-100 mb-15 pb-15">
-                <span class="fs-10 pull-right text-black tss-msb text-uppercase mt-5">{{date('jS-M-Y', strtotime($wnd->date))}}</span>
+                <span class="fs-10 pull-right text-black tss-msb text-uppercase mt-5">{{date('F j,Y', strtotime($wnd->date))}}</span>
             </p>
             <h2 class="fs-18 text-black tss-msb mt-15 pb-15 tss-lh-1-3">{{$wnd->title}}</h2>
             {!! $wnd->long_description !!}
