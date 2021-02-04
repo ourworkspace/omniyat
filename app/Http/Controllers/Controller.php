@@ -38,6 +38,7 @@ class Controller extends BaseController
                 $extension = $file->getClientOriginalExtension();
                 $filename = time().'RD'.rand(1,999).'.'.$extension;
                 $file->move($filepath, $filename);
+                //copy($file, $filepath.$filename);
                 $images[$k] = $filepath. $filename;
             }
         }

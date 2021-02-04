@@ -6,7 +6,6 @@
     <section class="page-title text-center w-100 pb-30">
         <h1 class="tss-text-black text-uppercase fs-40 my-0 tss-optima" data-aos="fade-up" data-aos-duration="600">omniyat sponsorships</h1>
         <p class="tss-text-red text-uppercase fs-12 tss-mr" data-aos="fade-up" data-aos-duration="900">{{$page_sub_title->sub_title}}</p>
-        
     </section>
     
     <section class="w-100 mt-30 press_detail csr_details">
@@ -114,21 +113,21 @@
             <div class="ssd_mobile_large_content"><?php echo $ssd->long_description; ?></div>
         </div>
     </section>
+
     @if(count($ss_gallery_images)>0)
-    <section class="press_list w-100 m_gallery_sec">
-        <section class="page-title text-center w-100 mt-30 ">
-            <h1 class="tss-text-black text-uppercase fs-24 my-0 tss-optima">Event gallery</h1>
-            <div class="slide-count"></div>
-            <section class="sponsor_gallery slider list_items px-5 w-100">
-                @foreach($ss_gallery_images as $ssgi)
-                <div class="image relative">
-                    <img src="{{asset($ssgi->image)}}" alt="galery">
-                </div>
-                @endforeach
-                
+        <section class="press_list w-100 m_gallery_sec">
+            <section class="page-title text-center w-100 mt-30 ">
+                <h1 class="tss-text-black text-uppercase fs-24 my-0 tss-optima">Event gallery</h1>
+                <div class="slide-count"></div>
+                <section class="sponsor_gallery slider list_items px-5 w-100">
+                    @foreach($ss_gallery_images as $ssgi)
+                    <div class="image relative">
+                        <img src="{{asset($ssgi->image)}}" alt="galery">
+                    </div>
+                    @endforeach
+                </section>
             </section>
         </section>
-    </section>
     @endif
 
    

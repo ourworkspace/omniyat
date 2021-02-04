@@ -51,12 +51,59 @@
         <h1 class="tss-text-black text-uppercase fs-28 my-0 tss-optima mb-5" data-aos="fade-up" data-aos-duration="800">omniyat sponsorships</h1>
         <p class="tss-text-red text-uppercase fs-12 tss-mr" data-aos="fade-up" data-aos-duration="900">{{$page_sub_title->sub_title}}</p>
     </section>
-    <section class="w-100 mt-30 press_detail">
+    <!-- <section class="w-100 mt-30 press_detail">
         <div class="header-container">
             
             <h2 class="tss-text-black text-uppercase fs-20 my-0 tss-msb text-center" data-aos="fade-up" data-aos-duration="600" style="margin-top: 50px;margin-bottom: 220px;">COMING SOON</h2>
             
             
+        </div>
+    </section> -->
+
+    <div class="form w-100 px-5 mb-20 mt-30">
+        <ul class="list-unstyled">
+            <li class="init">search by category</li>
+            @foreach($sponsorships_categories as $category)
+                <li data-value="{{$category->id}}">{{$category->name}}</li>
+            @endforeach
+        </ul>
+    </div>
+
+
+    <section class="page_content w-100 px-5 relative media_list_pages mt-10">
+        <div class="slide-count"></div>
+        <section class="newsfeed slider">
+
+            @foreach($sponsorships_data as $sponsorshipdata)
+                <div class="item_div">
+                    <a href="{{route('site.sponsorships.details',['id'=>$sponsorshipdata->id])}}" style="text-decoration: none;color: inherit;">
+                        <div class="image same-height">
+                            <img src="{{asset($sponsorshipdata->thumb_image)}}" alt="{{$sponsorshipdata->category_name}}">
+                        </div>
+                        <div class="desc px-15 pb-15">
+                            <p class="fs-10 tss-msb mt-15 text-left text-black-50">30th dec 2020</p>
+                            <h2 class="fs-16 text-black tss-msb mt-0 mb-10  tss-lh-1-3">{{$sponsorshipdata->title}}</h2>
+                            <p class="text-black tss-ml fs-14 tss-lh-1-5 my-10">{{$sponsorshipdata->short_description}}…</p>
+                        </div>
+                    </a>
+                </div>
+            @endforeach
+            
+        </section>
+
+        <div class="fixed_bottom fixed_bottom-2col">
+            <div class="li">
+                <a href="" class="text-center">
+                    <i class="icon-read"></i>
+                    <p class="fs-10 tss-msb">READ MORE</p>
+                </a>
+            </div>
+            <div class="li">
+                <a href="" class="text-center">
+                    <i class="icon-share_new"></i>
+                    <p class="fs-10 tss-msb">SHARE</p>
+                </a>
+            </div>
         </div>
     </section>
 

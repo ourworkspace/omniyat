@@ -555,20 +555,20 @@
                                         <div class="row">
                                             <div class="col-md-11">
                                                 <label for="lifeStyle_slider_images">Image </label>
-                                                <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="lifeStyle_slider_images" style="padding: 6px" id="design_gallery_images">
+                                                <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="lifeStyle_slider_images" style="padding: 6px" id="lifeStyle_slider_images">
                                                 @if($errors->has('lifeStyle_slider_images'))
                                                     <span class="text-danger">{{ $errors->first('lifeStyle_slider_images') }}</span>
                                                 @endif
                                             </div>
                                             <div class="col-md-1" style="padding-top:5px">
                                                 <a href="{{asset($lifeStyle->background_image)}}" target="_blank">
-                                                    <img src="{{asset($lifeStyle->background_image)}}" />
+                                                    <img src="{{asset($lifeStyle->background_image)}}" style="width:100%;height:50px;"/>
                                                 </a>
                                             </div>
                                         </div>
                                     @else
                                         <label for="lifeStyle_slider_images">Image <span class="text-danger">*</span></label>
-                                        <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="lifeStyle_slider_images" style="padding: 6px" required id="design_gallery_images">
+                                        <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="lifeStyle_slider_images" style="padding: 6px" required id="lifeStyle_slider_images">
                                         @if($errors->has('lifeStyle_slider_images'))
                                             <span class="text-danger">{{ $errors->first('lifeStyle_slider_images') }}</span>
                                         @endif
@@ -582,23 +582,24 @@
                                                 <div class="col-md-11">
                                                     <input type="hidden" value="{{$lifeStyleTab->id}}" name="lifestyle_tab_id[]">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" value="{{$lifeStyleTab->option_title}}" placeholder="Tab Name" name="lifestyle_tab_name[]">
+                                                        <input type="text" class="form-control" value="{{$lifeStyleTab->option_title}}" placeholder="Tab Name" name="lifestyle_tab_existing_name[]">
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" value="{{$lifeStyleTab->title}}" placeholder="Title" name="lifestyle_tab_title_name[]">
+                                                        <input type="text" class="form-control" value="{{$lifeStyleTab->title}}" placeholder="Title" name="lifestyle_tab_existing_title_name[]">
                                                     </div>
                                                     <div class="form-group">
-                                                        <textarea class="form-control" rows="6" id="lifestyleDescription_up0{{$key+1}}" name="lifestyle_tab_description[]" placeholder="Description">{{$lifeStyleTab->description_1}}</textarea>
+                                                        <textarea class="form-control" rows="6" id="lifestyleDescription_up0{{$key+1}}" name="lifestyle_tab_existing_description[]" placeholder="Description">{{$lifeStyleTab->description_1}}</textarea>
                                                         <script>
                                                             CKEditorChange('lifestyleDescription_up0{{$key+1}}','myconfigText.js');
                                                         </script>
                                                     </div>
                                                     <div class="form-group">
                                                         @if(isset($lifeStyleTab->background_image) && file_exists($lifeStyleTab->background_image))
+                                                            <input type="hidden" value="{{$lifeStyleTab->background_image}}" name="lifestyle_tab_existing_images[]">
                                                             <div class="row">
                                                                 <div class="col-md-11">
                                                                     <label for="lifestyle_gallery_tab_images">Image </label>
-                                                                    <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="lifestyle_gallery_tab_images[]" style="padding: 6px">
+                                                                    <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="lifestyle_tab_existing_image_update[]" style="padding: 6px">
                                                                 </div>
                                                                 <div class="col-md-1" style="padding-top:5px">
                                                                     <a href="{{asset($lifeStyleTab->background_image)}}" target="_blank">
@@ -608,7 +609,7 @@
                                                             </div>
                                                         @else
                                                             <label for="lifestyle_gallery_tab_images">Image <span>*</span></label>
-                                                            <input type="file" class="form-control filer_plugin_single" required accept=".jpg,.png,.jpeg" name="lifestyle_gallery_tab_images[]" style="padding: 6px">
+                                                            <input type="file" class="form-control filer_plugin_single" required accept=".jpg,.png,.jpeg" name="lifestyle_tab_existing_image_update[]" style="padding: 6px">
                                                         @endif
                                                     </div>
                                                 </div>
@@ -619,7 +620,9 @@
                                         @endforeach
                                     @endif
                                 </div>
-                                <div class="col-md-12"><a href="javascript:0;" class="btn btn-success lifestyleTabAddmoreBtn"> Add tab </a></div>
+                                <div class="col-md-12">
+                                    <a href="javascript:0;" class="btn btn-success lifestyleTabAddmoreBtn"> Add tab </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -814,7 +817,7 @@
                                                     <div class="form-group col-md-11">
                                                         <div class="row">
                                                             <div class="form-group col-md-11">
-                                                                <input type="file" class="form-control" style="padding: 6px" name="floorplan_file[]" accept=".pdf">
+                                                                <input type="file" class="form-control" style="padding: 6px" name="floorplan_existing_file_update[]" accept=".pdf">
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <a href="{{asset($fpvalue->links)}}" title="{{$floorPlanFileName}}" target="_blank"><i class="fa fa-download" style="font-size: 30px;padding: 5px 10px;"></i></a>

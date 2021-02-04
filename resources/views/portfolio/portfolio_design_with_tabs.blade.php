@@ -7,23 +7,24 @@
                     <input type="hidden" value="{{$pd_data->id}}" name="design_tab_id[]"/>
                     <div class="col-md-11">
                         <div class="form-group col-md-12">
-                            <input type="text" class="form-control" value="{{$pd_data->option_title}}" placeholder="Tab Name" name="design_tab_name[]">
+                            <input type="text" class="form-control" value="{{$pd_data->option_title}}" placeholder="Tab Name" name="design_tab_existing_name[]">
                         </div>
                         <div class="form-group col-md-12">
-                            <input type="text" class="form-control" value="{{$pd_data->title}}" placeholder="Title" name="design_title_name[]">
+                            <input type="text" class="form-control" value="{{$pd_data->title}}" placeholder="Title" name="design_title_existing_name[]">
                         </div>
                         <div class="form-group col-md-12">
-                            <textarea class="form-control" rows="6" id="designDescription_0{{$key}}" name="design_description[]" placeholder="Description">{{$pd_data->description_1}}</textarea>
+                            <textarea class="form-control" rows="6" id="designDescription_digex0{{$key}}" name="design_tab_existing_description[]" placeholder="Description">{{$pd_data->description_1}}</textarea>
                             <script>
-                                CKEditorChange('designDescription_0{{$key}}','myconfigText.js');
+                                CKEditorChange('designDescription_digex0{{$key}}','myconfigText.js');
                             </script>
                         </div>
                         <div class="form-group col-md-12">
                             <div class="row">
                                 @if(isset($pd_data->background_image) && file_exists($pd_data->background_image))
+                                    <input type="hidden" value="{{$pd_data->background_image}}" name="design_gallery_existing_images[]">
                                     <div class="col-md-11">
                                         <label for="design_gallery_images">Image </label>
-                                        <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="design_gallery_images[]" style="padding: 6px">
+                                        <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="design_gallery_existing_image_update[]" style="padding: 6px">
                                         @if($errors->has('design_gallery_images'))
                                             <span class="text-danger">{{ $errors->first('design_gallery_images') }}</span>
                                         @endif
@@ -36,7 +37,7 @@
                                 @else
                                     <div class="col-md-12">
                                         <label for="design_gallery_images">Image  <span class="text-danger">*</span></label>
-                                        <input type="file" class="form-control filer_plugin_single" required accept=".jpg,.png,.jpeg" name="design_gallery_images[]" style="padding: 6px">
+                                        <input type="file" class="form-control filer_plugin_single" required accept=".jpg,.png,.jpeg" name="design_gallery_existing_image_update[]" style="padding: 6px">
                                         @if($errors->has('design_gallery_images'))
                                             <span class="text-danger">{{ $errors->first('design_gallery_images') }}</span>
                                         @endif
