@@ -7,7 +7,7 @@
         <div class="header-container">
             @if(isset($leadership_data->image))
             <div class="list_items w-100 px-30">
-                <div class="row row-display-flex-center">
+                <div class="row row-display-flex-top">
                     <div class="col-md-5" data-aos="fade-right" data-aos-duration="900">
                         <div class="image">
                             <img src="{{asset($leadership_data->image)}}" alt="company-leadership">

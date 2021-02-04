@@ -22,8 +22,16 @@ class LeadershipContoller extends Controller
         ]);
 
             try {
+                $ordered_by_id = Leadership::where('status',1)->max('ordered_by');
+                
+                if($ordered_by_id==''){
+                    $ordered_by_id = 1;
+                }else{
+                    $ordered_by_id = $ordered_by_id+1;
+                }
+                //echo "string".$ordered_by_id;exit();
             $uploadImage = $this->uploadFile($request,'image','leadership/');
-            $leadershipId = Leadership::create(['leadership_name'=>$request->leadership_name,'leadership_designation'=>$request->leadership_designation, 'image'=>$uploadImage,'long_description'=>$request->long_description])->id;
+            $leadershipId = Leadership::create(['leadership_name'=>$request->leadership_name,'leadership_designation'=>$request->leadership_designation, 'image'=>$uploadImage,'long_description'=>$request->long_description,'ordered_by'=>$ordered_by_id])->id;
 
             if($leadershipId > 0):
                 return redirect()->route('leadership.list')->with('success','Successfully saved leadership');
