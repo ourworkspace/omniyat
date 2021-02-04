@@ -20,7 +20,7 @@
                         </ol>
                     </div>
                 </div>
-                <div class="row row-display-flex-center pb-30">
+                <div class="row row-display-flex-top pb-30">
                     <div class="col-md-6 pr-30" data-aos="fade-right" data-aos-duration="900">
                         <p class="text-left"><span class="fs-12 text-black tss-mm text-uppercase">
                             {!! htmlspecialchars_decode(date('j<\s\up>S</\s\up> M Y', strtotime($ssd->date))) !!}

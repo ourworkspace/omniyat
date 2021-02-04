@@ -149,9 +149,7 @@
 <script src="{{asset('public/assets/vendors/jquery/validation.min.js')}}"></script>
 <script type="text/javascript">
         $(document).ready(function(){
-            $('#date').datepicker({
-                autoclose: true
-            });
+            
         for (var i in CKEDITOR.instances) {
             CKEDITOR.instances[i].on('change', function() {
                 if(CKEDITOR.instances.longDescription.getData().length >  0) {
@@ -163,9 +161,9 @@
         $('#press_release_form').validate({
             ignore: "not:hidden",
             rules: {
-                /*date: {
+                date: {
                     required: true,
-                },*/
+                },
                 title: {
                     required:true,
                 },
