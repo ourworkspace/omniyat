@@ -3,6 +3,7 @@
 @section('pageContent')
 
     @include('website.portfolio_disktop_view')
+    @include('website.portfolio_mobile_view')
 
     <script>
         sentContactMails('contactFormSubmit', 'contactBtnReport', 'FeedbackEnquerymessage');
