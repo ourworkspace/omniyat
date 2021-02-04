@@ -231,7 +231,7 @@ class WebsiteController extends Controller
         if($request->ajax())
         {
             $sponsorships_categories = SponsorshipsCategories::where('status',1)->get();
-            $limit = 3;
+            $limit = 6;
             if($request->id > 0){
                 $sponsorships_data = Sponsorships::join('sponsorships_categories','sponsorships_categories.id','=','sponsorships.category_id')->select('sponsorships.*','sponsorships_categories.name as category_name','sponsorships_categories.id as category_id')->where('sponsorships.status',1)->where('sponsorships.id', '<', $request->id)->orderBy('sponsorships.id','DESC')->limit($limit)->get();
             }else{
