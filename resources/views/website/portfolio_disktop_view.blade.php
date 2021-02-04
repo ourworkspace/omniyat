@@ -90,7 +90,7 @@
                                     <div class="custom-tabs">
                                         <ul class="nav nav-pills">
                                             @foreach($designWithTabs as $key => $pdvalues)
-                                                <li class="{{($key == 0) ? 'active':''}}"><a data-toggle="pill" data-target="#{{str_replace(' ','_',$pdvalues->option_title)}}">{{$pdvalues->option_title}}</a></li>
+                                                <li class="{{($key == 0) ? 'active':''}}"><a data-toggle="pill" data-target=".{{str_replace(' ','_',$pdvalues->option_title)}}">{{$pdvalues->option_title}}</a></li>
                                             @endforeach
                                         </ul>
                                         <div class="tab-content">
