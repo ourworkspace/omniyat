@@ -132,9 +132,9 @@
         $('#csr_form').validate({
             ignore: "not:hidden",
             rules: {
-                /*date: {
+                date: {
                     required: true,
-                },*/
+                },
                 title: {
                     required:true,
                 },

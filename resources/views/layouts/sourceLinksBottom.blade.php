@@ -9,9 +9,16 @@
 <script src="{{asset('public/assets/vendors/datatables/new/jquery.dataTables.min.js')}}"></script>
 
 <script>
-    $('.datepicker').datepicker({
-        autoclose: true,
-        todayHighlight: true
+      
+    $(document).ready(function(){    
+        $(".datepicker").datepicker({
+            autoclose: true,
+            todayHighlight: true
+            
+        });
+        $('.datepicker').change(function(event) {
+            $('label[for="date"]').hide();
+        });
     });
 
     $(".alert").fadeTo(2000, 500).slideUp(500, function(){

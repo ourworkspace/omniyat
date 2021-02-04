@@ -107,9 +107,7 @@
 <script src="{{asset('public/assets/vendors/jquery/validation.min.js')}}"></script>
 <script type="text/javascript">
         $(document).ready(function(){
-            $('#date').datepicker({
-                autoclose: true
-            });
+            
         for (var i in CKEDITOR.instances) {
             CKEDITOR.instances[i].on('change', function() {
                 
@@ -133,6 +131,9 @@
         $('#sponsorship_form').validate({
             ignore: "not:hidden",
             rules: {
+                date: {
+                    required: true,
+                },
                 categoryId: {
                     required: true,
                 },
@@ -147,7 +148,7 @@
                 },
                 short_description: {
                     required:true,
-                    maxlength:110
+                    maxlength:60
                 },
                 long_description: {
                     required:function() 
