@@ -1,19 +1,13 @@
 <div class="inner-page mobile_view portfolio_detail_m_view" >
     <div class="panel-group accordion" id="accordion" role="tablist" aria-multiselectable="true">
         <div class="panel panel-default">
-
+            
             <div class="panel-heading" role="tab" id="h1">
-
                 <h4 class="panel-title">
-
                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#c1" aria-expanded="true" aria-controls="c" class="text-uppercase">
-
-                    ABOUT ONE PALM
-
+                        {{$portfolio_details->project_name}}
                     </a>
-
                 </h4>
-
             </div>
 
             <div id="c1" class="panel-collapse collapse show" role="tabpanel" aria-labelledby="h1">

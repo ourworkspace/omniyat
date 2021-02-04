@@ -115,9 +115,8 @@
                             <!-- Wrapper for slides -->
                                 <div class="carousel-inner">
                                     @foreach($designWithTabs as $key => $pdvalue)
-                                        <div class="item {{($key == 0) ? 'active' : ''}} {{str_replace(' ','_',$pdvalue->option_title)}}">
-                                            <img src="{{asset($pdvalue->background_image)}}" alt="Los slide" style="width:100%;">
-                                            <!--<p>Architecture</p>-->
+                                        <div class="item {{($key == 0) ? 'active':''}} {{str_replace(' ','_',$pdvalue->option_title)}}">
+                                            <img src="{{asset($pdvalue->background_image)}}" alt="{{str_replace(' ','_',$pdvalue->option_title)}} slide" style="width:100%;">
                                         </div>
                                     @endforeach
                                 </div>
