@@ -11,7 +11,7 @@
                 </div>
 
                 <div class="desc">
-                    <span class="tss-mm fs-10 tss-text-red text-right w-100 mb-10 text-uppercase">30<sup>th</sup> dec 2020</span>
+                    <span class="tss-mm fs-10 tss-text-red text-right w-100 mb-10 text-uppercase">{!! htmlspecialchars_decode(date('j<\s\up>S</\s\up> M Y', strtotime($sponsorshipdata->date))) !!}</span>
                     <h5 class="tss-optima fs-16 tss-lh-1-2 text-black">{{$sponsorshipdata->title}}</h5>
                     <p class="tss-mr fs-12 text-black">{{$sponsorshipdata->short_description}}</p>
                     <p class="text-right mb-0"><a href="{{route('site.sponsorships.details',['id'=>$sponsorshipdata->id])}}" class="tss-mb fs-11 text-black text-uppercase">explore more <span class="tss-text-red">➔</span></a></p>
