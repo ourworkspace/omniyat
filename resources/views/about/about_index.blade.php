@@ -2,7 +2,7 @@
 @section('page_title','About Company : : Omniyat')
 @section('page_content')
     <style>
-        .error{
+        label.error{
             color: red !important;
         }
     </style>

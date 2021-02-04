@@ -66,10 +66,9 @@
 </div>
 <script src="{{asset('public/assets/vendors/jquery/validation.min.js')}}"></script>
 <script type="text/javascript">
-        $(document).ready(function(){
-            $('#date').datepicker({
-            autoclose: true
-        });
+    
+    $(document).ready(function(){
+
         $('#thumb_image').bind('change', function (e) { //dynamic property binding
             var fileName = e.target.files[0].name;
             if(fileName != ''){
@@ -82,14 +81,6 @@
                 $('label[for="thumb_image"]').hide();
             }
         });
-        /*$('#select_file').click(function() {
-            $('#image_file').show();
-            $('.btn').prop('disabled', false);
-            $('#image_file').change(function() {
-                var filename = $('#image_file').val();
-                $('#select_file').html(filename);
-            });
-        });​*/
         for (var i in CKEDITOR.instances) {
             CKEDITOR.instances[i].on('change', function() {
                 
@@ -119,9 +110,9 @@
         $('#whats_on_media_form').validate({
             ignore: "not:hidden",
             rules: {
-                /*date: {
+                date: {
                     required: true,
-                },*/
+                },
                 title: {
                     required:true,
                 },

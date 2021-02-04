@@ -52,7 +52,7 @@
                                         </td>
                                         <td>{{(isset($value->category->name) ? $value->category->name : '')}}</td>
                                         <td>{{$value->title}}</td>
-                                        <td>{{date('d-m-Y',strtotime($value->created_at))}}</td>
+                                        <td>{{date('d-m-Y',strtotime($value->date))}}</td>
                                         <td>
                                             <span>
                                                 <a href="{{route('sponsorships.edit',['Id'=>$value->id])}}"> <i class="fa fa-edit fa-1x"></i> </a>
