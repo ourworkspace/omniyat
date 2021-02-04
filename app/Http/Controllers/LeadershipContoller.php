@@ -26,6 +26,8 @@ class LeadershipContoller extends Controller
                 
                 if($ordered_by_id==''){
                     $ordered_by_id = 1;
+                }else{
+                    $ordered_by_id = $ordered_by_id+1;
                 }
                 //echo "string".$ordered_by_id;exit();
             $uploadImage = $this->uploadFile($request,'image','leadership/');
