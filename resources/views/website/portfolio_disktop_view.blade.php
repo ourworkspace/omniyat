@@ -237,7 +237,7 @@
                                         <h2 class="text-black text-uppercase tss-mb fs-20 mb-10"> {{$amenities_facilities->title}} </h2>
                                         <?php echo $amenities_facilities->description_1; ?>
                                         <?php 
-                                            $amenities = explode(',',$amenities_facilities->amenities);
+                                            $amenities = array_filter(explode(',',$amenities_facilities->amenities));
                                         ?>
                                         @if(count($amenities) > 0)
                                             <ul class="pulse_list more_gap text-left" style="margin-left:0px;">
