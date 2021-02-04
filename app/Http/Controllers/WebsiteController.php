@@ -57,10 +57,13 @@ class WebsiteController extends Controller
         $portfolio = Portfolios::where('id', $request->project_id)->first();
         if(isset($request->project_id) && $portfolio->id == $request->project_id):  
             $portfolio_details  = PortfolioDetails::where(['portfolio_id'=>$portfolio->id])->get(); 
+            $project_id = $request->project_id;
             //Portfolio Tabs
             $about  = PortfolioDetails::where(['tab_name'=>'About','portfolio_id'=>$portfolio->id])->first();
             $location  = PortfolioDetails::where(['tab_name'=>'Location','portfolio_id'=>$portfolio->id])->first();
             $design  = PortfolioDetails::where(['tab_name'=>'Design','portfolio_id'=>$portfolio->id])->get();
+            $designWithTabs  = PortfolioDetails::where(['tab_name'=>'Design','option_type'=>'withTabs','portfolio_id'=>$portfolio->id])->get();
+            $designWithOutTabs  = PortfolioDetails::where(['tab_name'=>'Design','option_type'=>'withOutTabs','portfolio_id'=>$portfolio->id])->first();
             $amenities_facilities  = PortfolioDetails::where(['tab_name'=>'Amenities & Facilities','portfolio_id'=>$portfolio->id])->first();
             $lifeStyle  = PortfolioDetails::where(['tab_name'=>'LifeStyle','sub_tab_name'=>'no','portfolio_id'=>$portfolio->id])->first();
             $lifeStyleTabs  = PortfolioDetails::where(['tab_name'=>'LifeStyle','sub_tab_name'=>'yes','portfolio_id'=>$portfolio->id,'option_type'=>'tabs'])->get();
@@ -69,7 +72,7 @@ class WebsiteController extends Controller
             $vitual_tour  = PortfolioDetails::where(['tab_name'=>'Vitual Tour','portfolio_id'=>$portfolio->id])->get();
             $floorplan  = PortfolioDetails::where(['tab_name'=>'FloorPlan','portfolio_id'=>$portfolio->id])->get();
             $brochure  = PortfolioDetails::where(['tab_name'=>'Brochure','portfolio_id'=>$portfolio->id])->first();
-            return view('website.portfolio_details', compact('portfolio','about','location','design','amenities_facilities','lifeStyle','lifeStyleTabs','gallery','enquire','vitual_tour','floorplan','brochure','portfolio_details'));
+            return view('website.portfolio_details', compact('portfolio','about','location','design','designWithTabs','designWithOutTabs','amenities_facilities','lifeStyle','lifeStyleTabs','gallery','enquire','vitual_tour','floorplan','brochure','portfolio_details','project_id'));
         else:
             return redirect()->back();
         endif;
