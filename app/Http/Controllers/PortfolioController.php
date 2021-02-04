@@ -936,6 +936,14 @@ class PortfolioController extends Controller
                     if(file_exists($pvalue->logo)):
                         unlink($pvalue->logo);
                     endif;
+
+                    if(file_exists($pvalue->icon_image)):
+                        unlink($pvalue->icon_image);
+                    endif;
+                    
+                    if(file_exists($pvalue->upload)):
+                        unlink($pvalue->upload);
+                    endif;
                     
                     if(file_exists($pvalue->links) && ($pvalue->tab_name == 'FloorPlan' || $pvalue->tab_name == 'Brochure')):
                         unlink($pvalue->links);
