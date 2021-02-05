@@ -396,7 +396,7 @@ class WebsiteController extends Controller
             if($saveInquire > 0){
                 //TODO : mail integration to active account
                 $send_to = [];
-                $send_to[] = ['yhvreddyinfo@gmail.com','Harsha']; //change mail-id
+                $send_to[] = [config('global.info_mail'),config('global.site_name')]; //change mail-id
                 $sendto = [
                     'sendForm'  =>  [$request->email, $request->first_name],
                     'sendTo'    =>  $send_to,
@@ -408,7 +408,7 @@ class WebsiteController extends Controller
                     $usend_to = [];
                     $usend_to[] = [$request->email, $request->first_name]; //change mail-id
                     $usendto = [
-                        'sendForm'  =>  ['yhvreddyinfo@gmail.com','Omniyat'],
+                        'sendForm'  =>  [config('global.info_mail'),config('global.site_name')],
                         'sendTo'    =>  $usend_to,
                         'subject'   =>  'Thank you for inquiring - Omniyat',
                     ];
