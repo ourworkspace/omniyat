@@ -260,7 +260,7 @@ class PortfolioController extends Controller
 
                 //Brochure file
                 if(isset($request->brochure_file)):
-                    $brochure_file = $this->uploadFile($request,'brochure_file','portfolio/floorplan/'.$request->portfolio_category.'');
+                    $brochure_file = $this->uploadFile($request,'brochure_file','portfolio/brochures/'.$request->portfolio_category.'');
                     if(isset($brochure_file) && file_exists($brochure_file)):
                         $lifeStyle = PortfolioDetails::create(['portfolio_id'=> $portfolio,'tab_name'=>'Brochure','title'=>'Brochure File','links'=>$brochure_file]);
                     endif;
@@ -532,7 +532,7 @@ class PortfolioController extends Controller
                 //Brochure file
                 if(isset($request->brochure_file)):
                     $brochure  = PortfolioDetails::where(['tab_name'=>'Brochure','id'=>$request->brochure_file_id,'portfolio_id'=>$portfolio->id])->first();
-                    $brochure_file = $this->uploadFile($request,'brochure_file','portfolio/floorplan/'.$request->portfolio_category.'');
+                    $brochure_file = $this->uploadFile($request,'brochure_file','portfolio/brochures/'.$request->portfolio_category.'');
 
                     if(isset($brochure) && $brochure->id == $request->brochure_file_id):
                         if(isset($brochure_file) && file_exists($brochure_file)):

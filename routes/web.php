@@ -35,6 +35,8 @@ Route::get('/terms_and_conditions', 'WebsiteController@TermsAndConductions')->na
 Route::get('/privacy_policy', 'WebsiteController@PrivacyPolicy')->name('site.privacy.policy');
 
 Route::post('save-inquireform-details','WebsiteController@saveContactdetails')->name('save.contact.inquire.details');
+Route::get('download/{floorplan_id}/floorplan/files','WebsiteController@floorPlanFilesDownload')->name('download.floorplan.files');
+Route::get('download/{brochure_id}/brochure/files','WebsiteController@brochureFilesDownload')->name('download.brochure.files');
 
 
 route::post('/sponsorship/load_data','WebsiteController@sponsorshiploadmoredata')->name('sponsorship.load.more.data');

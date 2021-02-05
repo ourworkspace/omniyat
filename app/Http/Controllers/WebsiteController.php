@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Validator,Redirect,Response,Session,DB,Mail;
+use Validator,Redirect,Response,Session,DB,Mail,File,ZipArchive;
 
 use App\CategoriesModel as Categories;
 use App\PortfoliosModel as Portfolios;
@@ -366,7 +366,32 @@ class WebsiteController extends Controller
 
     public function saveContactdetails(Request $request)
     {
+        //return Response()->json($request->all());
         if(!empty($request->first_name) && !empty($request->last_name) && !empty($request->email) && !empty($request->phone) && !empty($request->message)){
+            $files = '';
+            $mdata = [];
+            $link = '';
+            if(isset($request->download)):
+                
+                if($request->download == 'floor_plan'):
+                    $portfolio = Portfolios::where('id', $request->portfolio)->first();
+                    $path = $this->floorPlanFilesDownload($request, $portfolio->id,true);
+                    $files = asset('public/'.$path);
+                    $mdata['link'] = route('download.floorplan.files',['floorplan_id'=>$request->portfolio,'file'=>true]);
+                endif;
+
+                if($request->download == 'brochure'):
+                    //return Response()->json($request->all());
+                    $portfolio = Portfolios::where('id', $request->portfolio)->first();
+                    $path = $this->brochureFilesDownload($request, $portfolio->id,false);
+                    $files = asset($path);
+                    //$mdata['link'] = route('download.brochure.files',['floorplan_id'=>$request->portfolio,'file'=>true]);
+                endif;
+                
+            endif;
+
+            //return Response()->json(['request'=>$request->all(),'path'=>$path]);
+            //'request_url','purpose','comment_message'
             $saveInquire = Inquire::create(['first_name'=>$request->first_name,'last_name'=>$request->last_name,'email'=>$request->email,'mobile'=>$request->phone,'message'=>$request->message])->id;
             if($saveInquire > 0){
                 //TODO : mail integration to active account
@@ -375,12 +400,29 @@ class WebsiteController extends Controller
                 $sendto = [
                     'sendForm'  =>  [$request->email, $request->first_name],
                     'sendTo'    =>  $send_to,
-                    'subject'   =>  'Inquire details - sitename',
+                    'subject'   =>  'Inquire details - Omniyat',
                 ];
-                $mdata = array('request' => $request);
-                $this->sendEmail('email.inquire_details',$mdata,$sendto);
-
-                $responce = array('response' => true,'message'=>'Inquire details as sent. We will get back soon!');
+                $mdata['request'] = $request;
+                $mailRes = $this->sendEmail('email.inquire_details',$mdata,$sendto);
+                if($mailRes == true){
+                    $usend_to = [];
+                    $usend_to[] = [$request->email, $request->first_name]; //change mail-id
+                    $usendto = [
+                        'sendForm'  =>  ['yhvreddyinfo@gmail.com','Omniyat'],
+                        'sendTo'    =>  $usend_to,
+                        'subject'   =>  'Thank you for inquiring - Omniyat',
+                    ];
+                    $mdata['request'] = $request;
+                    $userMailRes = $this->sendEmail('email.inquire_responce',$mdata,$usendto,$files);
+                    if($userMailRes == true):
+                        Inquire::where('id', $saveInquire)->update(['comment_message'=>'Successfully sent to user','mail_status'=>'true']);
+                    else:
+                        Inquire::where('id', $saveInquire)->update(['comment_message'=>'Failed to send for user','mail_status'=>'false']);
+                    endif;
+                }else{
+                    Inquire::where('id', $saveInquire)->update(['comment_message'=>'Failed to send for client or admin','mail_status'=>'false']);
+                }
+                $responce = array('response' => true,'message'=>'Inquire details as sent. We will get back soon!','mail'=>$mailRes);
             }else{
                 $responce = array('response' => false,'message'=>'Failed to send your inquire details!');
             }
@@ -390,9 +432,9 @@ class WebsiteController extends Controller
         return Response()->json($responce);
     }
 
-    public function sendEmail($mailView,$data,$sendto)
+    public function sendEmail($mailView,$data,$sendto, $attachments=null)
     {
-        Mail::send($mailView, $data, function($message) use ($sendto) {
+        Mail::send($mailView, $data, function($message) use ($sendto, $attachments) {
 
             if(count($sendto['sendTo']) > 0){
                 foreach($sendto['sendTo'] as $to)
@@ -400,6 +442,17 @@ class WebsiteController extends Controller
                     $message->to($to[0], $to[1]);
                 }
             }
+
+            if(isset($attachments)){
+                if(is_array($attachments) && count($attachments) > 0){
+                    foreach($attachments as $attachment){
+                        $message->attach($attachment);
+                    }
+                }elseif(!empty($attachments)){
+                    $message->attach($attachments);
+                }
+            }
+
             $message->subject($sendto['subject']);
             $message->from($sendto['sendForm'][0],$sendto['sendForm'][1]);
         });
@@ -408,6 +461,79 @@ class WebsiteController extends Controller
         }else{
             return true;
         }
+    }
+    
+    public function floorPlanFilesDownload(Request $request, $id = null, $sendToMail = false){
+
+        $zip = new ZipArchive;
+        if(isset($request->floorplan_id)):
+            $portfolio_id = $request->floorplan_id;
+        else:
+            $portfolio_id = $id;
+        endif;
+        $portfolio = Portfolios::where('id', $portfolio_id)->first();
+        $floorplan  = PortfolioDetails::where(['tab_name'=>'FloorPlan','portfolio_id'=>$portfolio_id])->get();
+        //$brochure  = PortfolioDetails::where(['tab_name'=>'Brochure','portfolio_id'=>$request->floorplan_id])->first();
+        if(!file_exists('public/download/portfolio/'.$portfolio_id)):
+            mkdir('public/download/portfolio/'.$portfolio_id, 0777, true);
+        endif;
+
+        $fileName = 'download/portfolio/'.$portfolio_id.'/Floorplan_documents_'.urlencode($portfolio->project_name).'.zip';
+        $floorPlanFilesPath = 'uploads/portfolio/floorplan/'.$portfolio->category_id.'/';
+        if ($zip->open(public_path($fileName), ZipArchive::CREATE) === TRUE){
+            $files = File::files(public_path($floorPlanFilesPath));
+            foreach ($files as $key => $value) {
+                if(isset($floorplan[$key]->links) && file_exists($floorplan[$key]->links)):
+                    $relativeNameInZipFile = basename($value);
+                    $zip->addFile($value, $relativeNameInZipFile);
+                endif;
+            }
+            $zip->close();
+        }
+
+        if($sendToMail == true):
+            return $fileName;
+        endif;
+        
+        return response()->download(public_path($fileName));
+    }
+
+    public function brochureFilesDownload(Request $request, $id = null, $sendToMail = false){
+
+        $zip = new ZipArchive;
+        if(isset($request->brochure_id)):
+            $portfolio_id = $request->brochure_id;
+        else:
+            $portfolio_id = $id;
+        endif;
+
+        $portfolio = Portfolios::where('id', $portfolio_id)->first();
+        $brochure  = PortfolioDetails::where(['tab_name'=>'Brochure','portfolio_id'=>$portfolio->id])->first();
+        //$brochure  = PortfolioDetails::where(['tab_name'=>'Brochure','portfolio_id'=>$request->floorplan_id])->first();
+        
+        /*if(!file_exists('public/download/portfolio/'.$portfolio_id)):
+            mkdir('public/download/portfolio/'.$portfolio_id, 0777, true);
+        endif;
+
+        $fileName = 'download/portfolio/'.$portfolio_id.'/brochure_documents_'.urlencode($portfolio->project_name).'.zip';
+        $brochureFilesPath = 'uploads/portfolio/brochures/'.$portfolio->category_id.'/';
+        if ($zip->open(public_path($fileName), ZipArchive::CREATE) === TRUE){
+            $files = File::files(public_path($brochureFilesPath));
+            foreach ($files as $key => $value) {
+                if(isset($brochure[$key]->links) && file_exists($brochure[$key]->links)):
+                    $relativeNameInZipFile = basename($value);
+                    $zip->addFile($value, $relativeNameInZipFile);
+                endif;
+            }
+            $zip->close();
+        }*/
+
+        if($sendToMail == true):
+            return $brochure->link;
+        endif;
+        
+        return $brochure->links;
+        //return response()->download(public_path($fileName));
     }
     
 }
