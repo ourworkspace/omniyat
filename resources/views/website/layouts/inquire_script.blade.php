@@ -34,8 +34,8 @@
                     $("#"+formId).trigger('reset');
                     setTimeout(function(){ 
                         $("#"+feedbackId).text(''); 
-                        //$('#download_modal').modal('hide'); 
-                        //$('#download_modal_1').modal('hide'); 
+                        $('#download_modal').modal('hide'); 
+                        $('#download_modal_1').modal('hide'); 
                     }, 2000);
                 }
             });

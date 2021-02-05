@@ -1,4 +1,4 @@
-    <div id="download_modal" class="modal fade download_modal vertical-modal" role="dialog">
+    <div id="download_modal" class="modal fade download_modal vertical-modal floor_plan" role="dialog">
         <div class="modal-dialog">
 
             <!-- Modal content-->
@@ -13,6 +13,8 @@
                     <div id="floorPlanMessagePopUp"></div>
                     <form method="POST" id="floorPlanPopUp" action="javascript:0;">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="download" value="floor_plan" />
+                        <input type="hidden" name="portfolio" value="{{$portfolio->id}}" />
                         <div class="row">
                             <div class="col-md-6 px-3">
                                 <div class="form-group my-5">
@@ -62,7 +64,7 @@
         </div>
     </div>    
 
-    <div id="download_modal_1" class="modal fade download_modal vertical-modal" role="dialog">
+    <div id="download_modal_1" class="modal fade download_modal vertical-modal brochure" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
@@ -75,6 +77,8 @@
                     <form method="POST" id="contactFormSubmitPopUp" action="javascript:0;">
                         <div class="row">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <input type="hidden" name="download" value="brochure" />
+                            <input type="hidden" name="portfolio" value="{{$portfolio->id}}" />
                             <div class="col-md-6 px-3">
                                 <div class="form-group my-5">
                                     <input type="text" class="form-control" id="f_name" placeholder="FIRST NAME" name="first_name" required>
@@ -127,6 +131,6 @@
     endif; ?>
 <script>
     
-    sentContactMails('contactFormSubmitPopUp', 'contactBtnReportPopUp', 'contactBtnReportMessagePopUp','download','{{$link}}');
+    sentContactMails('contactFormSubmitPopUp', 'contactBtnReportPopUp', 'contactBtnReportMessagePopUp');
     sentContactMails('floorPlanPopUp', 'floorPlanBtn', 'floorPlanMessagePopUp');
 </script> 
