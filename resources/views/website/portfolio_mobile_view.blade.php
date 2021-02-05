@@ -107,7 +107,7 @@
                                         <div class="panel panel-default">
                                             <div class="panel-heading" role="tab" id="designWithTabA{{$dwtKey}}">
                                                 <h4 class="panel-title">
-                                                    <a role="button" data-toggle="collapse" data-parent="#accordion2" href="#designcTab{{$dwtKey}}" aria-expanded="{{($dwtKey == 0) ? true : false }}" aria-controls="designc{{$dwtKey}}" class="text-uppercase {{ ($dwtKey != 0) ? 'collapsed':'' }}">{{$pdvalue->option_title}}
+                                                    <a role="button" data-toggle="collapse" data-parent="#accordion2" href="#designcTab{{$dwtKey}}" aria-expanded="{{($dwtKey == 0) ? 'true' : 'false' }}" aria-controls="designc{{$dwtKey}}" class="text-uppercase {{ ($dwtKey != 0) ? 'collapsed':'' }}">{{$pdvalue->option_title}}
                                                     </a>
                                                 </h4>
                                             </div>
