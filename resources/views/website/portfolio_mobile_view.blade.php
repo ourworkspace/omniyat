@@ -245,6 +245,7 @@
                                             <div class="panel-heading" role="tab" id="lifestyleTabs{{$lsKey}}">
                                                 <h4 class="panel-title">
                                                     <a role="button" data-toggle="collapse" data-parent="#accordion3" href="#lifestyleTabPanel{{$lsKey}}" aria-expanded="{{($lsKey == 0) ? 'true' : 'false' }}" aria-controls="lifestyleTabPanel{{$lsKey}}" class="text-uppercase {{ ($lsKey != 0) ? 'collapsed':'' }}">{{$lifeStyleTab->option_title}}
+
                                                     </a>
                                                 </h4>
                                             </div>
