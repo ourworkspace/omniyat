@@ -56,7 +56,7 @@ class WebsiteController extends Controller
     {
         $portfolio = Portfolios::where('id', $request->project_id)->first();
         if(isset($request->project_id) && $portfolio->id == $request->project_id):  
-            $portfolio_details  = PortfolioDetails::where(['portfolio_id'=>$portfolio->id])->get(); 
+            $portfolio_details  = PortfolioDetails::where(['portfolio_id'=>$portfolio->id])->first(); 
             $project_id = $request->project_id;
             //Portfolio Tabs
             $about  = PortfolioDetails::where(['tab_name'=>'About','portfolio_id'=>$portfolio->id])->first();
