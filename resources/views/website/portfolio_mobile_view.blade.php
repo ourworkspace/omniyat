@@ -5,7 +5,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="aboutTab">
                     <h4 class="panel-title">
-                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#aboutTabPanel" aria-expanded="true" aria-controls="aboutTabPanel" class="text-uppercase">ABOUT {{$portfolio_details->project_name}} </a>
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#aboutTabPanel" aria-expanded="true" aria-controls="aboutTabPanel" class="text-uppercase">ABOUT {{ strtoupper($portfolio->project_name) ?? ''}} </a>
                     </h4>
                 </div>
                 <div id="aboutTabPanel" class="panel-collapse collapse show" role="tabpanel" aria-labelledby="aboutTab">
@@ -18,7 +18,7 @@
                                 <div class="logo"><img src="{{asset($about->logo)}}"></div>
                             @endif
                         </div>
-                        <div class="w-100 text-center text-white py-20 bg_red fs-14">ABOUT {{$portfolio_details->project_name}}</div>
+                        <div class="w-100 text-center text-white py-20 bg_red fs-14">ABOUT {{strtoupper($portfolio->project_name)??''}}</div>
                         <div class="panel-desc p-20 w-100">
                             <h5 class="fs-22 tss-mb text-black mt-0 mb-10 text-uppercase tss-lh-1-3">{{$about->title}}</h5>
                                 <?php $adescription_1 = strip_tags($about->description_1); ?>
@@ -217,19 +217,20 @@
 
                 <div id="lifeStyleTabPanel" class="panel-collapse collapse" role="tabpanel" aria-labelledby="lifeStyleTab">
                     <div class="panel-body">
-                        <section class="lifestyle slider panel_slider">
+                        <!--<section class="lifestyle slider panel_slider">
                             @if(isset($lifeStyleTabs) && count($lifeStyleTabs) > 0)
-                                <!--@foreach($lifeStyleTabs as $lskey => $lifeStyleTab)
+                                @foreach($lifeStyleTabs as $lskey => $lifeStyleTab)
                                     <div class="image">
                                         <img src="{{asset($lifeStyleTab->background_image)}}">
                                     </div>
-                                @endforeach-->
+                                @endforeach
                             @else
                                 <div class="image">
                                     <img src="{{asset($lifeStyle->background_image)}}">
                                 </div>
+
                             @endif
-                        </section>
+                        </section>-->
 
                         <div class="w-100 text-center text-white py-20 bg_red fs-14 text-uppercase ">lifestyle</div>
 
@@ -327,6 +328,7 @@
                                 <h5 class="fs-14 tss-mb text-black mt-0 mb-10 text-uppercase tss-lh-1-3">Register your interest</h5>
                                 <div id="FeedbackEnqueryMobilemessage"></div>
                                 <form method="POST" id="contactFormSubmitMobile" action="javascript:0;">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                     <div class="row">
                                         <div class="col-xs-6 col-sm-6 pr-5">
                                             <div class="form-group my-5">
@@ -367,7 +369,7 @@
 
                                     <div class="row">
                                         <div class="col-sm-12 pull-right">
-                                            <button type="submit" name="contactBtnReportMobile" class="btn btn-link btn-red text-uppercase tss-msb py-10 px-45 my-5 fs-11 mt-30">SUBMIT</button>
+                                            <button type="submit" id="contactBtnReportMobile" class="btn btn-link btn-red text-uppercase tss-msb py-10 px-45 my-5 fs-11 mt-30">SUBMIT</button>
                                         </div>
                                     </div>
                                 </form>

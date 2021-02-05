@@ -367,6 +367,7 @@ class WebsiteController extends Controller
     public function saveContactdetails(Request $request)
     {
         //return Response()->json($request->all());
+        //exit;
         if(!empty($request->first_name) && !empty($request->last_name) && !empty($request->email) && !empty($request->phone) && !empty($request->message)){
             $files = '';
             $mdata = [];
