@@ -5,9 +5,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="aboutTab">
                     <h4 class="panel-title">
-                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#aboutTabPanel" aria-expanded="true" aria-controls="aboutTabPanel" class="text-uppercase">
-                        ABOUT {{$portfolio_details->project_name}}
-                        </a>
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#aboutTabPanel" aria-expanded="true" aria-controls="aboutTabPanel" class="text-uppercase">ABOUT {{$portfolio_details->project_name}} </a>
                     </h4>
                 </div>
                 <div id="aboutTabPanel" class="panel-collapse collapse show" role="tabpanel" aria-labelledby="aboutTab">
@@ -221,11 +219,11 @@
                     <div class="panel-body">
                         <section class="lifestyle slider panel_slider">
                             @if(isset($lifeStyleTabs) && count($lifeStyleTabs) > 0)
-                                @foreach($lifeStyleTabs as $lskey => $lifeStyleTab)
+                                <!--@foreach($lifeStyleTabs as $lskey => $lifeStyleTab)
                                     <div class="image">
                                         <img src="{{asset($lifeStyleTab->background_image)}}">
                                     </div>
-                                @endforeach
+                                @endforeach-->
                             @else
                                 <div class="image">
                                     <img src="{{asset($lifeStyle->background_image)}}">
@@ -251,6 +249,12 @@
                                             </div>
                                             <div id="lifestyleTabPanel{{$lsKey}}" class="panel-collapse collapse {{($lsKey == 0) ? 'show' : ''}}" role="tabpanel" aria-labelledby="lifestyleTabs{{$lsKey}}">
                                                 <div class="panel-body">
+                                                    @if(isset($lifeStyleTab->background_image) && file_exists($lifeStyleTab->background_image))
+                                                        <div class="image w-100 mb-20">
+                                                            <img src="{{asset($lifeStyleTab->background_image)}}" class="w-100">
+                                                        </div>
+                                                    @endif
+
                                                     <h5 class="text-black text-uppercase tss-msb fs-14 my-10">{{$lifeStyleTab->title}}</h5>
                                                     @if(isset($lifeStyleTab->description_1) && !empty($lifeStyleTab->description_1))
                                                         <?php echo $lifeStyleTab->description_1; ?>
