@@ -376,8 +376,8 @@
                                     @endif
                                 </div> -->
                                 <div class="form-group col-md-12">
-                                    <label for="lifeStyle_slider_images">Image <span class="text-danger">*</span></label>
-                                    <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="lifeStyle_slider_images" style="padding: 6px" required id="design_gallery_images">
+                                    <label for="lifeStyle_slider_images">Image </label>
+                                    <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="lifeStyle_slider_images" style="padding: 6px" id="design_gallery_images">
                                     @if($errors->has('lifeStyle_slider_images'))
                                         <span class="text-danger">{{ $errors->first('lifeStyle_slider_images') }}</span>
                                     @endif
@@ -505,10 +505,10 @@
                                         <div class="col-md-11">
                                             <div class="row">
                                                 <div class="form-group col-md-12">
-                                                    <input type="text" class="form-control" name="vitual_tour_title[]" required placeholder="Title">
+                                                    <input type="text" class="form-control" name="vitual_tour_title[]" placeholder="Title">
                                                 </div>
                                                 <div class="form-group col-md-12">
-                                                    <input type="url" class="form-control" name="vitual_tour_url[]" required placeholder="Link">
+                                                    <input type="url" class="form-control" name="vitual_tour_url[]"  placeholder="Link">
                                                 </div>
                                             </div>
                                         </div>

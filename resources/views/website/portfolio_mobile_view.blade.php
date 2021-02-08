@@ -236,7 +236,47 @@
 
                         <div class="panel-desc p-20 w-100">
                             <h5 class="fs-22 tss-mb text-black mt-0 mb-10 text-uppercase tss-lh-1-3">{{$lifeStyle->title}}</h5>
-                            <?php echo $lifeStyle->description_1; ?>
+
+                            <!--@if(strlen($lifeStyle->description_1) > 900)
+                                <div id="less_data" class="d_description">
+                                    @php($l_d = substr($lifeStyle->description_1, 0, 900))
+                                    {!! substr($l_d, 0, strrpos($l_d, ' ')) !!} ...
+                                    <details>
+                                <summary>
+                                    <span id="more_data_btn" class="tss-msb fs-14 text-black text-uppercase">Read more</span></summary></details>
+                                </div>
+                                <div id="more_data" class="d_description" style="display: none">{!! $lifeStyle->description_1 !!}
+                                    <details>
+                                <summary>
+                                    <span id="less_data_btn" class="tss-msb fs-14 text-black text-uppercase ">Read Less</span></summary></details>
+                                </div>
+                            @else
+                                <div class="d_description">{!! $lifeStyle->description_1 !!}</div>
+                            @endif-->
+
+                            @php($lifestyleContent = explode('<p>',$lifeStyle->description_1))
+                            @if(isset($lifestyleContent[0]) && !empty($lifestyleContent[0]))
+                                {!! $lifestyleContent[0] !!}
+                                @php($lsDKey = 0)
+                            @else
+                                {!! $lifestyleContent[1] !!}
+                                @php($lsDKey = 1)
+                            @endif
+                           
+                            @if(count($lifestyleContent) > $lsDKey) 
+                                <details>
+                                    <summary>
+                                        <span id="open" class="tss-msb fs-14 text-black text-uppercase">Read more</span> 
+                                        <span id="close" class="tss-msb fs-14 text-black text-uppercase ">Read Less</span> 
+                                    </summary>
+                                    @foreach($lifestyleContent as $lsValue)
+                                        @php($lsDKey++)
+                                        @if(isset($lifestyleContent[$lsDKey]) && !empty($lifestyleContent[$lsDKey]))
+                                            {!! $lifestyleContent[$lsDKey] !!}
+                                        @endif
+                                    @endforeach
+                                </details>
+                            @endif
 
                             @if(isset($lifeStyleTabs) && count($lifeStyleTabs) > 0)
                                 <div class="panel-group accordion sub_accordian mt-30" id="accordion3" role="tablist" aria-multiselectable="true">
