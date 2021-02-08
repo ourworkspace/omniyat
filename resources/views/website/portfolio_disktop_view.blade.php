@@ -17,14 +17,16 @@
                         <img src="{{asset($about->background_image)}}" class="tr_about">
                     @endif
 
-                    @if(isset($about->logo) && file_exists($about->logo))
-                        <div class="logo text-center mb-15 mt-45 tr_about_logo_div" style="position: absolute;left: 50%;top: 72px;width: 100%;transform: translate(-50%, 0px);">
-                            <img src="{{asset($about->logo)}}" alt="logo" class="tr_about_logo" style="margin-top: 0;width: 7vw;">
-                        </div>
-                    @endif
                     
-                    <div class="header-container container-vertical-middle">
+                    
+                    <div class="header-container {{ $about->text_alignment }} container-vertical-middle">
                         <!--<div class="logo text-center mb-15 mt-45"><img src="img/portfolio/details/opg_gold.png" alt="logo" style="margin-top: -5em;"></div>-->
+                        @if(isset($about->logo) && file_exists($about->logo))
+                            <div class="logo text-center mb-15 mt-45 tr_about_logo_div" style="position: absolute;left: 50%;top: 72px;width: 100%;transform: translate(-50%, 0px);">
+                                <img src="{{asset($about->logo)}}" alt="logo" class="tr_about_logo" style="margin-top: 0;width: 7vw;">
+                            </div>
+                        @endif
+
                         <div class="row">
                             <div class="col-md-6 pull-right pt-30 pl-0">
                                 @if(isset($about->title) && !empty($about->title))
