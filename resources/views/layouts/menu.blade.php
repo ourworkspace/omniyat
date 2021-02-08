@@ -86,12 +86,6 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{route('inquire.details.list')}}">
-                <i class="menu-icon typcn typcn-document-text"></i>
-                <span class="menu-title">Inquire List</span>
-            </a>
-        </li>
-        <li class="nav-item">
             <a class="nav-link" href="{{route('contactus.index')}}">
                 <i class="menu-icon typcn typcn-document-text"></i>
                 <span class="menu-title">Contact Us</span>
@@ -107,6 +101,12 @@
             <a class="nav-link" href="{{route('terms.and.conductions.index')}}">
                 <i class="menu-icon typcn typcn-document-text"></i>
                 <span class="menu-title">Terms & Conditions</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('inquire.details.list')}}">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Inquire List</span>
             </a>
         </li>
         <!-- <li class="nav-item">
