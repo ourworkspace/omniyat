@@ -482,8 +482,8 @@
                                     </div>
                                 </div>
                                <div class="form-group col-md-12">
-                                    <label for="enquireBackgroundImage">Background Picture</label>
-                                    <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="enquire_background_image" style="padding: 6px">
+                                    <label for="enquireBackgroundImage">Background Picture <span class="text-danger">*</span></label>
+                                    <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="enquire_background_image" style="padding: 6px" required>
                                     @if($errors->has('enquireBackgroundImage'))
                                         <span class="text-danger">{{ $errors->first('enquireBackgroundImage') }}</span>
                                     @endif
@@ -531,8 +531,15 @@
                             <div class="row floorPlanTab">
                                 <div class="col-md-12 floorPlanTabFields">
                                     <div class="row">
-                                        <div class="form-group col-md-11">
-                                            <input type="file" class="form-control" style="padding: 6px" name="floorplan_file[]" accept=".pdf">
+                                        <div class="col-md-11">
+                                            <div class="row">
+                                                <div class="form-group col-md-12">
+                                                    <input type="text" class="form-control" name="floorplan_file_title[]" placeholder="Title">
+                                                </div>
+                                                <div class="form-group col-md-12">
+                                                    <input type="file" class="form-control" style="padding: 6px" name="floorplan_file[]" accept=".pdf">
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-md-1">
                                             <a href="javascript:0;" class="btn btn-success floorPlanTabAddmoreBtn"> + </a>
@@ -602,7 +609,7 @@
     var amtFtsFieldsSet = '<div class="row"><div class="col-md-11"><div class="row"><div class="form-group col-md-12"><input type="text" class="form-control" name="amenities_facilities_amenities[]" required placeholder="Amenity Name"></div></div></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success amtFtsRemove"> - </a></div></div>';
     addDynamicFieldsProject('.amtFtsAddMore', '.amenitiesTextBox', 0, amtFtsFieldsSet, '.amtFtsRemove');
 
-    var floorPlanFileds = '<div class="row"><div class="form-group col-md-11"><input type="file" class="form-control" style="padding: 6px" name="floorplan_file[]" accept=".pdf" required></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success floorPlanTabRemoveBtn"> - </a></div></div>';
+    var floorPlanFileds = '<div class="row"><div class="col-md-11"><div class="row"><div class="form-group col-md-12"><input type="text" class="form-control" name="floorplan_file_title[]" placeholder="Title"></div><div class="form-group col-md-12"><input type="file" class="form-control" style="padding: 6px" name="floorplan_file[]" accept=".pdf"></div></div></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success floorPlanTabRemoveBtn"> - </a></div></div>';
     addDynamicFieldsProject('.floorPlanTabAddmoreBtn', '.floorPlanTabFields', 0, floorPlanFileds, '.floorPlanTabRemoveBtn');
 
     var lifestylemaxField = 0; //Input fields increment limitation

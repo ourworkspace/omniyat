@@ -229,7 +229,7 @@
                 $amenities_facilities_gallery = DB::table('portfolios_details_gallery')->where(['tab_id'=>$project_id,'type'=>'amenities_facilities_gallery_images'])->get();
             ?>
             <div id="amenities" class="tab-pane fade">
-                <section class="w-100 lifestyle_sec">
+                <section class="w-100 lifestyle_sec more-top-space-1">
                     <div class="lifestyle_sec mCustomScrollbar mt-0" data-mcs-theme="dark">
                         <div class="container">
                             <div class="row">
@@ -239,7 +239,7 @@
                                         <h2 class="text-black text-uppercase tss-mb fs-20 mb-10">A PROJECT MANAGED BY</h2>
                                         <img src="img/portfolio/details/dorchester-collection-logo.png" alt="DORCHESTER COLLECTION" class="w-100 mb-30">
                                         -->
-                                        <h2 class="text-black text-uppercase tss-mb fs-20 mb-10"> {{$amenities_facilities->title}} </h2>
+                                        <h2 class="text-black text-uppercase tss-mb fs-20 mb-10"> {{$amenities_facilities->title ?? 'Amenities and Facilities'}} </h2>
                                         <?php echo $amenities_facilities->description_1; ?>
                                         <?php 
                                             $amenities = array_filter(explode(',',$amenities_facilities->amenities));
@@ -256,8 +256,9 @@
                             </div>
                         </div>
                     </div>
-                    @if(count($amenities_facilities_gallery) > 0)
-                        <div class="hcarousel right">
+                    <div class="hcarousel right">
+                        @if(count($amenities_facilities_gallery) > 0)
+                            
                             <div class="wrap">
                                 <ul>
                                     @foreach($amenities_facilities_gallery as $afgvalue)
@@ -267,10 +268,10 @@
                                     @endforeach
                                 </ul>
                             </div>
-                        </div>
-                    @endif
+                            
+                        @endif
+                    </div>
                 </section>
-
             </div>
         @endif
 
@@ -284,11 +285,8 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-7 col-centered">
-                                <div class="desc text-center px-45 inner-page">
-                                    @if(isset($gallery->title))
-                                        <h2 class="text-black text-uppercase tss-mb fs-20 mb-10">{{$gallery->title}}</h2>
-                                    @endif
-
+                                <div class="desc text-center px-45 ">
+                                    <h2 class="text-black text-uppercase tss-mb fs-20 mb-10">{{$gallery->title ?? 'Gallery'}}</h2>
                                     @if(isset($gallery->description_1))
                                         <?php echo $gallery->description_1; ?>
                                     @endif
@@ -297,14 +295,13 @@
                         </div>
                     </div>
 
-                    @if(count($gallery_images) > 0)
-                        <div class="gallery">
+                    <div class="gallery mCustomScrollbar" data-mcs-theme="dark">
+                        @if(count($gallery_images) > 0)
                             <section class="section">
                                 @foreach($gallery_images as $key => $giValue)
                                     <img src="{{asset($giValue->image)}}" alt="{{$giValue->title}}">
                                 @endforeach
                             </section>
-
                             <div class="lightbox">
                                 <div class="title"></div>
                                 <div class="filter"></div>
@@ -312,12 +309,12 @@
                                 <div class="arrowl"></div>
                                 <div class="close"></div>
                             </div>
-                        </div>
-                    @endif
+                        @endif
+                    </div>
                 </section>
             </div>
         @endif
-
+       
         @if(isset($enquire))
             <div id="enquire" class="tab-pane fade">
                 <section class="w-100 bg_img enquire_sec anwa_enquire_sec">

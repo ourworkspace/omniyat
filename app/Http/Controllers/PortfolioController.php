@@ -1,6 +1,6 @@
 <?php
-
 namespace App\Http\Controllers;
+error_reporting(0);
 
 use Illuminate\Http\Request;
 use App\AmenitiesDataModel as AmenitiesData;
@@ -233,14 +233,14 @@ class PortfolioController extends Controller
                 endif;
 
                 //Vitual Tour
-                if(count($request->vitual_tour_title) > 0):
+                if(count($request->vitual_tour_title) > 0 && isset($request->vitual_tour_title)):
                     foreach($request->vitual_tour_title as $key => $vtvalue):
                         $vitual_tour  = PortfolioDetails::create(['portfolio_id' => $portfolio,'tab_name'=>'Vitual Tour','title'=>$vtvalue,'links'=>$request->vitual_tour_url[$key]])->id;
                     endforeach;
                 endif;
 
                 //floorplan_file
-                if(isset($request->floorplan_file)):
+                if((isset($request->floorplan_file) && count($request->floorplan_file)) &&  (isset($request->floorplan_file_title) && count($request->floorplan_file_title)>0)):
                     //$floorplan_file = $this->uploadFile($request,'floorplan_file','portfolio/floorplan/'.$request->portfolio_category.'');
 
                     $floorplan_file = $this->multiUploadFiles($request,'floorplan_file','portfolio/floorplan/'.$request->portfolio_category.'');
@@ -249,9 +249,9 @@ class PortfolioController extends Controller
                     //     $floorplan_file = '';
                     // endif;
                     if(count($floorplan_file) > 0):
-                        foreach($floorplan_file as $key => $fpvalue):
+                        foreach($floorplan_file as $fpkey => $fpvalue):
                             if(file_exists($fpvalue)):
-                                PortfolioDetails::create(['portfolio_id'=> $portfolio,'tab_name'=>'FloorPlan','title'=>'Floorplan File','links'=>$fpvalue])->id;
+                                PortfolioDetails::create(['portfolio_id'=> $portfolio,'tab_name'=>'FloorPlan','title'=>$request->floorplan_file_title[$fpkey],'links'=>$fpvalue])->id;
                             endif;
                         endforeach;
                     endif;
@@ -328,7 +328,7 @@ class PortfolioController extends Controller
 
     public function portfolioList(Request $request)
     {
-        $portfolios = Portfolios::where(['status'=>1])->get();
+        $portfolios = Portfolios::where(['status'=>1])->orderBy('id','DESC')->get();
         return view('portfolio.portfolio_list', compact('portfolios'));
     }
 
@@ -615,7 +615,7 @@ class PortfolioController extends Controller
                                 $floorPlanFile = $fps->links;
                             endif;
                             //echo $fps->id.'- Update <br>';
-                            PortfolioDetails::where(['tab_name'=>'FloorPlan','id'=>$fps->id,'portfolio_id'=>$portfolio->id])->update(['portfolio_id'=> $portfolio->id,'links'=>$floorPlanFile]);
+                            PortfolioDetails::where(['tab_name'=>'FloorPlan','id'=>$fps->id,'portfolio_id'=>$portfolio->id])->update(['portfolio_id'=> $portfolio->id,'links'=>$floorPlanFile,'title'=>$request->floorplan_existing_file_update_title[$fpkey]]);
                         else:
                             //echo $fps->id.'- Delete <br>';
                             if(isset($fps->links) && file_exists($fps->links)):
@@ -630,7 +630,7 @@ class PortfolioController extends Controller
                         if(count($floorplanNewFileInsert) > 0):
                             foreach($floorplanNewFileInsert as $key => $fpvalue):
                                 if(isset($fpvalue) && file_exists($fpvalue)):
-                                    PortfolioDetails::create(['portfolio_id'=> $portfolio->id,'tab_name'=>'FloorPlan','title'=>'Floorplan File','links'=>$fpvalue])->id;
+                                    PortfolioDetails::create(['portfolio_id'=> $portfolio->id,'tab_name'=>'FloorPlan','links'=>$fpvalue,'title'=>$request->floorplan_file_title[$fpkey]])->id;
                                 endif;
                             endforeach;
                         endif;
@@ -744,10 +744,12 @@ class PortfolioController extends Controller
 
                 //Design
                 $design  = PortfolioDetails::where(['tab_name'=>'Design','portfolio_id'=>$portfolio->id])->get();
+                
                 if(count($design) > 0):
                     $designWithTabs  = PortfolioDetails::where(['tab_name'=>'Design','option_type'=>'withTabs','portfolio_id'=>$portfolio->id])->get();
                     $designWithOutTabs  = PortfolioDetails::where(['tab_name'=>'Design','option_type'=>'withOutTabs','portfolio_id'=>$portfolio->id])->get();
-
+                    
+                    
                     if(count($designWithTabs) > 0):
                         //$designWithOutTabs = $designWithOutTabs[0];
                         if($request->design_tabs_type == 'withTabs'):
@@ -804,6 +806,7 @@ class PortfolioController extends Controller
                     endif;
 
                     if(count($designWithOutTabs) > 0):
+                        dd($designWithTabs);
                         $designWithOutTabs = $designWithOutTabs[0];
                         if($request->design_tabs_type == 'withTabs'):
                             if(count($request->design_tab_name) > 0):

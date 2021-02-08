@@ -479,7 +479,7 @@ class WebsiteController extends Controller
             mkdir('public/download/portfolio/'.$portfolio_id, 0777, true);
         endif;
 
-        $fileName = 'download/portfolio/'.$portfolio_id.'/Floorplan_documents_'.urlencode($portfolio->project_name).'.zip';
+        $fileName = 'download/portfolio/'.$portfolio_id.'/Floorplan_documents_'.str_replace('+','_',urlencode($portfolio->project_name)).'.zip';
         $floorPlanFilesPath = 'uploads/portfolio/floorplan/'.$portfolio->category_id.'/';
         if ($zip->open(public_path($fileName), ZipArchive::CREATE) === TRUE){
             $files = File::files(public_path($floorPlanFilesPath));
