@@ -55,7 +55,7 @@
 
                         <div class="row">
                             <div class="col-md-12 px-3">
-                                <button type="submit" id="floorPlanBtn" class="btn btn-link btn-red btn-block text-uppercase tss-msb py-10 px-45 my-5 fs-14">inquire more</button>
+                                <button type="submit" id="floorPlanBtn" class="btn btn-link btn-red btn-block text-uppercase tss-msb py-10 px-45 my-5 fs-14">Submit</button>
                             </div>
                         </div>
                     </form>
@@ -132,5 +132,5 @@
 <script>
     
     sentContactMails('contactFormSubmitPopUp', 'contactBtnReportPopUp', 'contactBtnReportMessagePopUp');
-    sentContactMails('floorPlanPopUp', 'floorPlanBtn', 'floorPlanMessagePopUp');
+    sentContactMails('floorPlanPopUp', 'floorPlanBtn', 'floorPlanMessagePopUp','','','Submit');
 </script> 

@@ -1,6 +1,6 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
-    function sentContactMails(formId, btnId, feedbackId=null, downloadFile=null, downloadLink = null){
+    function sentContactMails(formId, btnId, feedbackId=null, downloadFile=null, downloadLink = null,btnName=null){
         $("#"+formId).submit(function(eve){
             eve.preventDefault();
             //alert("+++");
@@ -13,7 +13,11 @@
                 dataType: "JSON",
                 success: function(strMessage) {
                     console.log(strMessage);
-                    $("#"+btnId).text('Inquire more');
+                    if(btnName != null || btnName != ''){
+                        $("#"+btnId).text(btnName);
+                    }else{
+                        $("#"+btnId).text('Inquire more');
+                    }
                     if(strMessage.response == true){
                         swal({
                             //title: "Good job!",
