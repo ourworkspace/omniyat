@@ -114,8 +114,8 @@
                             </ul>
                         </li>
                         <li data-ma5order="ma5-li-5"><a href="{{route('site.contact.us')}}">Contact us</a></li>
-                        <li data-ma5order="ma5-li-6"><a href="javascript:void(0)">Privacy Policy</a></li>
-                        <li data-ma5order="ma5-li-7"><a href="javascript:void(0)">Terms & Conditions</a></li>
+                        <li data-ma5order="ma5-li-6"><a href="{{route('site.privacy.policy')}}">Privacy Policy</a></li>
+                        <li data-ma5order="ma5-li-7"><a href="{{route('site.terms.and.conditions')}}">Terms & Conditions</a></li>
 
                     </ul>
 

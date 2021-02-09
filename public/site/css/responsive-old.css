@@ -1,0 +1,173 @@
+@media screen and (min-width:768px) {
+   
+}
+@media screen and (min-width:992px) {
+    .mobile_div{display: none;}
+}
+ 
+@media screen and (min-width:1100px) {
+    .header .container{max-width: 990px;}
+    .contact_us .container{max-width: 990px;}
+}
+
+@media (min-width: 1440px){
+    .short_details_screen .fp-tableCell .s_desc p.red_txt{font-size: 12px;}
+    .short_details_screen .fp-tableCell .s_desc p.txt{font-size: 22px;}
+/*    .container { width: 1366px; }*/
+    
+    
+}
+
+@media (min-width: 1600px){
+    .short_details_screen .fp-tableCell .s_desc p.red_txt{font-size: 12px;}
+    .short_details_screen .fp-tableCell .s_desc p.txt{font-size: 26px;}
+    .p1_pointer_main .image, .p1_pointer_main .image img{width: 840px;height: 770px;} 
+    .p1_pointer_main.p1_pointer_vector .image, .p1_pointer_main.p1_pointer_vector .image img{
+        width:900px;height: 780px;}
+}
+
+@media (min-width: 1800px){
+    .short_details_screen .fp-tableCell .s_desc p.red_txt{font-size: 12px;}
+    .short_details_screen .fp-tableCell .s_desc p.txt{font-size: 26px;}
+
+    .p1_pointer_main .image, .p1_pointer_main .image img{width: 840px;height: 770px;} 
+    .p1_pointer_main.p1_pointer_vector .image, .p1_pointer_main.p1_pointer_vector .image img{
+    width:1010px;height: 880px;}
+
+    .p2_pointer_main.p2_pointer_vector .image, .p2_pointer_main.p2_pointer_vector .image img{
+    width:747px;height: 916px;}
+}
+@media (min-width: 1600px) and (max-width: 1919px) {
+
+}
+
+@media (min-width: 1440px) and (max-width: 1599px) {
+
+}
+
+@media screen and (max-width:1300px) { 
+
+}
+
+@media screen and (max-width:1200px) { 
+
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+ 
+}
+
+@media (min-width: 1025px) and (max-width: 1199px) {
+
+}
+
+@media screen and (max-width:1100px) { 
+    
+}
+
+@media screen and (min-width:1025px) {
+   
+}
+
+@media screen and (max-width:1024px) {
+    .mouse_home {
+        left: 6px;
+        bottom: 18px;
+        z-index: 99;width: 30px;height: 30px;
+    }
+    .mouse_home img{
+        width: 30px;height: 30px;
+    }
+
+}
+
+@media (min-width:992px) and (max-width:1024px) {
+    
+}
+
+@media screen and (max-width:991px) {
+/*
+    .desktop_view{display: none;}
+    .mobile_header{ padding: 0 15px;position: fixed;}
+    .mobile_header .navbar-brand{height: 60px;padding: 15px 0;}
+    .mobile_header .menu_toggle{display: block;}
+    .mobile_header nav{position: absolute;width: 100%;height:calc(100vh - 60px);background: #333;top:60px;left:-100%;transition: 0.5s;z-index:999;}
+    .mobile_header nav.active{left:0;}
+    .mobile_header nav ul{display: block;text-align: center;}
+    .mobile_header nav ul li a{border-bottom:1px solid rgba(0,0,0,.2);}
+    .mobile_header nav ul li.active ul{position: relative;background: #222;}
+    .mobile_header nav ul li ul li{width:100%;}
+    .mobile_header nav ul li.sub_menu:before{right:24px;}
+    
+    .about_desc_m{width: 100%;float: left;margin-top: 100px;text-align: center;}
+    .about_desc_m p.para{font-size: 6vw;font-weight:400;margin-top: 30px;}
+    .about_desc_m ul{padding: 0;margin: 30px 0 0 0;width: 100%;float: left;}
+    .about_desc_m ul li{display: block;width: 100%;float: left;text-align: center;margin: 20px 0;}
+    .about_desc_m ul li label{font-size: 7vw;font-weight: 500;margin: 0;}
+    .about_desc_m ul li p{font-size: 6vw;font-weight: 400;letter-spacing: 0;}
+    
+    .partners_m{text-align: center;width: 100%;float: left;margin-top: 45px;}
+    .partners_m h2{text-align: center;text-transform: uppercase;font-size: 7vw;font-weight: 400;}
+    .partners_m ul{padding: 0;margin: 30px 0 60px 0;width: 100%;float: left;}
+    .partners_m ul li{display: block;width: 100%;float: left;text-align: center;margin:10px 0;}
+    
+    .contact_m{width: 100%;float: left;margin-top: 45px;}
+    .contact_m h2{text-align: center;text-transform: uppercase;font-size: 7vw;font-weight: 400;margin-bottom: 40px;}
+    .contact_m .panel-title > a:before {float: right !important;font-family: FontAwesome;content:"\f068";padding-right: 5px;font-weight: 100;}
+    .contact_m .panel-title > a.collapsed:before {float: right !important;content:"\f067";}
+    .contact_m .panel-title > a:hover, 
+    .contact_m .panel-title > a:active, 
+    .contact_m .panel-title > a:focus  {text-decoration:none;}
+    
+    .contact_m .panel-default>.panel-heading{background: #c92136;border:0 none;text-transform: uppercase;color: #fff;}
+    .contact_m .panel-default>.panel-heading .panel-title a{font-weight: 600;}
+    .contact_m .panel-default>.panel-heading+.panel-collapse>.panel-body{border-top:0;}
+    .contact_m .panel-default{border-radius: 0;border-color: #c92136;}
+    .contact_m .panel-group .panel{border-radius: 0;margin: 15px 0;}
+    .contact_m .panel-group .panel .form-group .form-control{border-radius: 0;min-height: 40px;border-color: #909090;}
+    .contact_m .panel-group .panel .btn.btn-default{border-radius: 0;background:#c92136;color: #fff;border: 0;padding: 1rem 4rem;text-transform: uppercase;font-weight: 500;}
+    .c_details_m{text-align: left;}
+    .c_details_m h4{font-size: 20px;}
+    .c_details_m p{font-size: 16px;}
+    .followUs_m{text-align: center;}
+    .followUs_m h4{font-size: 20px;}
+    .sociallink a{margin:5px;}
+*/
+    
+    .footer-widget{text-align: center;}
+    .footer-social_icons{text-align: center;}
+    .footer-logo{margin-left: 0;}
+} 
+
+@media (min-width:768px) and (max-width:991px) {
+
+}
+
+@media screen and (max-width:767px) {
+    
+}  
+
+@media screen and (max-width:576px) {
+    .page_footer .newsletter-subscribe h5{text-align: center;}
+    .page_footer .newsletter-subscribe .input-group{display: block;}
+    
+    .page_footer .newsletter-subscribe .input-group input{border-radius: 0;}
+    .page_footer .newsletter-subscribe .input-group .input-group-btn{width: 100%;float: left;}
+    .page_footer .newsletter-subscribe .input-group .btn-red{border-radius: 0;margin-top: 10px;width: 100%;float: left;}
+    
+    .page_footer .footer-bottom .menu li.menu-item{display: block;}
+    .page_footer .footer-bottom .menu li.menu-item::after{content:none;}
+}
+
+@media screen and (max-width:480px) {
+   
+} 
+
+@media screen and (max-width:400px) { 
+     
+}
+
+@media screen and (max-width:359px) { 
+
+    
+}

@@ -17,7 +17,7 @@
             
         </div>
     </section>
-
+    @include('website.layouts.footer')
 </div>
 
 <div class="inner-page mobile_view">
@@ -82,6 +82,7 @@
             </div>
         </section>
     @endif
+    @include('website.layouts.mobile_footer')
 </div>
 
 <script>

@@ -16,9 +16,11 @@
                                 {!! $about_data->description !!}
                                 </div>
                             </div>
+                            @if($about_data->button_text!='' && $about_data->button_url !='')
                             <div class="my-30">
                                 <a href="{{ $about_data->button_url }}" class="btn btn-red-bg btn-auto text-uppercase tss-msb px-45 py-15 fs-12">{{ $about_data->button_text }}</a>
                             </div>
+                            @endif
                         </div>
                         <div class="col-md-6 pl-45" data-aos="fade-left" data-aos-duration="900">
                             <div class="image ">
@@ -40,6 +42,7 @@
                 </div>
             </div>
         </section>
+        @include('website.layouts.footer')
     </div>
     
     <div class="inner-page mobile_view">
@@ -62,7 +65,7 @@
                 <a href="{{ $about_data->button_url }}" class="btn btn-red-bg btn-auto text-uppercase tss-msb px-45 py-15 fs-15">{{ $about_data->button_text }}</a>
             </div>
         </section>
-
+        @include('website.layouts.mobile_footer')
     </div>
     
 @endsection

@@ -25,7 +25,6 @@
                         <div class="card-body">
                             <form action="{{route('contactus.update')}}" enctype="multipart/form-data" class="row" method="post">
                                 {{csrf_field()}}
-                                <div class="col-md-12">
                                     <div class="col-md-12">
                                         <label for="sub_title">Sub Title <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="sub_title" value="{{(isset($sub_title->description) ? $sub_title->description : '') }}" placeholder="Sub Title" required>
@@ -33,8 +32,7 @@
                                             <span class="text-danger">{{ $errors->first('sub_title') }}</span>
                                         @endif
                                     </div>
-                                </div>
-                                <div class="col-md-12">
+
                                     <div class="col-md-12">
                                         <label for="form_title">Form Title <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="form_title" value="{{(isset($form_title->description) ? $form_title->description : '') }}" placeholder="Form Title" required>
@@ -42,10 +40,12 @@
                                             <span class="text-danger">{{ $errors->first('form_title') }}</span>
                                         @endif
                                     </div>
-                                </div>
+
                                 <div class="col-md-12 locationAddressBox">
+                                    <br/>
                                     <h5>Section 1</h5>
-                                    <div class="form-group col-md-12">
+                                    <br/>
+                                    <div class="form-group">
                                         <label for="section1_title">Section Title <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="section1_title" value="{{(isset($location_title->description) ? $location_title->description : '') }}" placeholder="Section Title" required>
                                         @if($errors->has('section1_title'))
@@ -94,8 +94,10 @@
                                 </div>
 
                                 <div class="col-md-12 contactNumberBox">
+                                    <br/>
                                     <h5>Section 2</h5>
-                                    <div class="form-group col-md-12">
+                                    <br/>
+                                    <div class="form-group">
                                         <label for="section2_title">Section Title <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="section2_title" value="{{(isset($contact_title->description) ? $contact_title->description : '') }}" placeholder="Section Title" required>
                                         @if($errors->has('section2_title'))
@@ -144,8 +146,8 @@
                                 </div>
 
                                 <div class="col-md-12 emailBox">
-                                    <!-- <h5>Section 3</h5>
-                                    <div class="form-group col-md-12">
+                                    <label for="section2_title">Emails <span class="text-danger">*</span></label>
+                                    <!-- <div class="form-group col-md-12">
                                         <label for="section3_title">Section Title <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="section3_title" value="{{(isset($email_title->description) ? $facebook->description : '') }}" placeholder="Section Title" required>
                                         @if($errors->has('section3_title'))
@@ -188,8 +190,10 @@
                                 </div>
 
                                 <div class="col-md-12 socialMediaBox">
+                                    <br/>
                                     <h5>Section 3</h5>
-                                    <div class="form-group col-md-12">
+                                    <br/>
+                                    <div class="form-group">
                                         <label for="section4_title">Section Title <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="section4_title" value="{{(isset($social_title->description) ? $social_title->description : '') }}" placeholder="Section Title" required>
                                         @if($errors->has('section4_title'))
@@ -220,14 +224,14 @@
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-12">
-                                            <label for="form_title">Terms & Conditions Text <span class="text-danger">*</span></label>
+                                            <label for="form_title">Sub Link Title 1 <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" name="terms_conditions_title" value="{{(isset($terms_cond->title) ? $terms_cond->title : '') }}" placeholder="Text" required>
                                             @if($errors->has('terms_conditions_title'))
                                                 <span class="text-danger">{{ $errors->first('terms_conditions_title') }}</span>
                                             @endif
                                         </div>
                                         <div class="form-group col-md-12">
-                                            <label for="form_title">Terms & Conditions URL <span class="text-danger">*</span></label>
+                                            <label for="form_title">Sub Link URL 1 <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" name="terms_conditions_url" value="{{(isset($terms_cond->description) ? $terms_cond->description : '') }}" placeholder="URL" required>
                                             @if($errors->has('terms_conditions_url'))
                                                 <span class="text-danger">{{ $errors->first('terms_conditions_url') }}</span>
@@ -236,20 +240,73 @@
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-12">
-                                            <label for="form_title">Privacy Policy Text <span class="text-danger">*</span></label>
+                                            <label for="form_title">Sub Link Title 2<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" name="privacy_policy_title" value="{{(isset($privacy_polocy->title) ? $privacy_polocy->title : '') }}" placeholder="Text" required>
                                             @if($errors->has('privacy_policy_title'))
                                                 <span class="text-danger">{{ $errors->first('privacy_policy_title') }}</span>
                                             @endif
                                         </div>
                                         <div class="form-group col-md-12">
-                                            <label for="form_title">Privacy Policy URL <span class="text-danger">*</span></label>
+                                            <label for="form_title">Sub Link URL 2 <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" name="privacy_policy_url" value="{{(isset($privacy_polocy->description) ? $privacy_polocy->description : '') }}" placeholder="URL" required>
                                             @if($errors->has('privacy_policy_url'))
                                                 <span class="text-danger">{{ $errors->first('privacy_policy_url') }}</span>
                                             @endif
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-md-12 mapLocation">
+                                    <br/>
+                                    <h5>Section 4</h5>
+                                    <br/>
+                                    <div class="form-group">
+                                        <label for="section1_title">Map Locations <span class="text-danger">*</span></label>
+                                    </div>
+                                    @if(isset($map_locations) && count($map_locations) > 0)
+                                        @foreach($map_locations as $key => $mlvalue)
+                                            <div class="row remove_map_exist_div_{{$key}}">
+                                                <div class="col-md-11">
+                                                    <div class="row">
+                                                        <div class="form-group col-md-12">
+                                                            <input type="text" class="form-control" name="location_name[]" required value="{{$mlvalue->location_name}}" placeholder="Location Name">
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <input type="text" class="form-control" name="latitude[]" required value="{{$mlvalue->title}}" placeholder="Latitude">
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <input type="text" class="form-control" name="longitude[]" required value="{{$mlvalue->description}}" placeholder="Longitude">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    @if($key == 0)
+                                                        <a href="javascript:0;" class="btn btn-success location_addBtn add_map_locations"> + </a>
+                                                    @else
+                                                        <a href="javascript:0;" class="btn btn-success location_removeBtn"onclick="removeMapExistDiv({{$key}})"> - </a>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        <div class="row">
+                                            <div class="col-md-11">
+                                                <div class="row">
+                                                    <div class="form-group col-md-12">
+                                                        <input type="text" class="form-control" name="location_name[]" required placeholder="Location Name">
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        <input type="text" class="form-control" name="latitude[]" required placeholder="Latitude">
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        <input type="text" class="form-control" name="longitude[]" required rows="2" placeholder="Longitude">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a href="javascript:0;" class="btn btn-success location_addBtn add_map_locations"> + </a>
+                                            </div>
+                                        </div>
+                                    @endif
                                 </div>
                                 
                                 <div class="form-group col-md-12">
@@ -299,9 +356,9 @@
     addDynamicFields('.email_add', '.emailBox', 2, emailFieldHTML, '.email_remove');
 */
 
-        $(document).ready(function() {
-    var i = 1;
-      $('.add_location').on('click', function() {
+    $(document).ready(function() {
+        var i = 1;
+        $('.add_location').on('click', function() {
         var field1 = '<div class="row remove_div_'+i+'"><div class="col-md-11"><div class="row"><div class="form-group col-md-12"><input type="text" class="form-control" name="locationTitle[]" required placeholder="Title"></div><div class="form-group col-md-12"><textarea class="form-control" name="locationAddress[]" required rows="2" placeholder="Address"></textarea></div></div></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success location_removeBtn"  onclick="removeDiv('+i+')"> - </a></div></div>';
         $('.locationAddressBox').append(field1);
         i = i+1;
@@ -317,6 +374,12 @@
         var field3 = '<div class="row email_remove_div_'+k+'"><div class="col-md-11"><div class="row"><div class="form-group col-md-12"><input type="email" class="form-control" name="emails[]" required placeholder="Email address"></div></div></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success email_remove" onclick="removeEmailDiv('+k+')"> - </a></div></div>';
         $('.emailBox').append(field3);
         k = k+1;
+      });
+      var l = 1;
+        $('.add_map_locations').on('click', function() {
+        var field4 = '<div class="row remove_map_div_'+l+'"><div class="col-md-11"><div class="row"><div class="form-group col-md-12"><input type="text" class="form-control" name="location_name[]" required placeholder="Location Name"></div><div class="form-group col-md-12"><input type="text" class="form-control" name="latitude[]" required placeholder="Latitude"></div><div class="form-group col-md-12"><input type="text" class="form-control" name="longitude[]" required placeholder="Longitude"></div><div class="form-group col-md-12"></div></div></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success location_removeBtn"  onclick="removeMapDiv('+l+')"> - </a></div></div>';
+        $('.mapLocation').append(field4);
+        l = l+1;
       });
          
     })
@@ -338,6 +401,12 @@
     }
     function removeExistEmailDiv(div_id){
         $(".remove_exist_email_div_"+div_id).remove();
+    }
+    function removeMapDiv(div_id){
+        $(".remove_map_div_"+div_id).remove();
+    }
+    function removeMapExistDiv(div_id){
+        $(".remove_map_exist_div_"+div_id).remove();
     }
 </script>
 @endsection

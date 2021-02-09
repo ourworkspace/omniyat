@@ -12,7 +12,7 @@ class OmniyatTCPController extends Controller
     public function PrivacyPolicyIndex(Request $request)
     {
         $privacyPolicy = OmniyatTCP::where('type', 1)->first();
-        print_r($privacyPolicy);exit();
+        //print_r($privacyPolicy);exit();
         if(isset($privacyPolicy) && isset($privacyPolicy->id)):
             return view('cms_pages.privacy_policy_edit', compact('privacyPolicy'));
         else:

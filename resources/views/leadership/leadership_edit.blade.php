@@ -3,7 +3,7 @@
         <h5 class="card-title">Edit Leadership</h5>
     </div>
     <div class="card-body">
-        <form class="row" action="{{route('leadership.update')}}" enctype="multipart/form-data" method="post">
+        <form class="row" action="{{route('leadership.update')}}" enctype="multipart/form-data" method="post" id="form_leadership">
             {{ csrf_field() }}
             <input type="hidden" name="leadershipId" value="{{$leadership->id}}">
             <div class="form-group col-md-12">
@@ -64,3 +64,35 @@
         </form>
     </div>
 </div>
+<script src="{{asset('public/assets/vendors/jquery/validation.min.js')}}"></script>
+<script type="text/javascript">
+        $(document).ready(function(){
+        for (var i in CKEDITOR.instances) {
+            CKEDITOR.instances[i].on('change', function() {
+                if(CKEDITOR.instances.long_description.getData().length >  0) {
+                  $('label[for="long_description"]').hide();
+                }
+            });
+        }
+        
+        $('#form_leadership').validate({
+            ignore: "not:hidden",
+            rules: {
+                leadership_name: {
+                    required: true,
+                    maxlength: 100,
+                },
+                leadership_designation: {
+                    required:true,
+                },
+                long_description: {
+                    required: function() 
+                    {
+                     CKEDITOR.instances.long_description.updateElement();
+                    },
+                }
+            }
+        });
+    });
+
+</script>

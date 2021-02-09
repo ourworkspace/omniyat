@@ -34,6 +34,13 @@ Route::get('/csr_details/{id}/detail', 'WebsiteController@csrdetails')->name('si
 Route::get('/terms_and_conditions', 'WebsiteController@TermsAndConductions')->name('site.terms.and.conditions');
 Route::get('/privacy_policy', 'WebsiteController@PrivacyPolicy')->name('site.privacy.policy');
 
+Route::post('save-subscribe-newsletters','WebsiteController@saveSubscribeNewsLetters')->name('save.subscribe.news.letters');
+Route::get('subscribe-newsletters/verify','WebsiteController@verifySubscribeNewsLetters')->name('verify.subscribe.news.letters');
+Route::post('save-inquireform-details','WebsiteController@saveContactdetails')->name('save.contact.inquire.details');
+Route::get('download/{floorplan_id}/floorplan/files','WebsiteController@floorPlanFilesDownload')->name('download.floorplan.files');
+Route::get('download/{brochure_id}/brochure/files','WebsiteController@brochureFilesDownload')->name('download.brochure.files');
+
+
 route::post('/sponsorship/load_data','WebsiteController@sponsorshiploadmoredata')->name('sponsorship.load.more.data');
 route::post('/whats_on_media/load_data','WebsiteController@whatsonmedialoadmore')->name('whats_on_media.load.more.data');
 route::post('/pressrelease/load_data','WebsiteController@pressreleaseloadmore')->name('press.release.load.more.data');
@@ -216,6 +223,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('sponsorships_delete_image','SponsorshipsController@sponsorshipsDeleteImage')->name('sponsorships.delete.image');
 
         //Contact us
+        Route::get('inquire-details','ContactUsController@inquiredetailsList')->name('inquire.details.list');
+
         Route::get('ContactUs','ContactUsController@contactUsIndex')->name('contactus.index');
         Route::post('ContactUs/saveDetails','ContactUsController@contactUsSave')->name('contactus.save');
         Route::post('ContactUs/updateDetails','ContactUsController@contactUsUpdate')->name('contactus.update');
@@ -246,6 +255,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('leadershipList','LeadershipContoller@leadershipList')->name('leadership.list');
         Route::post('leadershipSave','LeadershipContoller@leadershipSave')->name('leadership.save');
         Route::post('leadershipUpdate','LeadershipContoller@leadershipUpdate')->name('leadership.update');
+
+        Route::post('/leadershipUpdate/updateOrder','LeadershipContoller@leadershipUpdateOrderPage')->name('leadership.list.order.update');
 
         //sub title
         Route::post('sub_title_save','OmniyatTCPController@subTitleSave')->name('sub.title.save');        

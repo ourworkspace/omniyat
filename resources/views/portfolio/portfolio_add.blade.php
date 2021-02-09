@@ -1,9 +1,7 @@
 @extends('layouts.layout')
 @section('page_title','Portfolio : : Omniyat')
 @section('page_content')
-    <?php
-        $textAlignments = ['left-top','left-middle','left-bottom','center-top','center-middle','center-bottom','right-top','right-middle','right-bottom'];
-    ?>
+
     <style>
         #cke_1_contents{
             height: 200px !important;
@@ -42,19 +40,19 @@
                                     @endif
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="ProjectName">Project Name <span class="text-danger">*</span></label>
+                                    <label for="ProjectName">Portfolio Title <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="portfolio_project_name" required>
                                     @if($errors->has('ProjectName'))
                                         <span class="text-danger">{{ $errors->first('ProjectName') }}</span>
                                     @endif
                                 </div>
-                                <div class="form-group col-md-6">
+                                <!--<div class="form-group col-md-6">
                                     <label for="TitleName">Title</label>
                                     <input type="text" class="form-control" name="portfolio_title_name">
                                     @if($errors->has('TitleName'))
                                         <span class="text-danger">{{ $errors->first('TitleName') }}</span>
                                     @endif
-                                </div>
+                                </div>-->
                                 <div class="form-group col-md-6">
                                     <label for="portfolio_project_image">Background Picture <span class="text-danger">*</span></label>
                                     <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="portfolio_project_image" required style="padding: 6px">
@@ -81,14 +79,16 @@
                         </div>
                         <div class="card-body">
                             <div class="row aboutTab">
-                               <div class="form-group col-md-12">
+                                <div class="form-group col-md-12">
                                     <div class="row">
+                                        <!-- <h6 class="col-md-12">Layout Settings</h6> -->
                                         <div class="col-md-6">
                                             <label for="aboutThemeColor">Theme Color <span class="text-danger">*</span></label>
                                             <select class="form-control" required name="about_theme_color">
                                                 <option value="">Select Theme Color</option>
-                                                <option value="dark">Dark Theme</option>
-                                                <option value="light">Light Theme</option>
+                                                @foreach($theme as $key => $value)
+                                                    <option value="{{$key}}">{{$value}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="col-md-6">
@@ -100,8 +100,27 @@
                                                 @endforeach
                                             </select>
                                         </div>
+                                        <div class="col-md-4 form-group">
+                                            <label for="aboutGridPosition">Alignment Position <span class="text-danger">*</span></label>
+                                            <select class="form-control" required name="about_grid_position">
+                                                <option value="">Select Alignment Position</option>
+                                                @foreach($gridAlignmentOptions as $gvalue)
+                                                    <option value="{{strtolower($gvalue)}}">{{$gvalue}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <!-- <div class="col-md-4">
+                                            <label for="aboutThemeColor">Image Alignment <span class="text-danger">*</span></label>
+                                            <select class="form-control" required name="about_image_position">
+                                                <option value="">Select Image Alignment</option>
+                                                @foreach($imageSectionOptions as $key => $isovalue)
+                                                    <option value="{{$isovalue}}">{{$isovalue}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div> -->
                                     </div>
                                 </div>
+                                <!-- <hr style="width:97%;margin-top: 2px;"> -->
                                 <div class="form-group col-md-12">
                                     <label for="TitleName">Title <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" required name="about_title_name">
@@ -164,8 +183,9 @@
                                             <label for="locationThemeColor">Theme Color <span class="text-danger">*</span></label>
                                             <select class="form-control" required name="location_theme_color">
                                                 <option value="">Select Theme Color</option>
-                                                <option value="dark">Dark Theme</option>
-                                                <option value="light">Light Theme</option>
+                                                @foreach($theme as $key => $value)
+                                                    <option value="{{$key}}">{{$value}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="col-md-6">
@@ -191,6 +211,13 @@
                                     <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="location_background_picture" required style="padding: 6px">
                                     @if($errors->has('location_background_picture'))
                                         <span class="text-danger">{{ $errors->first('location_background_picture') }}</span>
+                                    @endif
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="Logo">Location icon </label>
+                                    <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="location_icon_image" style="padding: 6px">
+                                    @if($errors->has('location_icon_image'))
+                                        <span class="text-danger">{{ $errors->first('location_icon_image') }}</span>
                                     @endif
                                 </div>
                                 <div class="form-group col-md-12">
@@ -248,13 +275,13 @@
                                     });
                                 </script>
                             </div>
-                            <div class="form-group col-md-12">
+                            <!-- <div class="form-group col-md-12">
                                 <label for="design_gallery_images">Gallery Images</label>
                                 <input type="file" class="form-control fileInput4" accept=".jpg,.png,.jpeg" name="design_gallery_images[]" style="padding: 6px" multiple>
                                 @if($errors->has('design_gallery_images'))
                                     <span class="text-danger">{{ $errors->first('design_gallery_images') }}</span>
                                 @endif
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -271,6 +298,13 @@
                                     <input type="text" class="form-control" required name="amenities_facilities_title_name">
                                     @if($errors->has('amenities_facilities_title_name'))
                                         <span class="text-danger">{{ $errors->first('amenities_facilities_title_name') }}</span>
+                                    @endif
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="amenities_facilities_logo">Logo Image</label>
+                                    <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="amenities_facilities_logo" style="padding: 6px" id="amenities_facilities_logo">
+                                    @if($errors->has('amenities_facilities_logo'))
+                                        <span class="text-danger">{{ $errors->first('amenities_facilities_logo') }}</span>
                                     @endif
                                 </div>
                                 <div class="col-md-12 form-group">
@@ -320,19 +354,19 @@
                         <div class="card-body">
                             <div class="row lifeStyleTab">
                                <div class="form-group col-md-12">
-                                    <label for="TitleName">Title <span class="text-danger">*</span></label>
+                                    <label for="lifeStyle_title_name">Title <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" required name="lifeStyle_title_name">
-                                    @if($errors->has('TitleName'))
-                                        <span class="text-danger">{{ $errors->first('TitleName') }}</span>
+                                    @if($errors->has('lifeStyle_title_name'))
+                                        <span class="text-danger">{{ $errors->first('lifeStyle_title_name') }}</span>
                                     @endif
                                 </div>
-                                <div class="form-group col-md-12">
+                                <!-- <div class="form-group col-md-12">
                                     <label for="lifeStyleLogo">Logo Image</label>
                                     <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="lifeStyle_logo" style="padding: 6px" multiple>
                                     @if($errors->has('lifeStyleLogo'))
                                         <span class="text-danger">{{ $errors->first('lifeStyleLogo') }}</span>
                                     @endif
-                                </div>
+                                </div> -->
                                 <div class="form-group col-md-12">
                                     <label for="lifeStyleDescription">Description</label>
                                     <textarea class="form-control" rows="6" id="lifeStyleDescription" name="lifeStyle_description"></textarea>
@@ -343,13 +377,50 @@
                                         <span class="text-danger">{{ $errors->first('lifeStyleDescription') }}</span>
                                     @endif
                                 </div>
-                                <div class="form-group col-md-12">
+                                <!-- <div class="form-group col-md-12">
                                     <label for="lifeStyleSliderImages">Slider Images</label>
                                     <input type="file" class="form-control fileInput4" accept=".jpg,.png,.jpeg" name="lifeStyle_slider_images[]" style="padding: 6px" multiple>
                                     @if($errors->has('lifeStyleSliderImages'))
                                         <span class="text-danger">{{ $errors->first('lifeStyleSliderImages') }}</span>
                                     @endif
+                                </div> -->
+                                <div class="form-group col-md-12">
+                                    <label for="lifeStyle_slider_images">Image </label>
+                                    <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="lifeStyle_slider_images" style="padding: 6px" id="design_gallery_images">
+                                    @if($errors->has('lifeStyle_slider_images'))
+                                        <span class="text-danger">{{ $errors->first('lifeStyle_slider_images') }}</span>
+                                    @endif
                                 </div>
+
+                                
+                                <div class="col-md-12 addMoreLifestyleTabsFields">
+                                    <!-- <div class="row">
+                                        <div class="col-md-11">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Tab Name" name="lifestyle_tab_name[]">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Title" name="lifestyle_tab_title_name[]">
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea class="form-control" rows="6" id="lifestyleDescription_0" name="lifestyle_tab_description[]" placeholder="Description"></textarea>
+                                                <script>
+                                                    CKEditorChange('lifestyleDescription_0','myconfigText.js');
+                                                </script>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="lifestyle_gallery_tab_images">Image </label>
+                                                <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="lifestyle_gallery_tab_images[]" style="padding: 6px" id="lifestyle_gallery_tab_images">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <a href="javascript:0;" class="btn btn-success lifestyleTabAddmoreBtn"> + </a>
+                                        </div>
+                                    </div> -->
+                                </div>
+                                <div class="col-md-12"><a href="javascript:0;" class="btn btn-success lifestyleTabAddmoreBtn"> Add tab </a></div>
+                               
+                                
                             </div>
                         </div>
                     </div>
@@ -403,8 +474,9 @@
                                             <label for="enquireThemeColor">Theme Color <span class="text-danger">*</span></label>
                                             <select class="form-control" required name="enquire_theme_color">
                                                 <option value="">Select Theme Color</option>
-                                                <option value="dark">Dark Theme</option>
-                                                <option value="light">Light Theme</option>
+                                                @foreach($theme as $key => $value)
+                                                    <option value="{{$key}}">{{$value}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="col-md-6">
@@ -419,8 +491,8 @@
                                     </div>
                                 </div>
                                <div class="form-group col-md-12">
-                                    <label for="enquireBackgroundImage">Background Picture</label>
-                                    <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="enquire_background_image" style="padding: 6px">
+                                    <label for="enquireBackgroundImage">Background Picture <span class="text-danger">*</span></label>
+                                    <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="enquire_background_image" style="padding: 6px" required>
                                     @if($errors->has('enquireBackgroundImage'))
                                         <span class="text-danger">{{ $errors->first('enquireBackgroundImage') }}</span>
                                     @endif
@@ -433,7 +505,7 @@
                 <div class="col-lg-12 col-md-12 mb-3">
                     <div class="d-flex card">
                         <div class="card-header">
-                            <h5 class="card-title">Vitual Tour</h5>
+                            <h5 class="card-title">Virtual Tour</h5>
                         </div>
                         <div class="card-body">
                             <div class="row vitualTourTab">
@@ -442,10 +514,10 @@
                                         <div class="col-md-11">
                                             <div class="row">
                                                 <div class="form-group col-md-12">
-                                                    <input type="text" class="form-control" name="vitual_tour_title[]" required placeholder="Title">
+                                                    <input type="text" class="form-control" name="vitual_tour_title[]" placeholder="Title">
                                                 </div>
                                                 <div class="form-group col-md-12">
-                                                    <input type="url" class="form-control" name="vitual_tour_url[]" required placeholder="Link">
+                                                    <input type="url" class="form-control" name="vitual_tour_url[]"  placeholder="Link">
                                                 </div>
                                             </div>
                                         </div>
@@ -462,12 +534,26 @@
                 <div class="col-lg-12 col-md-12 mb-3">
                     <div class="d-flex card">
                         <div class="card-header">
-                            <h5 class="card-title">Floor Plan <small>(upload only pdf file)</small></h5>
+                            <h5 class="card-title">Floor Plan <small>(upload only pdf files)</small></h5>
                         </div>
                         <div class="card-body">
                             <div class="row floorPlanTab">
-                                <div class="form-group col-md-12">
-                                    <input type="file" class="form-control" style="padding: 6px" name="floorplan_file" accept=".pdf">
+                                <div class="col-md-12 floorPlanTabFields">
+                                    <div class="row">
+                                        <div class="col-md-11">
+                                            <div class="row">
+                                                <div class="form-group col-md-12">
+                                                    <input type="text" class="form-control" name="floorplan_file_title[]" placeholder="Title">
+                                                </div>
+                                                <div class="form-group col-md-12">
+                                                    <input type="file" class="form-control" style="padding: 6px" name="floorplan_file[]" accept=".pdf">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <a href="javascript:0;" class="btn btn-success floorPlanTabAddmoreBtn"> + </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -485,18 +571,21 @@
                                     <input type="file" class="form-control" style="padding: 6px" name="brochure_file" accept=".pdf">
                                 </div>
 
-                                <div class="form-group col-md-12">
-                                    <input type="submit" value="Save" class="btn btn-success pull-left">
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <input type="submit" value="Save" class="btn btn-success pull-left">
                 </div>
 
             </form>
         </div>
     </div>
 <script>
+
     function addDynamicFieldsProject(addButtonClass, fieldWrapper, numFields, fieldHTML, removeButtonClass){
         var maxField = numFields; //Input fields increment limitation
         var addButton = $(addButtonClass); //Add button selector
@@ -526,8 +615,38 @@
     var vitualTourAddFields  =  '<div class="row"><div class="col-md-11"><div class="row"><div class="form-group col-md-12"><input type="text" class="form-control" name="vitual_tour_title[]" required placeholder="Title"></div><div class="form-group col-md-12"><input type="url" class="form-control" name="vitual_tour_url[]" required placeholder="Link"></div></div></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success vitualTourRemove"> - </a></div></div>';
     addDynamicFieldsProject('.vitualTourAddMore', '.vitualTourBox', 5, vitualTourAddFields, '.vitualTourRemove');
 
-    var amtFtsFieldsSet = '<div class="row"><div class="col-md-11"><div class="row"><div class="form-group col-md-12"><input type="text" class="form-control" name="amenities_facilities_amenities[]" placeholder="Amenity Name"></div></div></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success amtFtsRemove"> - </a></div></div>';
+    var amtFtsFieldsSet = '<div class="row"><div class="col-md-11"><div class="row"><div class="form-group col-md-12"><input type="text" class="form-control" name="amenities_facilities_amenities[]" required placeholder="Amenity Name"></div></div></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success amtFtsRemove"> - </a></div></div>';
     addDynamicFieldsProject('.amtFtsAddMore', '.amenitiesTextBox', 0, amtFtsFieldsSet, '.amtFtsRemove');
+
+    var floorPlanFileds = '<div class="row"><div class="col-md-11"><div class="row"><div class="form-group col-md-12"><input type="text" class="form-control" name="floorplan_file_title[]" placeholder="Title"></div><div class="form-group col-md-12"><input type="file" class="form-control" style="padding: 6px" name="floorplan_file[]" accept=".pdf"></div></div></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success floorPlanTabRemoveBtn"> - </a></div></div>';
+    addDynamicFieldsProject('.floorPlanTabAddmoreBtn', '.floorPlanTabFields', 0, floorPlanFileds, '.floorPlanTabRemoveBtn');
+
+    var lifestylemaxField = 0; //Input fields increment limitation
+    var lifestyleaddButton = $('.lifestyleTabAddmoreBtn'); //Add button selector
+    var lifestylewrapper = $('.addMoreLifestyleTabsFields'); //Input field wrapper
+    var tabx = 1;
+    function lifestyleTabsFields(tabx){
+        var lifestyleFieldHTML = '<div class="row mt-3"><div class="col-md-11"><div class="form-group"><input type="text" class="form-control" placeholder="Tab Name" name="lifestyle_tab_name[]"></div><div class="form-group"><input type="text" class="form-control" placeholder="Title" name="lifestyle_tab_title_name[]"></div><div class="form-group"><textarea class="form-control" rows="6" id="lifestyleDescription_0'+tabx+'" name="lifestyle_tab_description[]" placeholder="Description"></textarea></div><div class="form-group"><label for="lifestyle_gallery_tab_images">Image <span class="text-danger">*</span></label><input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="lifestyle_gallery_tab_images[]" style="padding: 6px" required id="lifestyle_gallery_tab_images"></div></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success lifestyleTabRemoveBtn"> - </a></div></div>'; //New input field html
+        return lifestyleFieldHTML;
+    }
+    //Once add button is clicked
+    $(lifestyleaddButton).click(function(){
+        //Check maximum number of input fields
+        //if(x < maxField){ 
+            tabx++; //Increment field counter
+            var dhtml = lifestyleTabsFields(tabx);
+            $(lifestylewrapper).append(dhtml); //Add field html
+            CKEditorChange('lifestyleDescription_0'+tabx,'myconfigText.js');
+        //}
+    });
+    
+    //Once remove button is clicked
+    $(lifestylewrapper).on('click', '.lifestyleTabRemoveBtn', function(e){
+        e.preventDefault();
+        $(this).parent().parent().remove(); //Remove field html
+        tabx--; //Decrement field counter
+    });
+    //addDynamicFieldsProject('.lifestyleTabAddmoreBtn', '.addMoreLifestyleTabsFields', 0, lifestyleFieldHTML, '.lifestyleTabRemoveBtn');
 
 </script>
 @endsection

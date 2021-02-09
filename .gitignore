@@ -1,6 +1,8 @@
 /node_modules
-/public/
 /public/hot
+/public/assets/
+/public/uploads/
+/public/site/*.html
 /public/storage
 /storage/*.key
 /vendor
@@ -11,4 +13,9 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 .env
+storage/uploads
+/public/site/*.php
+/public/site/backup_2020_31/
+/public/site/documents/
+/public/site/back_html/
 /public_vendor.zip

@@ -2,8 +2,11 @@
 @section('page_title','PressReleases : : Omniyat')
 @section('page_content')
     <style>
-        #cke_1_contents{
+        /*#cke_1_contents{
             height: 200px !important;
+        }*/
+        label.error{
+            color: red !important;
         }
     </style>
     <!-- <div class="row page-title-header">
@@ -21,7 +24,7 @@
                     <h5 class="card-title">Edit Press Releases</h5>
                 </div>
                 <div class="card-body">
-                    <form class="row" action="{{route('press.kit.update')}}" enctype="multipart/form-data" method="post">
+                    <form class="row" action="{{route('press.kit.update')}}" enctype="multipart/form-data" method="post" id="press_kit_form">
                         {{ csrf_field() }}
                         <input type="hidden" value="{{$PressKit->id}}" name="Id">
                         <div class="form-group col-md-12">
@@ -47,7 +50,7 @@
                             @if(isset($PressKit->thumb_image) && file_exists($PressKit->thumb_image))
                                 <div class="row">
                                     <div class="col-md-10 mt-2">
-                                        <label>Thumb Image </label>
+                                        <label>Thumb Image <span class="text-danger">*</span></label>
                                         <input type="file" name="thumb_image" style="padding: 6px" class="form-control">
                                     </div>
                                     <div class="col-md-2">
@@ -70,7 +73,7 @@
                             @if(isset($PressKit->large_image) && file_exists($PressKit->large_image))
                                 <div class="row">
                                     <div class="col-md-10 mt-2">
-                                        <label>large Image </label>
+                                        <label>large Image <span class="text-danger">*</span></label>
                                         <input type="file" name="large_image" style="padding: 6px" class="form-control">
                                     </div>
                                     <div class="col-md-2">
@@ -91,7 +94,7 @@
                             @if(isset($PressKit->pdf_file) && file_exists($PressKit->pdf_file))
                                 <div class="row">
                                     <div class="col-md-11 mt-2">
-                                        <label>Upload Document </label>
+                                        <label>Upload Document <span class="text-danger">*</span></label><span class="pull-right">{{substr($PressKit->pdf_file, strrpos($PressKit->pdf_file, '/') + 1)}}</span>
                                         <input type="file" name="document_pdf" accept="" style="padding: 6px" class="form-control">
                                     </div>
                                     <div class="col-md-1 pt-4">
@@ -116,4 +119,25 @@
             </div>      
         </div>
     </div>
+    <script src="{{asset('public/assets/vendors/jquery/validation.min.js')}}"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        
+        
+        $('#press_kit_form').validate({
+            ignore: "not:hidden",
+            rules: {
+                categoryId: {
+                    required: true,
+                },
+                title: {
+                    required:true,
+                }
+                /*long_description: {
+                    required:true,
+                }*/
+            }
+        });
+    });
+</script> 
 @endsection

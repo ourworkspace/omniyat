@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{asset('public/site/css/mobile.css')}}" />
     <link rel="stylesheet" href="{{asset('public/site/css/dynamic.css')}}" />
     <script src="{{asset('public/site/js/jquery-2.2.0.min.js')}}"></script>
+    @include('website.layouts.inquire_script')
 </head>
 <body>
 

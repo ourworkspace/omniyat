@@ -1,0 +1,302 @@
+body {
+	background-color: #FFFFFF;
+	font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+.navbar-brand {
+	padding: 0;
+}
+.main-container {
+	background-size: cover;
+	min-height:100vh;
+}
+/* navbar-row-container */
+.navbar-row-container {
+	position: fixed;
+	z-index: 99;
+	width: 100%;
+}
+
+.p1-top-banner-text {
+	position: absolute;
+	left: 0;
+	top: 65px;
+	width: 100%;
+	text-align: center;
+}
+.p1-top-banner-text.masterhead h1 {
+  font-family: "Varela Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 0.8rem;
+  line-height: 1.5rem;
+  color:#504e4e;
+  font-weight: bold;
+}
+.p1-top-banner-text.masterhead h2 {
+	font-size: 0.8em;
+	color:#504e4e;1
+	line-height: normal;
+  line-height: 1.5rem;
+}
+.p1-top-banner-text.masterhead h2 span {
+	display: block;
+}
+
+.section1, .p1-banner-section {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	opacity: 1;
+	background-position: 0px 65px;
+	background-repeat: no-repeat;
+}
+
+.section2, .p1-logo-bg-section {
+	z-index: 1040;
+}
+
+.logo-section, .p1-logo-section {
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%) scale(100);
+	opacity: 1;
+	visibility: hidden;
+	z-index: 1041;
+}
+.inner-logo1 {
+}
+.p1-logo-text-section {
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%) scale(0.2);
+	opacity: 1;
+	visibility: hidden;
+	z-index: 1042;
+}
+
+.p1-project-places-data-section {
+	left: 50%;
+	bottom: 0%;
+	transform: translate(-50%, 0%);
+	z-index: 1043;
+	visibility: hidden;
+}
+.p1-project-places-data-section .p1-project-places-data-section-image {
+	
+}
+
+.p1-project-transparent-data-section {
+	width: 100%;
+	left: 50%;
+	bottom: 0%;
+	transform: translate(-50%, 0%);
+	z-index: 1044;
+	text-align: center;
+	min-height: calc(100vh + 100vh);
+	visibility: hidden;
+}
+.p1-project-transparent-data-section .p1-project-transparent-data-section-image-container {
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	transform: translateX(-50%);
+}
+
+/* points */
+.p1_pointer_main {}
+.p1_pointer_main .image .point{position: absolute;display: inline-block;}
+.p1_pointer_main .image .point::after{content: '';width: 12px;height: 12px;background:#fff;position: absolute;border-radius: 50%;;box-shadow: 0 0 0 rgba(255,255,255, 0.9);animation: pulse 2s infinite;}
+.p1_pointer_main .image .point .desc{position: absolute;line-height: 1;font-size: 11px;color: #000;text-transform: uppercase;font-weight: 600;}
+.p1_pointer_main .image .point .line{position: absolute;height: 1px;background:#b5b5b5;}
+.p1_pointer_main .image .point .line::after{content: '';width: 9px;height: 9px;position: absolute;background: #b5b5b5;border-radius: 50%;}
+
+.p1_pointer_main .image .point1{left:8%;top: 12%;}
+.p1_pointer_main .image .point1 .desc1{left: -224px;top: 14px;line-height: 1;max-width: 170px;text-align: center;}
+.p1_pointer_main .image .point1 .line1 {width: 150px;left: -150px;top: 5px;}
+.p1_pointer_main .image .point1 .line1::after{left: 0;top: -4px;}
+
+.p1_pointer_main .image .point2{left: 3%;top: 29%;}
+.p1_pointer_main .image .point2 .desc2{left: -230px;top: 20px;line-height: 1;max-width: 170px;text-align: center;}
+.p1_pointer_main .image .point2 .line2 {width: 150px;left: -150px;top: 5px;}
+.p1_pointer_main .image .point2 .line2::after{left: 0;top: -4px;}
+
+/*.p1_pointer_main .image .point3{left: 10%;top: 85%;}*/
+.p1_pointer_main .image .point3{left: 10%;top: 79%;}
+.p1_pointer_main .image .point3 .desc3{left: -271px;bottom: -58px;line-height: 1;max-width: 170px;text-align: center;top: auto;}
+.p1_pointer_main .image .point3 .line3 {width: 180px;left: -180px;top: 5px;}
+.p1_pointer_main .image .point3 .line3::after{left: 0;top: -4px;}
+
+.p1_pointer_main .image .point4{right: 10%;top: 15%;}
+.p1_pointer_main .image .point4 .desc4{right: -240px;top: 14px;line-height: 1;max-width: 170px;text-align: center;}
+.p1_pointer_main .image .point4 .line4 {width: 160px;right: -160px;top: 5px;}
+.p1_pointer_main .image .point4 .line4::after{right: 0;top: -4px;}
+
+.p1_pointer_main .image .point5{right: 10%;top: 64%;}
+.p1_pointer_main .image .point5 .desc5{right: -224px;top: 14px;line-height: 1;max-width: 170px;text-align: center;}
+.p1_pointer_main .image .point5 .line5 {width: 170px;right: -170px;top: 5px;}
+.p1_pointer_main .image .point5 .line5::after{right: 0;top: -4px;}
+
+/*.p1_pointer_main .image .point6{right: 7%;top: 85%;}*/
+.p1_pointer_main .image .point6{right: 7%;top: 75%;}
+.p1_pointer_main .image .point6 .desc6{right: -172px;bottom:-42px;line-height: 1;max-width: 170px;text-align: center;}
+.p1_pointer_main .image .point6 .line6 {width: 150px;right: -150px;top: 5px;}
+.p1_pointer_main .image .point6 .line6::after{right: 0;top: -4px;}
+
+
+/* p1 transparent image points */
+.p1_pointer_vector {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+.p1_pointer_vector .image .point {
+	position: absolute;
+    display: inline-block;
+}
+.p1_pointer_vector .image .point .line {
+    position: absolute;
+    height: 1px;
+    background: #b5b5b5;
+	left: 0;
+	top: 0;
+	width: 90px;
+}
+.p1_pointer_vector .image .pointThumbnailImage {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 130px;
+}
+.p1_pointer_vector .image .pointThumbnailImage img {
+	max-width: 100%;
+}
+.p1_pointer_vector .image .point .desc {
+    position: absolute;
+    line-height: 1;
+    font-size: 11px;
+    color: #000;
+    text-transform: uppercase;
+    font-weight: 600;
+	width: 150px;
+	text-align: left;
+	left: 0;
+	top: 0;
+}
+.p1_pointer_vector .image .point::after {
+	width: 0;
+	height: 0;
+}
+.p1_pointer_vector .image .point1 {
+	left: 8%;
+	top: 7%;
+}
+.p1_pointer_vector .image .point1 .line {
+	left: 0;
+	top: 0;
+}
+.p1_pointer_vector .image .point1 .desc {
+	left: 25px;
+	bottom: 8px;
+	top: auto;
+}
+.p1_pointer_vector .image .thumbnailImage1 {
+	left: 21%;
+	top: 9%;
+}
+.p1_pointer_vector .image .point2 {
+	left: 21%;
+	top: 43%;
+	bottom: auto;
+}
+.p1_pointer_vector .image .point2 .line {
+	left: 10px;
+	top: 0;
+}
+.p1_pointer_vector .image .point2 .desc {
+	left: -27px;
+    bottom: 8px;
+    top: auto;
+}
+.p1_pointer_vector .image .point2 .line::after {
+	left: auto;
+	right: 0;
+}
+.p1_pointer_vector .image .thumbnailImage2 {
+	left: -2%;
+	top: 45%;
+	width: 190px;
+}
+
+.p1_pointer_vector .image .point3 {
+	left: auto;
+	top: auto;
+	right: 19%;
+	bottom: 68%;
+}
+.p1_pointer_vector .image .point3 .desc {
+	left: 32px;
+	top: auto;
+	bottom: 10px;
+}
+.p1_pointer_vector .image .thumbnailImage3 {
+	left: auto;
+	top: auto;
+	bottom: 53%;
+	right: -8%;
+}
+
+.p1_pointer_vector .image .point4 {
+	right: 118px;
+	top: auto;
+	bottom: 74px;
+}
+.p1_pointer_vector .image .point4 .line {
+	left: auto;
+	right: 0;
+}
+.p1_pointer_vector .image .point4 .line::after {
+	left: 0;
+	right: auto;
+}
+.p1_pointer_vector .image .point4 .desc {
+	top: -68px;
+}
+.p1_pointer_vector .image .thumbnailImage4 {
+	left: auto;
+	top: auto;
+	bottom: 11%;
+	right: -2%;
+}
+.p1_pointer_vector .explore_link {
+	position: absolute;
+	left: 50%;
+	bottom: 4%;
+	transform: translateX(-50%);
+	text-transform: uppercase;
+}
+.p1_pointer_vector .explore_link a {
+	color: #000;
+	font-size: 12px;
+}
+.p1_pointer_vector .explore_link a:hover, 
+.p1_pointer_vector .explore_link a:visited, 
+.p1_pointer_vector .explore_link a:focus {
+	outline: none;
+	text-decoration: none;
+}
+
+/* utils */
+.bg-size-cover {
+	background-size: cover;
+}
+.min-h-100vh {
+	min-height: 100vh;
+}
+.white-bg {
+	background-color: #FFFFFF;
+}
+.transparent-bg {
+	background-color: transparent;
+}
