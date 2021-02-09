@@ -50,7 +50,7 @@
                                 <!-- <span>Invest</span><br>
                                 <span>Manage</span><br>
                                 <span>Develop</span> -->
-                                {{$philosophy_data->title_3}}
+                                {!! str_replace(',', ' ', $philosophy_data->title_3) !!}
                             </h1>
                         </div>
                         <div class="col-md-6 pl-30 right d_description" data-aos="fade-left" data-aos-duration="900">
@@ -108,7 +108,7 @@
             <div class="row">
                 <div class="col-md-12 px-20">
                     <h2 class="tss-text-black text-uppercase fs-34 my-10 tss-optima text-center tss-lh-1-4">
-                        {!! str_replace(' ', '<br>', $philosophy_data->title_3) !!}</h2>
+                        test {!! str_replace(',', '<br>', $philosophy_data->title_3) !!}</h2>
                     <div class="m_description">{!!$philosophy_data->description_3 !!}</div>
                 </div>
             </div>

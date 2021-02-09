@@ -60,12 +60,20 @@
             </div>
             <br/>
             &nbsp;&nbsp;&nbsp;<h4 style="padding-top: 30px;padding-bottom: 15px;">Section 3</h4>
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-12 title3Box">
                 <label>Title <span class="text-danger">*</span></label>
-                <input type="text" name="title_3" class="form-control">
-                @if($errors->has('title_3'))
-                    <span class="text-danger">{{ $errors->first('title_3') }}</span>
-                @endif
+                <div class="row">
+                    <div class="col-md-11">
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <input type="text" class="form-control" name="title_3[0]" id="tit_0" required placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <a href="javascript:0;" class="btn btn-success title_3_add"> + </a>
+                    </div>
+                </div>
             </div>
             <div class="form-group col-md-12">
                 <label>Description <span class="text-danger">*</span></label>
@@ -183,8 +191,9 @@
                 image_2_2: {
                     required: true
                 },
-                title_3: {
-                    required: true
+                'title_3[]': {
+                    required: true,
+                    maxlength: 10
                 },
                 title_4_1: {
                     required: true
@@ -195,5 +204,13 @@
             }
         });
     });
-
+    var k = 1;
+    $('.title_3_add').on('click', function() {
+        var field3 = '<div class="row title_3_remove_div_'+k+'"><div class="col-md-11"><div class="row"><div class="form-group col-md-12"><input type="text" class="form-control" name="title_3['+k+']" id="tit_'+k+'" required placeholder=""></div></div></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success email_remove" onclick="removeTitle3Div('+k+')"> - </a></div></div>';
+        $('.title3Box').append(field3);
+        k = k+1;
+    });
+    function removeTitle3Div(div_id){
+        $(".title_3_remove_div_"+div_id).remove();
+    }
 </script>
