@@ -24,12 +24,12 @@ class PortfolioController extends Controller
 
     public function __construct()
     {
-        $this->textAlignments = ['left-top','left-middle','left-bottom','center-top','center-middle','center-bottom','right-top','right-middle','right-bottom'];
+        $this->textAlignments = ['left-top'=>'Top Left','left-middle'=>'Middle Left','left-bottom'=>'Bottom Left','center-top'=>'Top Center','center-middle'=>'Middle Center','center-bottom'=>'Bottom Center','right-top'=>'Top Right','right-middle'=>'Middle Right','right-bottom'=>'Bottom Right'];
         $this->theme = ['dark'=>'Dark Theme','light'=>'Light Theme'];
 
         $this->imageSectionOptions = ['full-width','left-bottom','right-bottom'];
         $this->gridColums = ['col-md-1','col-md-2','col-md-3','col-md-4','col-md-5','col-md-6','col-md-7','col-md-8','col-md-9','col-md-10','col-md-11','col-md-12'];
-        $this->gridAlignmentOptions = ['Pull-left','Pull-right','col-centered'];
+        $this->gridAlignmentOptions = ['pull-left'=>'Middle Left','pull-right'=>'Middle Right','col-centered'=>'Middle Center'];
         $this->gridContainerPositions = ['container-vertical-middle','container-vertical-left-top','container-vertical-left-bottom','container-vertical-left-middle','container-vertical-right-top','container-vertical-right-bottom','container-vertical-right-middle'];
     }
 
