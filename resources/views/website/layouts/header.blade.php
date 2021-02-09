@@ -7,6 +7,7 @@
             </a>
         </div>
         <ul class="nav navbar-nav navbar-right">
+            <!--<li><button class="hamburger">Toggle</button></li>-->
             <li>
                 <div id="hamburger">
                   <span></span>
