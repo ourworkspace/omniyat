@@ -24,12 +24,20 @@ class PortfolioController extends Controller
 
     public function __construct()
     {
-        $this->textAlignments = ['left-top'=>'Top Left','left-middle'=>'Middle Left','left-bottom'=>'Bottom Left','center-top'=>'Top Center','center-middle'=>'Middle Center','center-bottom'=>'Bottom Center','right-top'=>'Top Right','right-middle'=>'Middle Right','right-bottom'=>'Bottom Right'];
+        $this->gridAlignmentOptions = ['pull-left'=>'Middle Left','pull-right'=>'Middle Right','col-centered'=>'Middle Center'];
         $this->theme = ['dark'=>'Dark Theme','light'=>'Light Theme'];
+
+
+        //$this->textAlignments = ['left-top'=>'Top Left','left-middle'=>'Middle Left','left-bottom'=>'Bottom Left','center-top'=>'Top Center','center-middle'=>'Middle Center','center-bottom'=>'Bottom Center','right-top'=>'Top Right','right-middle'=>'Middle Right','right-bottom'=>'Bottom Right'];
+
+        $this->textAlignments = ['container-vertical-left-top'=>'Top Left','container-vertical-left-middle'=>'Middle Left','container-vertical-left-bottom'=>'Bottom Left','container-vertical-middle'=>'Middle Center','container-vertical-right-top'=>'Top Right',
+        'container-vertical-right-middle'=>'Middle Right','container-vertical-right-bottom'=>'Bottom Right'];
+
 
         $this->imageSectionOptions = ['full-width','left-bottom','right-bottom'];
         $this->gridColums = ['col-md-1','col-md-2','col-md-3','col-md-4','col-md-5','col-md-6','col-md-7','col-md-8','col-md-9','col-md-10','col-md-11','col-md-12'];
-        $this->gridAlignmentOptions = ['pull-left'=>'Middle Left','pull-right'=>'Middle Right','col-centered'=>'Middle Center'];
+        
+
         $this->gridContainerPositions = ['container-vertical-middle','container-vertical-left-top','container-vertical-left-bottom','container-vertical-left-middle','container-vertical-right-top','container-vertical-right-bottom','container-vertical-right-middle'];
     }
 
@@ -229,7 +237,7 @@ class PortfolioController extends Controller
                     if(isset($enquireImage) && !file_exists($enquireImage)):
                         $enquireImage = '';
                     endif;
-                    PortfolioDetails::create(['portfolio_id'=> $portfolio,'tab_name'=> 'Enquire','theme_color'=>$request->enquire_theme_color,'text_alignment'=>$request->enquire_text_alignment,'background_image'=>$enquireImage,])->id;
+                    PortfolioDetails::create(['portfolio_id'=> $portfolio,'tab_name'=> 'Enquire','theme_color'=>$request->enquire_theme_color,'text_alignment'=>$request->enquire_text_alignment,'background_image'=>$enquireImage,'grid_position'=>$request->enquire_grid_position])->id;
                 endif;
 
                 //Vitual Tour
@@ -461,7 +469,7 @@ class PortfolioController extends Controller
                             $location_icon_image = $location->icon_image;
                         endif;
 
-                        $location = PortfolioDetails::where(['tab_name'=>'Location','id'=>$location->id,'portfolio_id' => $portfolio->id])->update(['theme_color' => $request->location_theme_color,'text_alignment' => $request->location_text_alignment,'background_image' => $location_background_picture,'title' => $request->location_title_name, 'description_1' => $request->location_description,'icon_image'=>$location_icon_image]);
+                        $location = PortfolioDetails::where(['tab_name'=>'Location','id'=>$location->id,'portfolio_id' => $portfolio->id])->update(['theme_color' => $request->location_theme_color,'text_alignment' => $request->location_text_alignment,'grid_position'=>$request->location_grid_position,'background_image' => $location_background_picture,'title' => $request->location_title_name, 'description_1' => $request->location_description,'icon_image'=>$location_icon_image]);
                     else:
                         if(isset($location_background_picture) && !file_exists($location_background_picture)):
                             $location_background_picture = '';
@@ -471,7 +479,7 @@ class PortfolioController extends Controller
                             $location_icon_image = '';
                         endif;
 
-                        $location = PortfolioDetails::create(['portfolio_id'=>$portfolio->id,'tab_name'=>'Location','theme_color'=>$request->location_theme_color,'text_alignment'=>$request->location_text_alignment,'background_image'=>$location_background_picture,'title'=>$request->location_title_name,'description_1'=>$request->location_description,'icon_image'=>$location_icon_image])->id;
+                        $location = PortfolioDetails::create(['portfolio_id'=>$portfolio->id,'tab_name'=>'Location','theme_color'=>$request->location_theme_color,'text_alignment'=>$request->location_text_alignment,'grid_position'=>$request->location_grid_position,'background_image'=>$location_background_picture,'title'=>$request->location_title_name,'description_1'=>$request->location_description,'icon_image'=>$location_icon_image])->id;
                     endif;
                 endif;
 
@@ -520,12 +528,12 @@ class PortfolioController extends Controller
                         else:
                             $enquireImage = $enquire->background_image;
                         endif;
-                        PortfolioDetails::where(['tab_name'=>'Enquire','id'=>$request->enquire_id,'portfolio_id'=>$portfolio->id])->update(['theme_color'=>$request->enquire_theme_color,'text_alignment'=>$request->enquire_text_alignment,'background_image'=>$enquireImage,]);
+                        PortfolioDetails::where(['tab_name'=>'Enquire','id'=>$request->enquire_id,'portfolio_id'=>$portfolio->id])->update(['theme_color'=>$request->enquire_theme_color,'grid_position'=>$request->enquire_grid_position,'text_alignment'=>$request->enquire_text_alignment,'background_image'=>$enquireImage,]);
                     else:
                         if(isset($enquireImage) && !file_exists($enquireImage)):
                             $enquireImage = '';
                         endif;
-                        PortfolioDetails::create(['portfolio_id'=> $portfolio->id,'tab_name'=> 'Enquire','theme_color'=>$request->enquire_theme_color,'text_alignment'=>$request->enquire_text_alignment,'background_image'=>$enquireImage,])->id;
+                        PortfolioDetails::create(['portfolio_id'=> $portfolio->id,'tab_name'=> 'Enquire','theme_color'=>$request->enquire_theme_color,'text_alignment'=>$request->enquire_text_alignment,'background_image'=>$enquireImage,'grid_position'=>$request->enquire_grid_position])->id;
                     endif;
                 endif;
 

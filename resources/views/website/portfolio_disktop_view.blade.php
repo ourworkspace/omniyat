@@ -22,7 +22,7 @@
 
                     
                     
-                    <div class="header-container container-vertical-middle">
+                    <div class="header-container {{$about->text_alignment??'container-vertical-middle'}}">
                         <!--<div class="logo text-center mb-15 mt-45"><img src="img/portfolio/details/opg_gold.png" alt="logo" style="margin-top: -5em;"></div> style="position: absolute;left: 50%;top: 72px;width: 100%;transform: translate(-50%, 0px);"-->
                         @if(isset($about->logo) && file_exists($about->logo))
                             <div class="logo text-center mb-15 mt-45 tr_about_logo_div">
