@@ -79,10 +79,10 @@
                         </div>
                         <div class="card-body">
                             <div class="row aboutTab">
-                                <div class="form-group col-md-12">
+                                <div class="col-md-12">
                                     <div class="row">
                                         <!-- <h6 class="col-md-12">Layout Settings</h6> -->
-                                        <div class="col-md-6">
+                                        <div class="col-md-4 form-group">
                                             <label for="aboutThemeColor">Theme Color <span class="text-danger">*</span></label>
                                             <select class="form-control" required name="about_theme_color">
                                                 <option value="">Select Theme Color</option>
@@ -91,7 +91,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4 form-group">
                                             <label for="aboutTextAlignment">Text Alignment <span class="text-danger">*</span></label>
                                             <select class="form-control" required name="about_text_alignment">
                                                 <option value="">Select Text Alignment</option>
