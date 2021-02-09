@@ -2,8 +2,8 @@
 @section('page_title','About Company : : Omniyat')
 @section('page_content')
     <style>
-        #cke_1_contents{
-            height: 200px !important;
+        label.error{
+            color: red !important;
         }
     </style>
     <!-- <div class="row page-title-header">

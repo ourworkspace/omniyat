@@ -22,8 +22,16 @@ class LeadershipContoller extends Controller
         ]);
 
             try {
+                $ordered_by_id = Leadership::where('status',1)->max('ordered_by');
+                
+                if($ordered_by_id==''){
+                    $ordered_by_id = 1;
+                }else{
+                    $ordered_by_id = $ordered_by_id+1;
+                }
+                //echo "string".$ordered_by_id;exit();
             $uploadImage = $this->uploadFile($request,'image','leadership/');
-            $leadershipId = Leadership::create(['leadership_name'=>$request->leadership_name,'leadership_designation'=>$request->leadership_designation, 'image'=>$uploadImage,'long_description'=>$request->long_description])->id;
+            $leadershipId = Leadership::create(['leadership_name'=>$request->leadership_name,'leadership_designation'=>$request->leadership_designation, 'image'=>$uploadImage,'long_description'=>$request->long_description,'ordered_by'=>$ordered_by_id])->id;
 
             if($leadershipId > 0):
                 return redirect()->route('leadership.list')->with('success','Successfully saved leadership');
@@ -44,6 +52,17 @@ class LeadershipContoller extends Controller
         /*echo "<pre>";
         print_r($leadershipList);exit();*/
         return view('leadership.leadership_list', compact('leadershipList'));
+    }
+
+    public function leadershipUpdateOrderPage(Request $request)
+    {
+        $leadership = Leadership::where(['status'=>1])->get();
+        $order = [];
+        foreach($leadership as $key => $value):
+            Leadership::where('id', $request->page_id_array[$key])->update(['ordered_by'=>$key+1]);
+            $order[] = ['id'=>$key+1];
+        endforeach;
+        return Response()->json(['message'=>'Order as been changed.','order'=>$order]);
     }
 
     public function leadershipEdit(Request $request){

@@ -2,8 +2,8 @@
 @section('page_title','Privacy Policy : : Omniyat')
 @section('page_content')
     <style>
-        #cke_1_contents{
-            height: 200px !important;
+        label.error{
+            color: red !important;
         }
     </style>
     <!-- <div class="row page-title-header">
@@ -23,7 +23,7 @@
                             <h5 class="card-title">Add Privacy Policy</h5>
                         </div>
                         <div class="card-body">
-                            <form action="{{route('privacy.policy.save')}}" enctype="multipart/form-data" class="row" method="post">
+                            <form action="{{route('privacy.policy.save')}}" enctype="multipart/form-data" class="row" method="post" id="privacy_policy_form">
                                 {{csrf_field()}}
                                 <div class="form-group col-md-12">
                                     <label for="sub_title">Page Sub Title <span class="text-danger">*</span></label>
@@ -32,15 +32,8 @@
                                         <span class="text-danger">{{ $errors->first('sub_title') }}</span>
                                     @endif
                                 </div>
-                                <!-- <div class="form-group col-md-12">
-                                    <label for="TitleName">Title <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="TitleName">
-                                    @if($errors->has('TitleName'))
-                                        <span class="text-danger">{{ $errors->first('TitleName') }}</span>
-                                    @endif
-                                </div> -->
                                 <div class="form-group col-md-12">
-                                    <label for="Description">Description</label>
+                                    <label for="Description">Description <span class="text-danger">*</span></label>
                                     <textarea class="form-control" rows="6" name="Description"></textarea>
                                     <script>
                                         CKEditorChange('Description','myconfig_tcps.js');
@@ -59,4 +52,35 @@
             </div>
         </div>
     </div>
+<script src="{{asset('public/assets/vendors/jquery/validation.min.js')}}"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        for (var i in CKEDITOR.instances) {
+            CKEDITOR.instances[i].on('change', function() {
+                if(CKEDITOR.instances.Description.getData().length >  0) {
+                    $('label[for="Description"]').hide();
+                }else{
+                    $('label[for="Description"]').show();
+                }
+            });
+        }
+        $('#privacy_policy_form').validate({
+            ignore: "not:hidden",
+            rules: {
+                sub_title: {
+                    required: true,
+                    maxlength: 50,
+                },
+                Description: {
+                    required: function() 
+                    {
+                     CKEDITOR.instances.Description.updateElement();
+                    },
+                }
+            }
+        });
+        
+    });
+
+</script>     
 @endsection

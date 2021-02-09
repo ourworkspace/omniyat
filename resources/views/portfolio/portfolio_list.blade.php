@@ -27,11 +27,10 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Logo</th>
-                                            <th>Category</th>
-                                            <th>Project Name</th>
-                                            <th>Title</th>
-                                            <th>Action</th>
+                                            <th width="80">Logo</th>
+                                            <th width="200">Category</th>
+                                            <th>Portfolio Title</th>
+                                            <th width="120">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -45,7 +44,6 @@
                                                 </td>
                                                 <td>{{$value->category->name}}</td>
                                                 <td> {{$value->project_name}} </td>
-                                                <td> {{$value->title}} </td>
                                                 <td align="center">
                                                     <span>
                                                         <a href="{{route('portfolio.edit',['portfolio_id'=>$value->id])}}"> <i class="fa fa-edit fa-1x"></i> </a>

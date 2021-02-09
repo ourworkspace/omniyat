@@ -6,7 +6,6 @@
 <div class="inner-page mobile_view media_list_pages">
     <section class="page-title text-center w-100 mt-30">
         <h1 class="tss-text-black text-uppercase fs-24 my-0 tss-optima mb-10">{{$pkd->name}}</h1>
-
     </section>
 
     <div class="list_items m_presskit_list w-100 mb-100 m_presskit_details">
@@ -46,6 +45,7 @@
             </ul>
         </div>
     </div>
+    @include('website.layouts.footer')
 </div>
     
 @endsection

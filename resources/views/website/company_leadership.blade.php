@@ -7,7 +7,7 @@
         <div class="header-container">
             @if(isset($leadership_data->image))
             <div class="list_items w-100 px-30">
-                <div class="row row-display-flex-center">
+                <div class="row row-display-flex-top">
                     <div class="col-md-5" data-aos="fade-right" data-aos-duration="900">
                         <div class="image">
                             <img src="{{asset($leadership_data->image)}}" alt="company-leadership">
@@ -17,7 +17,9 @@
                         <h2 class="fs-40 tss-text-red tss-optima mt-5 mb-5">{{$leadership_data->leadership_name}}</h2>
 						<h3 class="fs-16 text-black tss-msb mt-5 mb-15 text-uppercase">{{$leadership_data->leadership_designation}}</h3>
                         @if(strlen($leadership_data->long_description) > 900)
-                            <div id="less_data" class="d_description">{!! substr($leadership_data->long_description, 0, 900) !!}...
+                            <div id="less_data" class="d_description">
+                                @php($l_d = substr($leadership_data->long_description, 0, 900))
+                                {!! substr($l_d, 0, strrpos($l_d, ' ')) !!} ...
                                 <details>
                             <summary>
                                 <span id="more_data_btn" class="tss-msb fs-14 text-black text-uppercase">Read more</span></summary></details>
@@ -42,10 +44,10 @@
                     </div>
                     <div class="col-md-6">
                         <p class="text-right">
-                            @if(isset($previous_leadership->id))
+                            @if(isset($previous_leadership->id)&&$previous_leadership->ordered_by<$leadership_data->ordered_by)
                             <a href="{{asset('leadership')}}?id={{$previous_leadership->id}}" class="fs-11 tss-mb text-uppercase text-black"><span class="tss-text-red">←</span> Previous </a>  &nbsp;&nbsp;  
                             @endif
-                            @if(isset($next_leadership->id))
+                            @if(isset($next_leadership->id)&&$next_leadership->ordered_by>$leadership_data->ordered_by)
                             <a href="{{asset('leadership')}}?id={{$next_leadership->id}}" class="fs-11 tss-mb text-uppercase text-black" style="text-decoration: none; border-bottom: 1px solid #c92136;">{{$next_leadership->leadership_name}} <span class="tss-text-red">→</span></a>
                             @endif
                         </p>
@@ -56,7 +58,7 @@
         </div>
     </section>
     
-    
+    @include('website.layouts.footer')
 </div>
 
 <div class="inner-page mobile_view">
@@ -78,7 +80,8 @@
         <div class="row">
             <div class="col-md-12 pb-30 px-20">
                 @if(strlen($leadership_data->long_description) > 300)
-                    <div id="less_data_m" class="m_description">{!! substr($leadership_data->long_description, 0, 300) !!}...
+                    <div id="less_data_m" class="m_description">@php($l_d = substr($leadership_data->long_description, 0, 300))
+                                {!! substr($l_d, 0, strrpos($l_d, ' ')) !!} ...
                         <details>
                             <summary>
                             <span id="more_data_btn_m" class="tss-msb fs-14 text-black text-uppercase">Read more</span></summary>
@@ -115,6 +118,7 @@
         </ol>
     </div>
     @endif
+    @include('website.layouts.footer')
 </div>
   <script type="text/javascript">
       $("#more_data_btn").click(function(){

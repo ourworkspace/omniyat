@@ -66,11 +66,14 @@
                     <p class="philosophy_learn fs-13 tss-mb tss-lh-1-3 text-uppercase mt-15">{{$philosophy_data->title_4_1}}</p>
                     <p class="philosophy_learn fs-13 tss-mb tss-lh-1-3 text-uppercase mt-0">{{$philosophy_data->title_4_2}}</p>
                 </div>
+                @if($philosophy_data->button_text != '' && $philosophy_data->button_url != '')
                 <div class="my-30">
                     <a href="{{trim($philosophy_data->button_url)}}" class="btn btn-red-bg btn-auto text-uppercase tss-mb">{{$philosophy_data->button_text}}</a>
                 </div>
+                @endif
             </section>
         </div>
+        @include('website.layouts.footer')
     </div>
     
     <div class="inner-page mobile_view" >
@@ -114,13 +117,16 @@
             <div class="row">
                 <div class="col-md-12">
                     <h2 class="tss-text-black fs-16 my-10 tss-mb text-center tss-lh-1-4 my-30">{{$philosophy_data->title_4_1}} {{$philosophy_data->title_4_2}}</h2>
+                    @if($philosophy_data->button_text != '' && $philosophy_data->button_url != '')
                     <div class="row">
                         <div class="col-xs-10 col-xs-10 col-centered">
                             <a href="{{trim($philosophy_data->button_url)}}}" class="btn btn-link btn-red btn-block text-uppercase tss-msb py-15 my-5 fs-15 mb-30">{{$philosophy_data->button_text}}</a>
                         </div>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>
+        @include('website.layouts.footer')
     </div>
     @endsection

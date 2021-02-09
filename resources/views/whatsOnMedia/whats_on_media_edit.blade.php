@@ -3,9 +3,16 @@
         <h5 class="card-title">Edit Whats On Media</h5>
     </div>
     <div class="card-body">
-        <form class="row" action="{{route('whatsOnMedia.update')}}" enctype="multipart/form-data" method="post">
+        <form class="row" action="{{route('whatsOnMedia.update')}}" enctype="multipart/form-data" method="post" id="whats_on_media_form">
             {{ csrf_field() }}
             <input type="hidden" value="{{$WhatsOnMedia->id}}" name="Id">
+            <div class="form-group col-md-12">
+                <label>Publish Date <span class="text-danger">*</span></label>
+                <input type="text" required name="date" value="{{date('m/d/Y',strtotime($WhatsOnMedia->date))}}" class="form-control datepicker" autocomplete="off">
+                @if($errors->has('date'))
+                    <span class="text-danger">{{ $errors->first('date') }}</span>
+                @endif
+            </div>
             <div class="form-group col-md-12">
                 <label>Title <span class="text-danger">*</span></label>
                 <input type="text" required name="title" class="form-control" value="{{$WhatsOnMedia->title}}">
@@ -75,7 +82,7 @@
                 @if(isset($WhatsOnMedia->pdf_file) && file_exists($WhatsOnMedia->pdf_file))
                     <div class="row">
                         <div class="col-md-11 mt-2">
-                            <label>Upload pdf Document </label>
+                            <label>Upload pdf Document </label><span class="pull-right">{{substr($WhatsOnMedia->pdf_file, strrpos($WhatsOnMedia->pdf_file, '/') + 1)}}</span>
                             <input type="file" name="pdf_file" accept=".pdf" style="padding: 6px" class="form-control">
                         </div>
                         <div class="col-md-1 pt-4">
@@ -92,15 +99,50 @@
                 @endif
             </div>
             <div class="form-group col-md-12">
-                <label>Select Date <span class="text-danger">*</span></label>
-                <input type="text" required name="date" value="{{date('m/d/Y',strtotime($WhatsOnMedia->date))}}" class="form-control datepicker" autocomplete="off">
-                @if($errors->has('date'))
-                    <span class="text-danger">{{ $errors->first('date') }}</span>
-                @endif
-            </div>
-            <div class="form-group col-md-12">
                 <input type="submit" value="Update" class="btn btn-success">
             </div>
         </form>
     </div>
 </div>
+<script src="{{asset('public/assets/vendors/jquery/validation.min.js')}}"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+            
+        for (var i in CKEDITOR.instances) {
+            CKEDITOR.instances[i].on('change', function() {
+                
+                if(CKEDITOR.instances.long_description.getData().length >  0) {
+                  $('label[for="long_description"]').hide();
+                }
+            });
+        }
+        
+        $('#whats_on_media_form').validate({
+            ignore: "not:hidden",
+            rules: {
+                date: {
+                    required: true,
+                },
+                title: {
+                    required:true,
+                },
+                /*thumb_image: {
+                    required:true,
+                },
+                large_image: {
+                    required:true,
+                },*/
+                short_description: {
+                    required:true,
+                    maxlength:110
+                },
+                long_description: {
+                    required:function() 
+                    {
+                     CKEDITOR.instances.long_description.updateElement();
+                    },
+                }
+            }
+        });
+    });
+</script>        

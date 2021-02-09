@@ -27,6 +27,8 @@
         <link href="{{asset('public/site/vendor/mobile_menu/css/ma5-menu.css')}}" rel="stylesheet" type="text/css">
         <link rel="stylesheet" type="text/css" href="{{asset('public/site/css/responsive.css')}}" />
         <link rel="stylesheet" href="{{asset('public/site/css/mobile.css')}}" />
+		<script src="{{asset('public/site/assets/js/jquery-2.2.0.min.js')}}"></script>
+		@include('website.layouts.inquire_script')
 	</head>
     <style>
         @media screen and (max-width:1024px) {
@@ -812,46 +814,56 @@
 									</div>
 									<div class="connectPage">
 										<div class="contactForm wow animated fadeInLeft animated_delay_15 animated animated animated animated animated animated animated animated animated animated animated animated" style="visibility: visible; animation-name: fadeInLeft;">
-											<form>
-												<div class="row">
-                                                    <div class="col-md-6 px-3">
-                                                        <div class="form-group my-5">
-                                                            <input type="text" class="form-control text-uppercase" id="f_name" placeholder="first name" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6 px-3">
-                                                        <div class="form-group my-5">
-                                                            <input type="text" class="form-control text-uppercase" id="l_name" placeholder="last name" required>
-                                                        </div>
-                                                    </div>
-                                                </div>
-												<div class="row">
-                                                    <div class="col-md-12 px-3">
-                                                        <div class="form-group my-5">
-                                                            <input type="email" class="form-control text-uppercase" id="email" placeholder="email" required>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-12 px-3">
-                                                        <div class="form-group my-5">
-                                                            <input type="text" class="form-control text-uppercase" id="phone" placeholder="phone" required>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-12 px-3">
-                                                        <div class="form-group my-5">
-                                                            <textarea class="form-control text-uppercase" rows="6" id="message" placeholder="message" required></textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
-												<div class="row">
-                                                    <div class="col-md-12 px-3 my-5">
-                                                        <button type="submit" class="btn btn-default">enquire more</button>
-                                                    </div>
-                                                </div>
-											  </form>
+										<div id="Feedbackmessage"></div>
+										<form id="HomeContactFormSubmit">
+											{{csrf_field()}}
+											<div class="row">
+												<div class="col-md-6 pd-0">
+													<div class="form-group my-5">
+														<input type="text" class="form-control text-uppercase" id="f_name"
+															placeholder="first name" required="" name="first_name">
+													</div>
+												</div>
+												<div class="col-md-6 pd-0">
+													<div class="form-group my-5">
+														<input type="text" class="form-control text-uppercase" id="l_name"
+															placeholder="last name" required="" name="last_name">
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-12 pd-0">
+													<div class="form-group my-5">
+														<input type="text" class="form-control text-uppercase" id="email"
+															placeholder="Email" required="" name="email">
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-12 pd-0">
+													<div class="form-group my-5">
+														<input type="text" class="form-control text-uppercase" id="phone"
+															placeholder="Phone" name="phone" required="">
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-12 pd-0">
+													<div class="form-group my-5">
+														<textarea class="form-control text-uppercase" rows="4" id="message"
+															placeholder="message" name="message" required=""></textarea>
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-12 pd-0">
+													<!--<div class="formBtn">
+														<a href="#.">enquire more</a>
+													</div>-->
+													<button type="submit" id="HomecontactBtnReport" class="btn btn-default btn-link btn-red btn-block text-uppercase tss-msb py-10 px-45 mt-0 mb-5 fs-14">inquire more</button>
+												</div>
+											</div>
+										</form>
 										</div>
 										<div class="contactInfo wow animated fadeInRight animated_delay_2 animated animated animated animated animated animated animated animated animated animated animated animated" style="visibility: visible; animation-name: fadeInRight;">
 											<img src="assets/images/location.png" alt="">
@@ -861,6 +873,7 @@
 										<div class="newsLetter wow animated fadeInLeft animated_delay_25 animated animated animated animated animated animated animated animated animated animated animated animated" style="visibility: visible; animation-name: fadeInLeft;">
 											<h4>Subscribe to OUR NEWSLETTER</h4>
 											<div class="newsLetterForm">
+												{{csrf_field()}}
 												<input class="form-control" type="text" placeholder="ENTER YOUR EMAIL ADDRESS">
 												<button type="submit" class="btn btn-default">Register</button>
 											</div>
@@ -905,13 +918,14 @@
 		<!--
 		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 		-->
-		<script src="{{asset('public/site/assets/js/jquery-2.2.0.min.js')}}"></script>
+		
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 		<script type="text/javascript" src="{{asset('public/site/assets/js/jquery.easymenu.js')}}"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
 		<script src="{{asset('public/site/assets/js/skrollr.min.js')}}"></script>
 		<script src="{{asset('public/site/assets/js/script.js')}}"></script>
 		<script>
+			sentContactMails('HomeContactFormSubmit', 'HomecontactBtnReport', 'Feedbackmessage');
     $(document).ready(function(){
       $(".hamburger-el").click(function(){
         $(".main_menu").toggleClass("show");

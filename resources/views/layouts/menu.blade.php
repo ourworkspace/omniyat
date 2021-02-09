@@ -71,13 +71,13 @@
                         <a class="nav-link" href="{{route('press.kit.list')}}">Press Kit</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{{route('press.kit.category')}}">Press Kit Categories</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{route('csr.list')}}">Csr</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('sponsorships.list')}}">Sponsorships</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('press.kit.category')}}">Press Kit Categories</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('sponsorships.category')}}">Sponsorship Categories</a>
@@ -101,6 +101,12 @@
             <a class="nav-link" href="{{route('terms.and.conductions.index')}}">
                 <i class="menu-icon typcn typcn-document-text"></i>
                 <span class="menu-title">Terms & Conditions</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('inquire.details.list')}}">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Inquire List</span>
             </a>
         </li>
         <!-- <li class="nav-item">

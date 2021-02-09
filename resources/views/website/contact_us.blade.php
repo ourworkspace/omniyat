@@ -26,6 +26,7 @@
                                 <div class="col-md-12 text-center">
                                     <span id="Feedbackmessage"></span>
                                 </div>
+                                {{csrf_field()}}
                                 <div class="row">
                                     <div class="col-md-6 px-3">
                                         <div class="form-group my-5">
@@ -297,24 +298,35 @@
             
         </div>
     </div>
-
+    <input type="hidden" name="" id="locations_count" value="{{count($map_locations)}}">
+    @if(count($map_locations)>0)
+      @foreach($map_locations as $key=>$ml)
+        @if($ml->type == 8)
+        <input type="hidden" name="" id="loc_name_{{$key}}" value="{{$ml->location_name}}">
+        <input type="hidden" name="" id="latitude_{{$key}}" value="{{$ml->latitude}}">
+        <input type="hidden" name="" id="longitude_{{$key}}" value="{{$ml->longitude}}">
+        @endif
+      @endforeach
+    @endif
     <section class="w-100 mt-30 contact_us pb-30">
         <div class="map-responsive">
             <div id="map-canvas"></div>
         </div>
     </section>
 
+    @include('website.layouts.footer')
     
 <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBZGstqA7yoIXd4L84J-fIqlSzVVL1uoGo'></script>
 <script type="text/javascript">
     function initialise() {
     var center = new google.maps.LatLng(25.1883757,55.2605124); // Add the coordinates
 
-    var myLatlng = [
+    /*var myLatlng = [
       ['OMNIYAT SALES GALLERY', 25.18789, 55.261428, 2],
       ['OMNIYAT HEADQUARTERS', 25.187709, 55.2594579, 1],
-    ];
-
+    ];*/
+    var locations_count = $('#locations_count').val();
+    
 		var mapOptions = {
             styles:[
                       {
@@ -492,17 +504,18 @@
     var infowindow = new google.maps.InfoWindow();
 
     var marker, i;
-
-    for (i = 0; i < myLatlng.length; i++) {  
+    
+    
+    for (i = 0; i < locations_count; i++) {  
       marker = new google.maps.Marker({
-        position: new google.maps.LatLng(myLatlng[i][1], myLatlng[i][2]),
+        position: new google.maps.LatLng($('#latitude_'+i).val(),$('#longitude_'+i).val()),
         map: map,
         icon: image
       });
 
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
         return function() {
-          infowindow.setContent(myLatlng[i][0]);
+          infowindow.setContent($('#loc_name_'+i).val());
           infowindow.open(map, marker);
         }
       })(marker, i));
@@ -516,50 +529,8 @@
 <script src="vendor/mobile_menu/js/ma5-menu.min.js"></script>
     
 <script>
-    // swal({
-    //     //title: "Good job!",
-    //     text: 'strMessage.message',
-    //     icon: "error",
-    //     dangerMode: true,
-    //     button: "Close"
-    // });
-    function sentContactMails(formId, btnId, feedbackId=null){
-        $("#"+formId).submit(function(eve){
-            eve.preventDefault();
-            //alert("+++");
-            //console.log($("#contactFormSubmit").serialize());
-            $("#"+btnId).text('Sending please wait...');
-            $.ajax( {
-                url: "contact_details.php",
-                method: "post",
-                data: $("#"+formId).serialize(),
-                dataType: "JSON",
-                success: function(strMessage) {
-                    //console.log(strMessage);
-                    $("#"+btnId).text('enquire more');
-                    if(strMessage.response == true){
-                        swal({
-                            //title: "Good job!",
-                            text: strMessage.message,
-                            icon: "success",
-                            button: "Close"
-                        });
-                        //$("#"+feedbackId).text(strMessage.message);
-                    }else{
-                        swal({
-                            //title: "Good job!",
-                            text: strMessage.message,
-                            icon: "error",
-                            button: "Close"
-                        });
-                        //$("#"+feedbackId).text(strMessage.message);
-                    }
-                    $("#"+formId).trigger('reset');
-                    setTimeout(function(){ $("#"+feedbackId).text(''); }, 2000);
-                }
-            });
-        });
-    }
+
+    
     
     sentContactMails('contactFormSubmit', 'contactBtnReport', 'Feedbackmessage');
     sentContactMails('contactFormSubmitMobile', 'contactMobileBtnReport', 'FeedbackmessageMobile');

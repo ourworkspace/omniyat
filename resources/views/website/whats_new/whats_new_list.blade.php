@@ -33,7 +33,7 @@
                                                 <h4>{{$wnd->title}}</h4>
                                                 <p class="fs-11 tss-mr text-black py-15" style="text-transform: none;">{{$wnd->short_description}}</p>
                                                 <div class="text-right">
-                                                    <a href="whatsnew-detail-01.html" class="readmore_link">Read More <span>➜</span></a>
+                                                    <a href="{{asset('whats_new_details').'/'.$wnd->id}}" class="readmore_link">Read More <span>➜</span></a>
                                                 </div>
                                             </div>
                                         </a>
@@ -50,7 +50,7 @@
         </div>
     </section>
 
-
+    @include('website.layouts.footer')
 
 </div>
 
@@ -72,7 +72,7 @@
                 <div class="desc px-15 pb-15">
                     <h2 class="fs-16 text-black tss-msb mt-15 mb-10 pt-15 tss-lh-1-3">{{$wnd->title}}</h2>
                     <p class="text-black tss-mm fs-14 tss-lh-1-5 my-10">{{$wnd->short_description}}</p>
-                    <p class="text-right py-15 mb-0"><a href="whatsnew-detail-01.html" class="fs-14 tss-mb text-uppercase tss-text-red" style="text-decoration: none;">read more<span class="tss-text-red">→</span></a></p>
+                    <p class="text-right py-15 mb-0"><a href="{{asset('whats_new_details').'/'.$wnd->id}}" class="fs-14 tss-mb text-uppercase tss-text-red" style="text-decoration: none;">read more<span class="tss-text-red">→</span></a></p>
                 </div>
             </div>
             @endforeach
@@ -80,6 +80,6 @@
         </section>
 
     </section>
+    @include('website.layouts.footer')
 </div>
-<div id="footer"></div>   
 @endsection
