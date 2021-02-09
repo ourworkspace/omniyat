@@ -72,6 +72,7 @@
             </section>
 
         </section>
+        @include('website.layouts.footer')
     </div>
 
 <script>

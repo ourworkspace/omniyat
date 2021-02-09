@@ -106,7 +106,7 @@
             </div>
         </div>
     </section>
-
+    @include('website.layouts.footer')
 </div>  
 <script>
     $(document).ready(function(){

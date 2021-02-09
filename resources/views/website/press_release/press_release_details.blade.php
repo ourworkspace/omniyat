@@ -138,5 +138,6 @@
                 </div>
             </div><!--fixed_bottom-->
         </section>
+        @include('website.layouts.footer')
     </div>
     @endsection

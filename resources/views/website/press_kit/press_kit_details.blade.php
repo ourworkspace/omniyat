@@ -45,6 +45,7 @@
             </ul>
         </div>
     </div>
+    @include('website.layouts.footer')
 </div>
     
 @endsection

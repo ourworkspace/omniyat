@@ -118,6 +118,7 @@
         </ol>
     </div>
     @endif
+    @include('website.layouts.footer')
 </div>
   <script type="text/javascript">
       $("#more_data_btn").click(function(){

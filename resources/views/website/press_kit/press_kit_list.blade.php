@@ -81,5 +81,6 @@
     </div>
     @endforeach
     @endif
+    @include('website.layouts.footer')
 </div>
 @endsection

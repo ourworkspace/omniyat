@@ -127,5 +127,6 @@
                 </div>
             </div>
         </div>
+        @include('website.layouts.footer')
     </div>
     @endsection

@@ -156,6 +156,6 @@
             </div>
         @endif 
     </section>
-    
+    @include('website.layouts.footer')
 </div> 
 @endsection
