@@ -25,6 +25,7 @@ use App\OmniyatTCPModel as OmniyatTCP;
 use App\PageSubTitlesModel as PageSubTitles;
 use App\InquireModel as Inquire;
 use App\SponsorshipGalleryImagesModel as SponsorshipGalleryImages;
+use App\SubscribeNewsLettersModel as SubscribeNewsLetters;
 
 class WebsiteController extends Controller
 {
@@ -438,6 +439,52 @@ class WebsiteController extends Controller
             $responce = array('response' => false,'message'=>'Please fill all required fields..!');
         }
         return Response()->json($responce);
+    }
+
+    public function saveSubscribeNewsLetters(Request $request)
+    {
+        if(!empty($request->email)):
+            $newsLetterMail = SubscribeNewsLetters::where('email',$request->email)->get();
+            if(count($newsLetterMail) > 0):
+                $responce = ['response'=>false,'message'=>'Mail Id is already subscribed!'];
+            else:
+                $NewsLetterSubscribe = SubscribeNewsLetters::create(['email'=>$request->email,'_token'=>$request->_token])->id;
+                if($NewsLetterSubscribe > 0):
+                    //send verification mail.
+                    $link = route('verify.subscribe.news.letters',['email'=>$request->email,'token'=>$request->_token]);
+                    $usend_to[] = [$request->email, $request->email]; //change mail-id
+                    $usendto = [
+                        'sendForm'  =>  [config('global.info_mail'),config('global.site_name')],
+                        'sendTo'    =>  $usend_to,
+                        'subject'   =>  'Thank you for subscribe newsletters - Omniyat',
+                    ];
+                    $mdata['request'] = $request;
+                    $mdata['link'] = $link;
+                    $userMailRes = $this->sendEmail('email.verify_newslitter_mail',$mdata,$usendto);
+
+                    $responce = ['response'=>true,'message'=>'Thank you for subscribe. please verify your email!'];
+                else:
+                    $responce = ['response'=>false,'message'=>'Failed to subscribe your email!'];
+                endif;
+            endif;
+        else:
+            $responce = ['response'=>false,'message'=>'Invalid request to subscribe!'];
+        endif;
+        return Response()->json($responce);
+    }
+
+    public function verifySubscribeNewsLetters(Request $request)
+    {
+        $newsLetterMail = SubscribeNewsLetters::where(['email'=>$request->email,'_token'=>$request->token,'status'=>0])->get();
+        if(count($newsLetterMail) > 0):
+            SubscribeNewsLetters::where(['email'=>$request->email,'_token'=>$request->token,'status'=>0])->update(['status'=>1]);
+            $message = "Thank you for subscribe newsletters!";
+            $status = true;
+        else:
+            $message = "Failed to verifcation email to newsletters!";
+            $status = false;
+        endif;
+        return view('website.subscribe_newsletter_status', compact('status','message'));
     }
 
     public function sendEmail($mailView,$data,$sendto, $attachments=null)

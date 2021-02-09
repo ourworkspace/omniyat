@@ -1,6 +1,8 @@
 /node_modules
 /public/hot
-/public/
+/public/assets/
+/public/uploads/
+/public/site/*.html
 /public/storage
 /storage/*.key
 /vendor
@@ -12,5 +14,8 @@ npm-debug.log
 yarn-error.log
 .env
 storage/uploads
-public
+/public/site/*.php
+/public/site/backup_2020_31/
+/public/site/documents/
+/public/site/back_html/
 /public_vendor.zip

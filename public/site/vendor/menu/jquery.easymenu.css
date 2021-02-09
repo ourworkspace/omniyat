@@ -1,0 +1,42 @@
+ul, li {margin: 0;padding: 0;list-style: none;}
+.clearfix:after {content: ".";display: block;height: 0;clear: both;visibility: hidden;}
+.clearfix {  *+height:1%;}
+#headermenu a {white-space: nowrap;padding:10px 0;text-decoration: none;}
+#headermenu a:hover { text-decoration: underline; }
+#headermenu li.main-item { float: left; }
+#headermenu li.main-item a {/* color: #000; */}
+#headermenu li.main-item a:hover, #headermenu li.main-item.hover a {color: #000;}
+#headermenu li.main-item ul li.sub-item a, #headermenu li.main-item ul li.sub-item a:hover {color: #000;padding: 6px 30px 6px 10px;display: inline-block;text-decoration: none;font-size: 11px;width: 100%;text-transform: uppercase;}
+#headermenu li {margin: 0px 10px;position: static;}
+#headermenu li.hover { background: transparent; }
+#headermenu li.hover a{color: #000;text-decoration: none;}
+#headermenu li ul {display: none;position: absolute;background: #fff;padding: 0;z-index: 999;margin-left: 0px;min-width: 150px;box-shadow: -1px 3px 4px 0px rgb(31 34 44 / 0.3);}
+#headermenu li ul li {line-height: 22px;margin: 0;padding: 0px;
+  /* border: 1px solid #f1f1f1; */}
+#headermenu li ul li.separator {line-height: 0;height: 0;font-size: 0;padding: 0;overflow: hidden;background: none;border-top: 1px solid #e0e0e0;border-bottom: 1px solid #fff;}
+#headermenu li ul li.hover {background: #fff;border: 0;}
+#headermenu li.main-item ul li.sub-item.has-child {background: #fff;}
+#headermenu li ul li.has-child.hover {border: 0;}
+.sub-item.has-child ul {box-shadow: -2px 2px 4px 0px rgb(31 34 44 / 0.3);}
+ul#headermenu {margin-top:6px;}
+
+#headermenu li.main-item ul li.sub-item.has-child{}
+#headermenu li.main-item ul li.sub-item.has-child>a{}
+#headermenu li.main-item ul li.sub-item.has-child>a::after{content: '→';position: absolute;right: 10px;margin-top: -2px;}
+
+#headermenu li.main-item ul li.sub-item:hover,
+#headermenu li.main-item ul li.sub-item.has-child:hover{background: none;}
+
+
+
+.main_menu li.main-item.has-child.hover {position: relative !important;}
+.main_menu {position: relative;}
+.main_menu li.main-item.has-child.hover > ul{left: 0 !important;}
+
+
+#headermenu li.main-item.active a,
+#headermenu li.main-item.active a:focus,
+#headermenu li.main-item.active a:hover{color:#c92035!important;background: none!important;}
+
+#headermenu li.main-item.has-child.active ul li.sub-item{color: #000 !important;}
+#headermenu li.main-item.has-child.active ul li.sub-item a:hover{color:#c92035!important;}

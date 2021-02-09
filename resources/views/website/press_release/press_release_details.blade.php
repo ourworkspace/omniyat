@@ -138,6 +138,6 @@
                 </div>
             </div><!--fixed_bottom-->
         </section>
-        @include('website.layouts.footer')
+        @include('website.layouts.mobile_footer')
     </div>
     @endsection

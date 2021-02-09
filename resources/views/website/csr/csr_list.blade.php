@@ -82,7 +82,7 @@
             </div>
         </section>
     @endif
-    @include('website.layouts.footer')
+    @include('website.layouts.mobile_footer')
 </div>
 
 <script>

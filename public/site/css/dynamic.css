@@ -1,0 +1,167 @@
+.dropbtn {color: white;font-size: 16px;border: none;}
+.dropup {position: relative;display: inline-block;}
+.dropup-content {display: none;position: absolute;background-color: hsl(352, 60%, 50%);min-width: 150px;bottom: 50px;z-index: 1;box-shadow: 0 0px 15px 1px #921a2a inset;}
+.dropup-content a {color: black;padding: 0px 15px !important;text-decoration: none;display: block;width: -webkit-fill-available;font-size: 12px;font-family: 'Montserrat', sans-serif !important;}
+.dropup-content a:hover {background-color: #efefef;width: -webkit-fill-available;color: #ca3246;}
+.dropup:hover .dropup-content {display: block;}
+.dropup:hover .dropbtn {background-color: none;}
+
+
+.about_sec .header-container h2{padding-top: 0 !important;}
+.about_sec .header-container p{
+    font-size: 11px!important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 400 !important;
+    line-height: 1.4 !important;
+    text-align: justify;
+    color: #000;
+}
+.about_sec .header-container .btm-details p{
+    font-size: 8px!important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 400 !important;
+    margin-bottom: 0 !important;
+    color: #000;
+    text-align: right;
+}
+.about_sec .logo img {
+    width: 100px!important;
+    padding: 0;
+    margin-top: -7rem;
+}
+
+.location_sec img.full-width{
+    width: 100%;
+    height: calc(100% - 50px);
+    object-fit: cover;
+    position: fixed;
+    top: 0;
+    left: 0; 
+}
+.location_sec .header-container p{
+    font-size: 11px!important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 400 !important;
+    line-height: 1.4 !important;
+    text-align: justify;
+    color: #000; 
+}
+
+.design_sec .custom-tabs .tab-content .tab-pane p{
+    font-size: 11px!important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 400 !important;
+    line-height: 1.4 !important;
+    text-align: justify;
+    color: #000;
+}
+.design_sec .header-container p{
+    font-size: 11px!important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 400 !important;
+    line-height: 1.4 !important;
+    text-align: justify;
+    color: #000;
+}
+
+.amenities_sec .header-container p{
+    font-size: 11px!important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 400 !important;
+    line-height: 1.4 !important;
+    text-align: justify;
+    color: #000; 
+}
+.lifestyle_sec p, .lifestyle_sec .desc{
+    font-size: 11px!important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 400 !important;
+    line-height: 1.4 !important;
+    color: #000; 
+}
+
+
+/*common*/
+.col-centered{float: none;margin: 0 auto;}
+.container-vertical-middle, .container-vertical-center-middle{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.container-vertical-left-top{
+    position: absolute;
+    left: 50%;
+    top: 90px;
+    transform: translate(-50%, 0px);
+}
+.container-vertical-left-bottom{
+    position: absolute;
+    left: 50%;
+    bottom: 90px;
+    transform: translate(-50%, 0px);
+}
+.container-vertical-left-middle{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.container-vertical-right-top{
+    position: absolute;
+    left: 50%;
+    top: 90px;
+    transform: translate(-50%, 0px);
+}
+.container-vertical-right-bottom{
+    position: absolute;
+    left: 50%;
+    bottom: 90px;
+    transform: translate(-50%, 0px);
+}
+.container-vertical-right-middle{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.about img.full-width {
+    position: absolute;
+    bottom: 43px;
+    width: 100%;
+    max-height: calc(100% - 100px);
+}
+.about img.full-width.left-bottom.contain-width{object-fit: contain;object-position: left bottom;}
+.about img.full-width.right-bottom.contain-width{object-fit: contain;object-position: right bottom;}
+
+
+
+/*COMPANY-desc */
+.d_description p{
+        font-size: 12px;color: #000;line-height: 1.7 !important;font-family: 'Montserrat', sans-serif !important;font-weight: 400 !important;margin-top: 15px;margin-bottom: 15px;text-align: justify;
+}
+.m_description{
+    font-family:'Montserrat', sans-serif !important;font-weight: 300 !important;line-height: 1.5 !important;color: #000 !important;font-size:15px;margin-top: 10px;margin-bottom: 10px;text-align: left; 
+}
+/**/
+
+
+
+
+
+/*responsive*/
+@media screen and (min-width:1599px) {
+    .about_sec .header-container p{font-size: 15px!important;}
+    .about_sec .header-container .btm-details p{font-size: 10px!important;}
+    .location_sec .header-container p{font-size: 15px!important;}
+    .design_sec .custom-tabs .tab-content .tab-pane p, .design_sec .header-container p{font-size: 15px!important;}
+    .amenities_sec .header-container p{font-size: 15px!important;}
+    .lifestyle_sec p, .lifestyle_sec .desc{font-size: 15px!important;}
+    
+    .d_description p{font-size: 15px;}
+}
