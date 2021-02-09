@@ -394,7 +394,7 @@ class PortfolioController extends Controller
             //exit;
             $portfolio_update = Portfolios::where('id', $portfolio->id)->update(['category_id'=>$request->portfolio_category,'project_name'=>$request->portfolio_project_name,'logo'=>$portfolio_project_logo,'image'=>$portfolio_project_image]);
             if($portfolio_update > 0):
-                
+                //'bg_image_position','grid_position','grid_container_position','grid_column'
                 //About update data
                 if(isset($request->about_title_name)):
                     $about = PortfolioDetails::where(['tab_name'=>'About','id'=>$request->about_id,'portfolio_id'=>$portfolio->id])->first();
@@ -419,8 +419,8 @@ class PortfolioController extends Controller
                         else:
                             $about_project_logo = $about->logo;
                         endif;
-
-                        $about = PortfolioDetails::where(['portfolio_id'=>$portfolio->id,'id'=>$request->about_id])->update(['theme_color'=>$request->about_theme_color,'text_alignment'=>$request->about_text_alignment,'background_image'=>$about_background_picture,'logo'=>$about_project_logo,'title'=>$request->about_title_name,'description_1'=>$request->about_description,'description_2'=>$request->about_description_2]);
+                        //'grid_container_position'=>$request->about_grid_container_position,
+                        $about = PortfolioDetails::where(['portfolio_id'=>$portfolio->id,'id'=>$request->about_id])->update(['theme_color'=>$request->about_theme_color,'text_alignment'=>$request->about_text_alignment,'grid_position'=>$request->about_grid_position,'background_image'=>$about_background_picture,'logo'=>$about_project_logo,'title'=>$request->about_title_name,'description_1'=>$request->about_description,'description_2'=>$request->about_description_2]);
                     else:
                         if(isset($about_background_picture) && !file_exists($about_background_picture)):
                             $about_background_picture = '';
@@ -429,8 +429,8 @@ class PortfolioController extends Controller
                         if(isset($about_project_logo) && !file_exists($about_project_logo)):
                             $about_project_logo = '';
                         endif;
-                        //'bg_image_position'=>$request->about_image_position,
-                        $about = PortfolioDetails::create(['portfolio_id' => $portfolio->id,'tab_name'=> 'About','theme_color'=>$request->about_theme_color,'text_alignment'=>$request->about_text_alignment,'background_image'=>$about_background_picture,'logo'=>$about_project_logo,'title'=>$request->about_title_name,'description_1'=>$request->about_description,'description_2'=>$request->about_description_2])->id;
+                        //'bg_image_position'=>$request->about_image_position,'grid_container_position'=>$request->about_grid_container_position,
+                        $about = PortfolioDetails::create(['portfolio_id' => $portfolio->id,'tab_name'=> 'About','theme_color'=>$request->about_theme_color,'text_alignment'=>$request->about_text_alignment,'grid_position'=>$request->about_grid_position,'background_image'=>$about_background_picture,'logo'=>$about_project_logo,'title'=>$request->about_title_name,'description_1'=>$request->about_description,'description_2'=>$request->about_description_2])->id;
                     endif;
                 endif;
                 
@@ -806,7 +806,7 @@ class PortfolioController extends Controller
                     endif;
 
                     if(count($designWithOutTabs) > 0):
-                        dd($designWithTabs);
+                        //dd($designWithTabs);
                         $designWithOutTabs = $designWithOutTabs[0];
                         if($request->design_tabs_type == 'withTabs'):
                             if(count($request->design_tab_name) > 0):

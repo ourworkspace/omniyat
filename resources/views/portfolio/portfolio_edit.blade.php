@@ -121,9 +121,9 @@
                         <div class="card-body">
                             <div class="row aboutTab">
                                 <input type="hidden" value="{{$about->id}}" name="about_id">
-                               <div class="form-group col-md-12">
+                               <div class="col-md-12">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-4 form-group">
                                             <label for="aboutThemeColor">Theme Color <span class="text-danger">*</span></label>
                                             <select class="form-control" required name="about_theme_color">
                                                 <option value="">Select Theme Color</option>
@@ -132,7 +132,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4 form-group">
                                             <label for="aboutTextAlignment">Text Alignment <span class="text-danger">*</span></label>
                                             <select class="form-control" required name="about_text_alignment">
                                                 <option value="">Select Text Alignment</option>
@@ -141,6 +141,24 @@
                                                 @endforeach
                                             </select>
                                         </div>
+                                        <div class="col-md-4 form-group">
+                                            <label for="aboutGridPosition">Alignment Position <span class="text-danger">*</span></label>
+                                            <select class="form-control" required name="about_grid_position">
+                                                <option value="">Select Alignment Position</option>
+                                                @foreach($gridAlignmentOptions as $gvalue)
+                                                    <option value="{{strtolower($gvalue)}}" {{ ($about->grid_position == strtolower($gvalue)) ? 'selected' : '' }}>{{$gvalue}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <!--<div class="col-md-4 form-group">
+                                            <label for="aboutGridContainerPosition">Container Position <span class="text-danger">*</span></label>
+                                            <select class="form-control" required name="about_grid_container_position">
+                                                <option value="">Select Container Position</option>
+                                                @foreach($gridContainerPositions as $cvalue)
+                                                    <option value="{{$cvalue}}" {{ ($about->grid_container_position == $cvalue) ? 'selected' : '' }}>{{$cvalue}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>-->
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12">

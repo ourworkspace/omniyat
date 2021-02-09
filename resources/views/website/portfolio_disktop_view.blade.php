@@ -19,16 +19,16 @@
 
                     
                     
-                    <div class="header-container {{ $about->text_alignment }} container-vertical-middle">
-                        <!--<div class="logo text-center mb-15 mt-45"><img src="img/portfolio/details/opg_gold.png" alt="logo" style="margin-top: -5em;"></div>-->
+                    <div class="header-container container-vertical-middle">
+                        <!--<div class="logo text-center mb-15 mt-45"><img src="img/portfolio/details/opg_gold.png" alt="logo" style="margin-top: -5em;"></div> style="position: absolute;left: 50%;top: 72px;width: 100%;transform: translate(-50%, 0px);"-->
                         @if(isset($about->logo) && file_exists($about->logo))
-                            <div class="logo text-center mb-15 mt-45 tr_about_logo_div" style="position: absolute;left: 50%;top: 72px;width: 100%;transform: translate(-50%, 0px);">
+                            <div class="logo text-center mb-15 mt-45 tr_about_logo_div">
                                 <img src="{{asset($about->logo)}}" alt="logo" class="tr_about_logo" style="margin-top: 0;width: 7vw;">
                             </div>
                         @endif
 
                         <div class="row">
-                            <div class="col-md-6 pull-right pt-30 pl-0">
+                            <div class="col-md-6 {{$about->grid_position??'pull-left'}} pt-30 pl-0">
                                 @if(isset($about->title) && !empty($about->title))
                                     <h2 class="text-black text-uppercase tss-mb fs-16 mb-15 ls-1 tr_about_title">{{$about->title}}</h2>
                                 @endif
