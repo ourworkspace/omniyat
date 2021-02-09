@@ -2,6 +2,9 @@
 .enquire_sec .form-group .form-control{
     color:#000 !important;
 }
+.portfolio_detail_innnerpage.desktop_view{
+    overflow-x: unset !important;
+}
 </style>
 <div class="inner-page mt-0 portfolio_detail_innnerpage desktop_view">
     @include('website.layouts.portfolio_inner_bottom_tabs')
