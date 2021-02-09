@@ -11,7 +11,9 @@ class PhilosophyController extends Controller
     public function philosophyIndex(Request $request)
     {
         $philosophy = Philosophy::where('status', 1)->first();
-        return view('philosophy.philosophy_index', compact('philosophy'));
+        $title_3_data = isset($philosophy->title_3)?explode(',', $philosophy->title_3):[];
+
+        return view('philosophy.philosophy_index', compact('philosophy','title_3_data'));
     }
 
     public function savePhilosophy(Request $request)
@@ -27,10 +29,12 @@ class PhilosophyController extends Controller
         ]);
 
         try {
+            $title3String = implode(',',$request->title_3);
+            //echo $thestring;
             $philosophyImg1 = $this->uploadFile($request,'image_1','Philosophy');
             $philosophyImg21 = $this->uploadFile($request,'image_2_1','Philosophy');
             $philosophyImg22 = $this->uploadFile($request,'image_2_2','Philosophy');
-            $savePhilosophy = Philosophy::create(['image_1'=>$philosophyImg1,'description_1'=>$request->description_1,'image_2_1'=>$philosophyImg21,'description_2'=>$request->description_2,'image_2_2'=>$philosophyImg22,'title_3'=>$request->title_3,'description_3'=>$request->description_3,'sub_title'=>$request->sub_title,'title_4_1'=>$request->title_4_1,'title_4_2'=>$request->title_4_2,'button_text'=>$request->button_text,'button_url'=>$request->button_url])->id;
+            $savePhilosophy = Philosophy::create(['image_1'=>$philosophyImg1,'description_1'=>$request->description_1,'image_2_1'=>$philosophyImg21,'description_2'=>$request->description_2,'image_2_2'=>$philosophyImg22,'title_3'=>$title3String,'description_3'=>$request->description_3,'sub_title'=>$request->sub_title,'title_4_1'=>$request->title_4_1,'title_4_2'=>$request->title_4_2,'button_text'=>$request->button_text,'button_url'=>$request->button_url])->id;
             if($savePhilosophy > 0):
                 return redirect()->back()->with('success','Successfully saved Philosophy');
             else:
@@ -87,7 +91,8 @@ class PhilosophyController extends Controller
                 else:
                     $philosophyImg22 = $philosophy->image_2_2;
                 endif;
-                $updatePhilosophy = Philosophy::where('id', $request->philosophy_id)->update(['image_1'=>$philosophyImg1,'description_1'=>$request->description_1,'image_2_1'=>$philosophyImg21,'description_2'=>$request->description_2,'image_2_2'=>$philosophyImg22,'title_3'=>$request->title_3,'description_3'=>$request->description_3,'sub_title'=>$request->sub_title,'title_4_1'=>$request->title_4_1,'title_4_2'=>$request->title_4_2,'button_text'=>$request->button_text,'button_url'=>$request->button_url]);
+                $title3String = implode(',',$request->title_3);
+                $updatePhilosophy = Philosophy::where('id', $request->philosophy_id)->update(['image_1'=>$philosophyImg1,'description_1'=>$request->description_1,'image_2_1'=>$philosophyImg21,'description_2'=>$request->description_2,'image_2_2'=>$philosophyImg22,'title_3'=>$title3String,'description_3'=>$request->description_3,'sub_title'=>$request->sub_title,'title_4_1'=>$request->title_4_1,'title_4_2'=>$request->title_4_2,'button_text'=>$request->button_text,'button_url'=>$request->button_url]);
                 if($updatePhilosophy > 0):
                     return redirect()->back()->with('success','Successfully updated Philosophy');
                 else:

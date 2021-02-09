@@ -171,7 +171,7 @@
             </a>
         </div>
     </div>
-    @include('website.layouts.footer')
+    @include('website.layouts.mobile_footer')
 </div>
     
 @endsection

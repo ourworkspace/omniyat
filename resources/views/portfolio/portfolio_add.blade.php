@@ -19,7 +19,9 @@
         <div class="col-md-12 grid-margin">
             <form action="{{route('portfolio.save')}}" enctype="multipart/form-data" class="row" method="post">
                 {{csrf_field()}}
-                
+                <div class="form-group col-md-12">
+                    <input type="submit" value="Save" class="btn btn-success pull-right">
+                </div>
                 <div class="col-lg-12 col-md-12 mb-3">
                     <div class="d-flex card">
                         <div class="card-header">
@@ -79,10 +81,10 @@
                         </div>
                         <div class="card-body">
                             <div class="row aboutTab">
-                                <div class="form-group col-md-12">
+                                <div class="col-md-12">
                                     <div class="row">
                                         <!-- <h6 class="col-md-12">Layout Settings</h6> -->
-                                        <div class="col-md-6">
+                                        <div class="col-md-4 form-group">
                                             <label for="aboutThemeColor">Theme Color <span class="text-danger">*</span></label>
                                             <select class="form-control" required name="about_theme_color">
                                                 <option value="">Select Theme Color</option>
@@ -91,12 +93,12 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4 form-group">
                                             <label for="aboutTextAlignment">Text Alignment <span class="text-danger">*</span></label>
                                             <select class="form-control" required name="about_text_alignment">
                                                 <option value="">Select Text Alignment</option>
-                                                @foreach($textAlignments as $value)
-                                                    <option value="{{$value}}">{{$value}}</option>
+                                                @foreach($textAlignments as $tkey => $value)
+                                                    <option value="{{$tkey}}">{{$value}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -104,8 +106,8 @@
                                             <label for="aboutGridPosition">Alignment Position <span class="text-danger">*</span></label>
                                             <select class="form-control" required name="about_grid_position">
                                                 <option value="">Select Alignment Position</option>
-                                                @foreach($gridAlignmentOptions as $gvalue)
-                                                    <option value="{{strtolower($gvalue)}}">{{$gvalue}}</option>
+                                                @foreach($gridAlignmentOptions as $gkey => $gvalue)
+                                                    <option value="{{$gkey}}">{{$gvalue}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -177,9 +179,9 @@
                         </div>
                         <div class="card-body">
                             <div class="row locationTab">
-                               <div class="form-group col-md-12">
+                               <div class="col-md-12">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-4 form-group">
                                             <label for="locationThemeColor">Theme Color <span class="text-danger">*</span></label>
                                             <select class="form-control" required name="location_theme_color">
                                                 <option value="">Select Theme Color</option>
@@ -188,12 +190,21 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4 form-group">
                                             <label for="locationTextAlignment">Text Alignment <span class="text-danger">*</span></label>
                                             <select class="form-control" required name="location_text_alignment">
                                                 <option value="">Select Text Alignment</option>
-                                                @foreach($textAlignments as $value)
-                                                    <option value="{{$value}}">{{$value}}</option>
+                                                @foreach($textAlignments as $tkey => $value)
+                                                    <option value="{{$tkey}}">{{$value}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 form-group">
+                                            <label for="locationGridPosition">Alignment Position <span class="text-danger">*</span></label>
+                                            <select class="form-control" required name="location_grid_position">
+                                                <option value="">Select Alignment Position</option>
+                                                @foreach($gridAlignmentOptions as $gkey => $gvalue)
+                                                    <option value="{{$gkey}}">{{$gvalue}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -468,9 +479,9 @@
                         </div>
                         <div class="card-body">
                             <div class="row enquireTab">
-                               <div class="form-group col-md-12">
+                               <div class="col-md-12">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-4 form-group">
                                             <label for="enquireThemeColor">Theme Color <span class="text-danger">*</span></label>
                                             <select class="form-control" required name="enquire_theme_color">
                                                 <option value="">Select Theme Color</option>
@@ -479,12 +490,21 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4 form-group">
                                             <label for="enquireTextAlignment">Text Alignment <span class="text-danger">*</span></label>
                                             <select class="form-control" required name="enquire_text_alignment">
                                                 <option value="">Select Text Alignment</option>
-                                                @foreach($textAlignments as $value)
-                                                    <option value="{{$value}}">{{$value}}</option>
+                                                @foreach($textAlignments as $tkey => $value)
+                                                    <option value="{{$tkey}}">{{$value}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 form-group">
+                                            <label for="inquireGridPosition">Alignment Position <span class="text-danger">*</span></label>
+                                            <select class="form-control" required name="enquire_grid_position">
+                                                <option value="">Select Alignment Position</option>
+                                                @foreach($gridAlignmentOptions as $gkey => $gvalue)
+                                                    <option value="{{$gkey}}">{{$gvalue}}</option>
                                                 @endforeach
                                             </select>
                                         </div>

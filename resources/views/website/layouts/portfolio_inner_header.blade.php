@@ -1,7 +1,7 @@
 <div class="header clearHeader portfolio_details desktop_view">
     <nav class="navbar navbar-default navbar-fixed-top">
 
-        <div class="header-container">
+        <div class="container-fluid">
 
             <div class="navbar-header">
                 <a class="navbar-brand" href="{{route('site.home')}}">

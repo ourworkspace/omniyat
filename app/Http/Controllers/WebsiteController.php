@@ -25,6 +25,7 @@ use App\OmniyatTCPModel as OmniyatTCP;
 use App\PageSubTitlesModel as PageSubTitles;
 use App\InquireModel as Inquire;
 use App\SponsorshipGalleryImagesModel as SponsorshipGalleryImages;
+use App\SubscribeNewsLettersModel as SubscribeNewsLetters;
 
 class WebsiteController extends Controller
 {
@@ -269,34 +270,17 @@ class WebsiteController extends Controller
 
     public function leadership(Request $request){
 
+
         if(isset($request->id)&&$request->id!=''){
             $leadership_data = Leadership::where('status',1)->where('id',$request->id)->orderBy('ordered_by','asc')->first();
         }else{
             $leadership_data = Leadership::where('status',1)->orderBy('ordered_by','asc')->first();
         }
-        $previous_leadership = '';
-        $next_leadership = '';
-        $last_leadership = Leadership::where('status',1)->select('id','leadership_name','ordered_by')->latest()->orderBy('ordered_by','asc')->first();
-        $first_leadership = Leadership::where('status',1)->orderBy('ordered_by','asc')->first();
+        // get previous
+        $previous_leadership = Leadership::where('ordered_by', '<', $leadership_data->ordered_by)->latest('id')->first();
+        // get next
+        $next_leadership = Leadership::where('ordered_by', '>', $leadership_data->ordered_by)->oldest('id')->first();
         
-        if(isset($leadership_data->id) && $leadership_data->id == $last_leadership->id){
-            //echo "if";exit();
-            $previous_leadership = Leadership::where('ordered_by', '<', $last_leadership->ordered_by)->orderBy('ordered_by','desc')->select('id','leadership_name','ordered_by')->first();
-            $next_leadership = Leadership::where('status',1)->first();
-
-        }elseif(isset($leadership_data->id) && $leadership_data->id == $first_leadership->id){
-            //echo "elseif";exit();
-            $previous_leadership = Leadership::where('status',1)->orderBy('ordered_by','desc')->first();
-            $next_leadership = Leadership::where('ordered_by', '>', $leadership_data->ordered_by)->select('id','leadership_name','ordered_by')->first();
-           
-        }else{
-            //echo "else";exit();
-            if(isset($leadership_data->id)){
-            $previous_leadership = Leadership::where('ordered_by', '<', $leadership_data->ordered_by)->select('id','leadership_name','ordered_by')->first();
-            $next_leadership = Leadership::where('ordered_by', '>', $leadership_data->ordered_by)->select('id','leadership_name','ordered_by')->first(); 
-            }  
-          
-        }
         return view('website.company_leadership', compact('leadership_data','previous_leadership','next_leadership'));
     }
 
@@ -438,6 +422,52 @@ class WebsiteController extends Controller
             $responce = array('response' => false,'message'=>'Please fill all required fields..!');
         }
         return Response()->json($responce);
+    }
+
+    public function saveSubscribeNewsLetters(Request $request)
+    {
+        if(!empty($request->email)):
+            $newsLetterMail = SubscribeNewsLetters::where('email',$request->email)->get();
+            if(count($newsLetterMail) > 0):
+                $responce = ['response'=>false,'message'=>'Mail Id is already subscribed!'];
+            else:
+                $NewsLetterSubscribe = SubscribeNewsLetters::create(['email'=>$request->email,'_token'=>$request->_token])->id;
+                if($NewsLetterSubscribe > 0):
+                    //send verification mail.
+                    $link = route('verify.subscribe.news.letters',['email'=>$request->email,'token'=>$request->_token]);
+                    $usend_to[] = [$request->email, $request->email]; //change mail-id
+                    $usendto = [
+                        'sendForm'  =>  [config('global.info_mail'),config('global.site_name')],
+                        'sendTo'    =>  $usend_to,
+                        'subject'   =>  'Thank you for subscribe newsletters - Omniyat',
+                    ];
+                    $mdata['request'] = $request;
+                    $mdata['link'] = $link;
+                    $userMailRes = $this->sendEmail('email.verify_newslitter_mail',$mdata,$usendto);
+
+                    $responce = ['response'=>true,'message'=>'Thank you for subscribe. please verify your email!'];
+                else:
+                    $responce = ['response'=>false,'message'=>'Failed to subscribe your email!'];
+                endif;
+            endif;
+        else:
+            $responce = ['response'=>false,'message'=>'Invalid request to subscribe!'];
+        endif;
+        return Response()->json($responce);
+    }
+
+    public function verifySubscribeNewsLetters(Request $request)
+    {
+        $newsLetterMail = SubscribeNewsLetters::where(['email'=>$request->email,'_token'=>$request->token,'status'=>0])->get();
+        if(count($newsLetterMail) > 0):
+            SubscribeNewsLetters::where(['email'=>$request->email,'_token'=>$request->token,'status'=>0])->update(['status'=>1]);
+            $message = "Thank you for subscribe newsletters!";
+            $status = true;
+        else:
+            $message = "Failed to verifcation email to newsletters!";
+            $status = false;
+        endif;
+        return view('website.subscribe_newsletter_status', compact('status','message'));
     }
 
     public function sendEmail($mailView,$data,$sendto, $attachments=null)

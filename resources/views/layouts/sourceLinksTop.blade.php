@@ -25,7 +25,7 @@
 <script src="{{asset('public/assets/vendors/jquery/jquery-3.1.1.min.js')}}"></script>
 
 <!-- <script src="{{asset('public/assets/vendors/ckeditor/ckeditor.js')}}"></script> -->
-<script src="{{asset('public//ckeditor/ckeditor.js')}}"></script>
+<script src="{{asset('public/ckeditor/ckeditor.js')}}"></script>
 <link rel="stylesheet" href="{{asset('public/assets/css/theme.css')}}">
 
 <script src="{{asset('public/assets/vendors/js/vendor.bundle.base.js')}}"></script>
