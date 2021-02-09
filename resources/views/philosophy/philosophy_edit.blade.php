@@ -91,11 +91,40 @@
                 </div>
             </div>
             &nbsp;&nbsp;&nbsp;<h4 style="padding-top: 30px;padding-bottom: 15px;">Section 3</h4>
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-12 titleBox">
                 <label>Title <span class="text-danger">*</span></label>
-                <input type="text" name="title_3" class="form-control" value="{{$philosophy->title_3}}">
-                @if($errors->has('title_3'))
-                    <span class="text-danger">{{ $errors->first('title_3') }}</span>
+                @if(count($title_3_data) > 0)
+                    @foreach($title_3_data as $key => $evalue)
+                    <div class="row remove_exist_title_3_div_{{$key}}">
+                        <div class="col-md-11">
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <input type="text" class="form-control title3_count" maxlength="10" value="{{$evalue}}" name="title_3[{{$key}}]" required placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            @if($key == 0)
+                                <a href="javascript:0;" class="btn btn-success title_3_add" > + </a>
+                            @else
+                                <a href="javascript:0;" class="btn btn-success title_3_remove" onclick="removeExistTitle3Div({{$key}})"> - </a>
+                            @endif
+                        </div>
+                    </div>
+                    @endforeach
+                @else
+                    <div class="row">
+                        <div class="col-md-11">
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <input type="text" class="form-control" name="title_3[]" required placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <a href="javascript:0;" class="btn btn-success title_3_add"> + </a>
+                        </div>
+                    </div>
                 @endif
             </div>
             <div class="form-group col-md-12">
@@ -186,8 +215,9 @@
                      CKEDITOR.instances.description_1.updateElement();
                     },
                 },
-                title_3: {
-                    required: true
+                'title_3[]': {
+                    required: true,
+                    maxlength: 10
                 },
                 title_4_1: {
                     required: true
@@ -198,5 +228,15 @@
             }
         });
     });
-
+    var k = 1;
+    $('.title_3_add').on('click', function() {
+        var title3Count = $('.title3_count').length;
+        //alert(numItems);
+        var field3 = '<div class="row title_3_remove_div_'+k+'"><div class="col-md-11"><div class="row"><div class="form-group col-md-12"><input type="text" class="form-control title3_count" maxlength="10" name="title_3['+title3Count+']" required placeholder=""></div></div></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success title_3_remove" onclick="removeTitle3Div('+k+')"> - </a></div></div>';
+        $('.titleBox').append(field3);
+        k = k+1;
+      });    
+    function removeExistTitle3Div(div_id){
+        $(".remove_exist_title_3_div_"+div_id).remove();
+    }
 </script>
