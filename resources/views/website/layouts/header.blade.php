@@ -1,13 +1,12 @@
 <div class="header clearHeader desktop_view">
     <nav class="navbar navbar-default navbar-fixed-top desktop_view">
-      <div class="header-container">
+      <div class="container-fluid">
         <div class="navbar-header">
           <a class="navbar-brand" href="{{route('site.home')}}">
               <img class="normalLogo" src="{{asset('public/site/img/logo-omniyat1.svg')}}" alt="logo">
             </a>
         </div>
         <ul class="nav navbar-nav navbar-right">
-            <!--<li><button class="hamburger">Toggle</button></li>-->
             <li>
                 <div id="hamburger">
                   <span></span>
