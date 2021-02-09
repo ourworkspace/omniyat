@@ -122,7 +122,7 @@ class PortfolioController extends Controller
                         $location_icon_image = '';
                     endif;
 
-                    $location = PortfolioDetails::create(['portfolio_id'=>$portfolio,'tab_name'=>'Location','theme_color'=>$request->location_theme_color,'text_alignment'=>$request->location_text_alignment,'background_image'=>$location_background_picture,'title'=>$request->location_title_name,'description_1'=>$request->location_description,'icon_image'=>$location_icon_image])->id;
+                    $location = PortfolioDetails::create(['portfolio_id'=>$portfolio,'tab_name'=>'Location','theme_color'=>$request->location_theme_color,'text_alignment'=>$request->location_text_alignment,'grid_position'=>$request->location_grid_position,'background_image'=>$location_background_picture,'title'=>$request->location_title_name,'description_1'=>$request->location_description,'icon_image'=>$location_icon_image])->id;
                 endif;
 
                 //Design

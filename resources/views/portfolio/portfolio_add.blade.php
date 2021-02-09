@@ -19,7 +19,9 @@
         <div class="col-md-12 grid-margin">
             <form action="{{route('portfolio.save')}}" enctype="multipart/form-data" class="row" method="post">
                 {{csrf_field()}}
-                
+                <div class="form-group col-md-12">
+                    <input type="submit" value="Save" class="btn btn-success pull-right">
+                </div>
                 <div class="col-lg-12 col-md-12 mb-3">
                     <div class="d-flex card">
                         <div class="card-header">
@@ -192,8 +194,8 @@
                                             <label for="locationTextAlignment">Text Alignment <span class="text-danger">*</span></label>
                                             <select class="form-control" required name="location_text_alignment">
                                                 <option value="">Select Text Alignment</option>
-                                                @foreach($textAlignments as $value)
-                                                    <option value="{{$value}}">{{$value}}</option>
+                                                @foreach($textAlignments as $tkey => $value)
+                                                    <option value="{{$tkey}}">{{$value}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -202,7 +204,7 @@
                                             <select class="form-control" required name="location_grid_position">
                                                 <option value="">Select Alignment Position</option>
                                                 @foreach($gridAlignmentOptions as $gkey => $gvalue)
-                                                    <option value="{{$gvalue}}">{{$gvalue}}</option>
+                                                    <option value="{{$gkey}}">{{$gvalue}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -492,8 +494,8 @@
                                             <label for="enquireTextAlignment">Text Alignment <span class="text-danger">*</span></label>
                                             <select class="form-control" required name="enquire_text_alignment">
                                                 <option value="">Select Text Alignment</option>
-                                                @foreach($textAlignments as $value)
-                                                    <option value="{{$value}}">{{$value}}</option>
+                                                @foreach($textAlignments as $tkey => $value)
+                                                    <option value="{{$tkey}}">{{$value}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -502,7 +504,7 @@
                                             <select class="form-control" required name="enquire_grid_position">
                                                 <option value="">Select Alignment Position</option>
                                                 @foreach($gridAlignmentOptions as $gkey => $gvalue)
-                                                    <option value="{{$gvalue}}">{{$gvalue}}</option>
+                                                    <option value="{{$gkey}}">{{$gvalue}}</option>
                                                 @endforeach
                                             </select>
                                         </div>

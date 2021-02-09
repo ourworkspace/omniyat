@@ -64,18 +64,18 @@
                     @if(isset($location->background_image) && file_exists($location->background_image))
                         <img src="{{asset($location->background_image)}}" class="anwa_location tr_location">
                     @endif
-                    <div class="header-container container-vertical-left-bottom">
+                    <div class="header-container {{$location->text_alignment??'container-vertical-left-bottom'}}">
                         <div class="row">
-                            <div class="col-md-6">
-                                    @if(isset($location->title))
-                                        <h2 class="text-white text-uppercase tss-mb fs-20 mb-15 mt-0 ls-1 tss-lh-1-3 pr-30 tr_location_title">{{$location->title}}</h2>
-                                    @endif
+                            <div class="col-md-6 {{$about->grid_position??'pull-left'}}">
+                                @if(isset($location->title))
+                                    <h2 class="text-white text-uppercase tss-mb fs-20 mb-15 mt-0 ls-1 tss-lh-1-3 pr-30 tr_location_title">{{$location->title}}</h2>
+                                @endif
 
-                                    @if(isset($location->description_1))   
-                                        <div class="tr_location_description_one"> 
-                                            <?php echo $location->description_1; ?>
-                                        </div>
-                                    @endif  
+                                @if(isset($location->description_1))   
+                                    <div class="tr_location_description_one"> 
+                                        <?php echo $location->description_1; ?>
+                                    </div>
+                                @endif  
                             </div>
                         </div>
                     </div>
@@ -326,11 +326,11 @@
                     @if(isset($enquire->background_image))
                         <img src="{{asset($enquire->background_image)}}" class="anwa_enquire">
                     @endif
-                    <div class="header-container container-vertical-{{ $enquire->text_alignment ?? 'top-right' }}">
+                    <div class="header-container {{$enquire->text_alignment ?? 'container-vertical-top-right' }}">
 
                         <div class="row">
 
-                            <div class="col-md-4 text-center float-left pl-30">
+                            <div class="col-md-4 text-center {{$enquire->grid_position??'float-left'}} pl-30">
 
                                 <h3 class="text-black text-uppercase tss-mb fs-20 m-0 my-15 ">Register your interest</h3>
                                 <div id="FeedbackEnquerymessage"></div>

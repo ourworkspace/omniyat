@@ -6,6 +6,9 @@
         #cke_1_contents{
             height: 200px !important;
         }
+        .light{
+            
+        }
     </style>
     <!-- <div class="row page-title-header">
         <div class="col-12">
@@ -20,7 +23,7 @@
             <form action="{{route('portfolio.update')}}" enctype="multipart/form-data" class="row" method="post">
                 {{csrf_field()}}
                 <input type="hidden" value="{{$portfolio->id}}" name="portfolio_id">
-                
+
                 <div class="form-group col-md-12">
                     <input type="submit" value="Update" class="btn btn-success pull-right">
                 </div>
