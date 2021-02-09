@@ -44,7 +44,7 @@
                             <ol class="breadcrumb omniyat">
                                 <li class="breadcrumb-item"><a class="white-text">Media</a></li>
                                 <li class="breadcrumb-item active"><a class="white-text" href="{{route('site.whats.on.media')}}">WHATS ON MEDIA</a></li>
-                                <li class="breadcrumb-item active">{{$womd->title}}</li>
+                                <li class="breadcrumb-item active" title="{{$womd->title}}">{{substr($womd->title, 1, 25).'...'}}</li>
                             </ol>
                         </div>
                         <div class="col-md-6">
@@ -75,7 +75,7 @@
             <ol class="breadcrumb omniyat w-100">
                 <li class="breadcrumb-item"><a class="white-text" href="{{route('site.home')}}">Home</a></li>
                 <li class="breadcrumb-item"><a class="white-text" href="{{route('site.whats.on.media')}}">What’s On Media</a></li>
-                <li class="breadcrumb-item active">{{$womd->title}}</li>
+                <li class="breadcrumb-item active" title="{{$womd->title}}">{{substr($womd->title, 1, 25).'...'}}</li>
             </ol>
             <div class="image w-100 mt-5 relative">
                 <img src="{{asset($womd->thumb_image)}}" alt="detail" class="w-100">
