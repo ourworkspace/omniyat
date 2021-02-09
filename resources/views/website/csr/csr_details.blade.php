@@ -99,6 +99,7 @@
             </div>
         </section>
     @endif
+    @include('website.layouts.footer')
 </div>
 <div class="inner-page mobile_view  media_list_pages">
     <section class="page-title text-center w-100 my-30">
@@ -120,9 +121,9 @@
         <div class="desc py-15 px-15">
             <h2 class="fs-18 text-black tss-msb mt-15 pb-15 tss-lh-1-3">{{$csrd->title}}</h2>
             <p class="text-black tss-mr fs-14 tss-lh-1-7 mb-10">{{$csrd->short_description}}</p>
-{{--            <div class="image w-100 my-10 relative">--}}
-{{--                <img src="img/csr/detail-02.jpg" alt="detail" class="w-100">--}}
-{{--            </div>--}}
+            <!--<div class="image w-100 my-10 relative">
+                <img src="img/csr/detail-02.jpg" alt="detail" class="w-100">
+            </div> -->
             <?php echo $csrd->long_description; ?>
             <hr>
         </div>

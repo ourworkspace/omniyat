@@ -50,7 +50,7 @@
         </div>
     </section>
 
-
+    @include('website.layouts.footer')
 
 </div>
 

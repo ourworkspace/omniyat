@@ -88,6 +88,7 @@
             </div>
         </section>
     @endif
+    @include('website.layouts.footer')
 </div>
 
 

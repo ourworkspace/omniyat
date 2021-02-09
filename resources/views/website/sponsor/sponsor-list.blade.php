@@ -44,7 +44,7 @@
       </section>
     @endif
 
-
+    @include('website.layouts.footer')
 </div>
 <div class="inner-page mobile_view">
     <section class="page-title text-center w-100 my-30">
