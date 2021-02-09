@@ -32,7 +32,7 @@
                 <ul>
                     <li><a href="{{route('site.whats.on.media')}}">What's on media</a></li>
                     <li><a href="{{route('site.press.release')}}">Press Releases</a></li>
-                    <li><a href="{{route('site.press.kit')}})">Press Kit</a></li> 
+                    <li><a href="{{route('site.press.kit')}}">Press Kit</a></li> 
                     <!--<li><a href="javascript:void(0)">Chairman Newsletters</a></li>-->
                     <li><a href="{{route('site.csr')}}">CSR</a></li>
                     <li><a href="{{route('site.sponsorships')}}">Sponsorships</a></li>
