@@ -270,34 +270,17 @@ class WebsiteController extends Controller
 
     public function leadership(Request $request){
 
+
         if(isset($request->id)&&$request->id!=''){
             $leadership_data = Leadership::where('status',1)->where('id',$request->id)->orderBy('ordered_by','asc')->first();
         }else{
             $leadership_data = Leadership::where('status',1)->orderBy('ordered_by','asc')->first();
         }
-        $previous_leadership = '';
-        $next_leadership = '';
-        $last_leadership = Leadership::where('status',1)->select('id','leadership_name','ordered_by')->latest()->orderBy('ordered_by','asc')->first();
-        $first_leadership = Leadership::where('status',1)->orderBy('ordered_by','asc')->first();
+        // get previous
+        $previous_leadership = Leadership::where('ordered_by', '<', $leadership_data->ordered_by)->latest('id')->first();
+        // get next
+        $next_leadership = Leadership::where('ordered_by', '>', $leadership_data->ordered_by)->oldest('id')->first();
         
-        if(isset($leadership_data->id) && $leadership_data->id == $last_leadership->id){
-            //echo "if";exit();
-            $previous_leadership = Leadership::where('ordered_by', '<', $last_leadership->ordered_by)->orderBy('ordered_by','desc')->select('id','leadership_name','ordered_by')->first();
-            $next_leadership = Leadership::where('status',1)->first();
-
-        }elseif(isset($leadership_data->id) && $leadership_data->id == $first_leadership->id){
-            //echo "elseif";exit();
-            $previous_leadership = Leadership::where('status',1)->orderBy('ordered_by','desc')->first();
-            $next_leadership = Leadership::where('ordered_by', '>', $leadership_data->ordered_by)->select('id','leadership_name','ordered_by')->first();
-           
-        }else{
-            //echo "else";exit();
-            if(isset($leadership_data->id)){
-            $previous_leadership = Leadership::where('ordered_by', '<', $leadership_data->ordered_by)->select('id','leadership_name','ordered_by')->first();
-            $next_leadership = Leadership::where('ordered_by', '>', $leadership_data->ordered_by)->select('id','leadership_name','ordered_by')->first(); 
-            }  
-          
-        }
         return view('website.company_leadership', compact('leadership_data','previous_leadership','next_leadership'));
     }
 

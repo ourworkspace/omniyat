@@ -29,7 +29,7 @@
                 <div class="row py-20 pt-45">
                     <div class="col-md-6">
                         <ol class="breadcrumb omniyat">
-                            <li class="breadcrumb-item"><a class="white-text" href="whatsnew.html">what’s new</a></li>
+                            <li class="breadcrumb-item"><a class="white-text" href="{{route('site.whats.new')}}">what’s new</a></li>
                             <li class="breadcrumb-item active">latest news</li>
                         </ol>
                     </div>
@@ -57,7 +57,7 @@
     </section>
     <section class="page_content w-100 px-5 relative">
         <ol class="breadcrumb omniyat w-100">
-            <li class="breadcrumb-item"><a class="white-text" href="whatsnew.html">what’s new</a></li>
+            <li class="breadcrumb-item"><a class="white-text" href="{{route('site.whats.new')}}">what’s new</a></li>
             <li class="breadcrumb-item active">latest news</li>
         </ol>
         <div class="image w-100 mt-5 relative">
