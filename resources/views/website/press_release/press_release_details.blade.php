@@ -65,7 +65,7 @@
 
             </div>
         </section>
-
+        @include('website.layouts.footer')
 
     </div>
     <div class="inner-page mobile_view  media_list_pages">
@@ -138,5 +138,6 @@
                 </div>
             </div><!--fixed_bottom-->
         </section>
+        @include('website.layouts.footer')
     </div>
     @endsection

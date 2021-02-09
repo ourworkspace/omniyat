@@ -121,9 +121,9 @@
                         <div class="card-body">
                             <div class="row aboutTab">
                                 <input type="hidden" value="{{$about->id}}" name="about_id">
-                               <div class="form-group col-md-12">
+                               <div class="col-md-12">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-4 form-group">
                                             <label for="aboutThemeColor">Theme Color <span class="text-danger">*</span></label>
                                             <select class="form-control" required name="about_theme_color">
                                                 <option value="">Select Theme Color</option>
@@ -132,7 +132,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4 form-group">
                                             <label for="aboutTextAlignment">Text Alignment <span class="text-danger">*</span></label>
                                             <select class="form-control" required name="about_text_alignment">
                                                 <option value="">Select Text Alignment</option>
@@ -141,6 +141,24 @@
                                                 @endforeach
                                             </select>
                                         </div>
+                                        <div class="col-md-4 form-group">
+                                            <label for="aboutGridPosition">Alignment Position <span class="text-danger">*</span></label>
+                                            <select class="form-control" required name="about_grid_position">
+                                                <option value="">Select Alignment Position</option>
+                                                @foreach($gridAlignmentOptions as $gvalue)
+                                                    <option value="{{strtolower($gvalue)}}" {{ ($about->grid_position == strtolower($gvalue)) ? 'selected' : '' }}>{{$gvalue}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <!--<div class="col-md-4 form-group">
+                                            <label for="aboutGridContainerPosition">Container Position <span class="text-danger">*</span></label>
+                                            <select class="form-control" required name="about_grid_container_position">
+                                                <option value="">Select Container Position</option>
+                                                @foreach($gridContainerPositions as $cvalue)
+                                                    <option value="{{$cvalue}}" {{ ($about->grid_container_position == $cvalue) ? 'selected' : '' }}>{{$cvalue}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>-->
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12">
@@ -725,8 +743,8 @@
                                             </div>
                                         @else
                                             <div class="col-md-12">
-                                                <label for="enquireBackgroundImage">Background Picture</label>
-                                                <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="enquire_background_image" style="padding: 6px">
+                                                <label for="enquireBackgroundImage">Background Picture <span class="text-danger">*</span></label>
+                                                <input type="file" class="form-control filer_plugin_single" accept=".jpg,.png,.jpeg" name="enquire_background_image" style="padding: 6px" required>
                                                 @if($errors->has('enquireBackgroundImage'))
                                                     <span class="text-danger">{{ $errors->first('enquireBackgroundImage') }}</span>
                                                 @endif
@@ -755,10 +773,10 @@
                                                 <div class="col-md-11">
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
-                                                            <input type="text" class="form-control" name="vitual_tour_title[]" value="{{$vrdata->title}}" required placeholder="Title">
+                                                            <input type="text" class="form-control" name="vitual_tour_title[]" value="{{$vrdata->title}}" placeholder="Title">
                                                         </div>
                                                         <div class="form-group col-md-12">
-                                                            <input type="url" class="form-control" name="vitual_tour_url[]" value="{{$vrdata->links}}" required placeholder="Link">
+                                                            <input type="url" class="form-control" name="vitual_tour_url[]" value="{{$vrdata->links}}" placeholder="Link">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -816,8 +834,18 @@
                                                     <input type="hidden" value="{{$fpvalue->links}}" name="floorplan_uploaded_files[]">
                                                     <div class="form-group col-md-11">
                                                         <div class="row">
-                                                            <div class="form-group col-md-11">
+                                                            <!--<div class="form-group col-md-11">
                                                                 <input type="file" class="form-control" style="padding: 6px" name="floorplan_existing_file_update[]" accept=".pdf">
+                                                            </div>-->
+                                                            <div class="col-md-11">
+                                                                <div class="row">
+                                                                    <div class="form-group col-md-12">
+                                                                        <input type="text" class="form-control" name="floorplan_existing_file_update_title[]" placeholder="Title" value="{{$fpvalue->title}}">
+                                                                    </div>
+                                                                    <div class="form-group col-md-12">
+                                                                        <input type="file" class="form-control" style="padding: 6px" name="floorplan_existing_file_update[]" accept=".pdf">
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                             <div class="col-md-1">
                                                                 <a href="{{asset($fpvalue->links)}}" title="{{$floorPlanFileName}}" target="_blank"><i class="fa fa-download" style="font-size: 30px;padding: 5px 10px;"></i></a>
@@ -836,8 +864,15 @@
                                         @endforeach
                                     @else
                                         <div class="row">
-                                            <div class="form-group col-md-11">
-                                                <input type="file" class="form-control" style="padding: 6px" name="floorplan_file[]" accept=".pdf">
+                                            <div class="col-md-11">
+                                                <div class="row">
+                                                    <div class="form-group col-md-12">
+                                                        <input type="text" class="form-control" name="floorplan_file_title[]" placeholder="Title">
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        <input type="file" class="form-control" style="padding: 6px" name="floorplan_file[]" accept=".pdf">
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="col-md-1">
                                                 <a href="javascript:0;" class="btn btn-success floorPlanTabAddmoreBtn"> + </a>
@@ -920,7 +955,7 @@
     var amtFtsFieldsSet = '<div class="row"><div class="col-md-11"><div class="row"><div class="form-group col-md-12"><input type="text" class="form-control" name="amenities_facilities_amenities[]" required placeholder="Amenity Name"></div></div></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success amtFtsRemove"> - </a></div></div>';
     addDynamicFieldsProject('.amtFtsAddMore', '.amenitiesTextBox', 0, amtFtsFieldsSet, '.amtFtsRemove');
 
-    var floorPlanFileds = '<div class="row"><div class="form-group col-md-11"><input type="file" class="form-control" style="padding: 6px" name="floorplan_file[]" accept=".pdf" required></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success floorPlanTabRemoveBtn"> - </a></div></div>';
+    var floorPlanFileds = '<div class="row"><div class="col-md-11"><div class="row"><div class="form-group col-md-12"><input type="text" class="form-control" name="floorplan_file_title[]" placeholder="Title"></div><div class="form-group col-md-12"><input type="file" class="form-control" style="padding: 6px" name="floorplan_file[]" accept=".pdf"></div></div></div><div class="col-md-1"><a href="javascript:0;" class="btn btn-success floorPlanTabRemoveBtn"> - </a></div></div>';
     addDynamicFieldsProject('.floorPlanTabAddmoreBtn', '.floorPlanTabFields', 0, floorPlanFileds, '.floorPlanTabRemoveBtn');
 
     var lifestylemaxField = 0; //Input fields increment limitation

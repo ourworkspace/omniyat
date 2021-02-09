@@ -48,7 +48,7 @@
 
         </div>
     </section>
-
+    @include('website.layouts.footer')
 </div>
 <div class="inner-page mobile_view">
     <section class="page-title text-center w-100 my-30">
@@ -73,6 +73,7 @@
         </div>
     </section>
     <p class="text-right px-20"><a href="" class="fs-14 tss-mb text-uppercase text-black">NEXT <span class="tss-text-red">→</span></a></p>
+    @include('website.layouts.footer')
 </div>
 
 @endsection

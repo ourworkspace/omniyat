@@ -79,7 +79,7 @@
                 </div>
                 <div id="designTabPanel" class="panel-collapse collapse" role="tabpanel" aria-labelledby="designTab">
                     <div class="panel-body">
-                        @if(isset($designWithTabs) && count($designWithTabs) > 0)
+                        <!--@if(isset($designWithTabs) && count($designWithTabs) > 0)
                             <section class="lifestyle slider panel_slider">
                                 @foreach($designWithTabs as $key => $pdvalue)
                                     <div class="image">
@@ -87,7 +87,7 @@
                                     </div>
                                 @endforeach
                             </section>
-                        @endif
+                        @endif-->
                         @if(isset($designWithOutTabs))
                             <section class="lifestyle slider panel_slider">
                                 <div class="image">
@@ -111,6 +111,11 @@
                                             </div>
                                             <div id="designcTab{{$dwtKey}}" class="panel-collapse collapse {{($dwtKey == 0) ? 'show' : ''}}" role="tabpanel" aria-labelledby="designWithTabA{{$dwtKey}}">
                                                 <div class="panel-body">
+                                                    @if(isset($pdvalue->background_image) && file_exists($pdvalue->background_image))
+                                                        <div class="image w-100 mb-20">
+                                                            <img src="{{asset($pdvalue->background_image)}}" class="w-100">
+                                                        </div>
+                                                    @endif
                                                     <h5 class="text-black text-uppercase tss-msb fs-14 my-10">{{$pdvalue->title}}</h5>
                                                     @if(isset($pdvalue->description_1) && !empty($pdvalue->description_1))
                                                         <?php echo $pdvalue->description_1; ?>

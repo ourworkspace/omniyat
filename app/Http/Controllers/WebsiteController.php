@@ -372,6 +372,7 @@ class WebsiteController extends Controller
             $files = '';
             $mdata = [];
             $link = '';
+            $resMessage = '';
             if(isset($request->download)):
                 
                 if($request->download == 'floor_plan'):
@@ -379,6 +380,7 @@ class WebsiteController extends Controller
                     $path = $this->floorPlanFilesDownload($request, $portfolio->id,true);
                     $files = asset('public/'.$path);
                     $mdata['link'] = route('download.floorplan.files',['floorplan_id'=>$request->portfolio,'file'=>true]);
+                    $resMessage = "Floorplan files as sent to mail. Please download form mail!";
                 endif;
 
                 if($request->download == 'brochure'):
@@ -423,7 +425,12 @@ class WebsiteController extends Controller
                 }else{
                     Inquire::where('id', $saveInquire)->update(['comment_message'=>'Failed to send for client or admin','mail_status'=>'false']);
                 }
-                $responce = array('response' => true,'message'=>'Inquire details as sent. We will get back soon!','mail'=>$mailRes);
+                if(isset($resMessage) && !empty($resMessage)):
+                    $message = $resMessage;
+                else:
+                    $message = 'Inquire details as sent. We will get back soon!';
+                endif;
+                $responce = array('response' => true,'message'=>$message,'mail'=>$mailRes);
             }else{
                 $responce = array('response' => false,'message'=>'Failed to send your inquire details!');
             }
@@ -479,7 +486,7 @@ class WebsiteController extends Controller
             mkdir('public/download/portfolio/'.$portfolio_id, 0777, true);
         endif;
 
-        $fileName = 'download/portfolio/'.$portfolio_id.'/Floorplan_documents_'.urlencode($portfolio->project_name).'.zip';
+        $fileName = 'download/portfolio/'.$portfolio_id.'/Floorplan_documents_'.str_replace('+','_',urlencode($portfolio->project_name)).'.zip';
         $floorPlanFilesPath = 'uploads/portfolio/floorplan/'.$portfolio->category_id.'/';
         if ($zip->open(public_path($fileName), ZipArchive::CREATE) === TRUE){
             $files = File::files(public_path($floorPlanFilesPath));

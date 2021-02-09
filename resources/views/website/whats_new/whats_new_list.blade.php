@@ -50,7 +50,7 @@
         </div>
     </section>
 
-
+    @include('website.layouts.footer')
 
 </div>
 
@@ -80,6 +80,6 @@
         </section>
 
     </section>
+    @include('website.layouts.footer')
 </div>
-<div id="footer"></div>   
 @endsection

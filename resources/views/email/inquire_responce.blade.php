@@ -337,12 +337,12 @@
                 <table cellspacing="0" cellpadding="0" width="600" class="w320">
                     <tr>
                         <td class="header-lg">
-                            Thank you for inquiring {{$request->first_name}}!
+                            Download Floorplans form given link! 
                         </td>
                     </tr>
                     <tr>
                         <td class="free-text">
-                            Your opinion is very important to us and can help us improve our services. Please take a moment and let us know how satisfied you are with our services.
+                            <!--Your opinion is very important to us and can help us improve our services. Please take a moment and let us know how satisfied you are with our services.-->
                         </td>
                     </tr>
                     @if(isset($link) && !empty($link))

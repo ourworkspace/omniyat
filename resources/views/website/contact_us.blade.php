@@ -300,13 +300,13 @@
     </div>
     <input type="hidden" name="" id="locations_count" value="{{count($map_locations)}}">
     @if(count($map_locations)>0)
-    @foreach($map_locations as $key=>$ml)
-    @if($ml->type == 8)
-    <input type="hidden" name="" id="loc_name_{{$key}}" value="{{$ml->location_name}}">
-    <input type="hidden" name="" id="latitude_{{$key}}" value="{{$ml->latitude}}">
-    <input type="hidden" name="" id="longitude_{{$key}}" value="{{$ml->longitude}}">
-    @endif
-    @endforeach
+      @foreach($map_locations as $key=>$ml)
+        @if($ml->type == 8)
+        <input type="hidden" name="" id="loc_name_{{$key}}" value="{{$ml->location_name}}">
+        <input type="hidden" name="" id="latitude_{{$key}}" value="{{$ml->latitude}}">
+        <input type="hidden" name="" id="longitude_{{$key}}" value="{{$ml->longitude}}">
+        @endif
+      @endforeach
     @endif
     <section class="w-100 mt-30 contact_us pb-30">
         <div class="map-responsive">
@@ -314,6 +314,7 @@
         </div>
     </section>
 
+    @include('website.layouts.footer')
     
 <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBZGstqA7yoIXd4L84J-fIqlSzVVL1uoGo'></script>
 <script type="text/javascript">

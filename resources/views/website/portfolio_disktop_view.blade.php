@@ -2,6 +2,9 @@
 .enquire_sec .form-group .form-control{
     color:#000 !important;
 }
+.portfolio_detail_innnerpage.desktop_view{
+    overflow-x: unset !important;
+}
 </style>
 <div class="inner-page mt-0 portfolio_detail_innnerpage desktop_view">
     @include('website.layouts.portfolio_inner_bottom_tabs')
@@ -17,16 +20,18 @@
                         <img src="{{asset($about->background_image)}}" class="tr_about">
                     @endif
 
-                    @if(isset($about->logo) && file_exists($about->logo))
-                        <div class="logo text-center mb-15 mt-45 tr_about_logo_div" style="position: absolute;left: 50%;top: 72px;width: 100%;transform: translate(-50%, 0px);">
-                            <img src="{{asset($about->logo)}}" alt="logo" class="tr_about_logo" style="margin-top: 0;width: 7vw;">
-                        </div>
-                    @endif
+                    
                     
                     <div class="header-container container-vertical-middle">
-                        <!--<div class="logo text-center mb-15 mt-45"><img src="img/portfolio/details/opg_gold.png" alt="logo" style="margin-top: -5em;"></div>-->
+                        <!--<div class="logo text-center mb-15 mt-45"><img src="img/portfolio/details/opg_gold.png" alt="logo" style="margin-top: -5em;"></div> style="position: absolute;left: 50%;top: 72px;width: 100%;transform: translate(-50%, 0px);"-->
+                        @if(isset($about->logo) && file_exists($about->logo))
+                            <div class="logo text-center mb-15 mt-45 tr_about_logo_div">
+                                <img src="{{asset($about->logo)}}" alt="logo" class="tr_about_logo" style="margin-top: 0;width: 7vw;">
+                            </div>
+                        @endif
+
                         <div class="row">
-                            <div class="col-md-6 pull-right pt-30 pl-0">
+                            <div class="col-md-6 {{$about->grid_position??'pull-left'}} pt-30 pl-0">
                                 @if(isset($about->title) && !empty($about->title))
                                     <h2 class="text-black text-uppercase tss-mb fs-16 mb-15 ls-1 tr_about_title">{{$about->title}}</h2>
                                 @endif
@@ -229,7 +234,7 @@
                 $amenities_facilities_gallery = DB::table('portfolios_details_gallery')->where(['tab_id'=>$project_id,'type'=>'amenities_facilities_gallery_images'])->get();
             ?>
             <div id="amenities" class="tab-pane fade">
-                <section class="w-100 lifestyle_sec">
+                <section class="w-100 lifestyle_sec more-top-space-1">
                     <div class="lifestyle_sec mCustomScrollbar mt-0" data-mcs-theme="dark">
                         <div class="container">
                             <div class="row">
@@ -239,7 +244,7 @@
                                         <h2 class="text-black text-uppercase tss-mb fs-20 mb-10">A PROJECT MANAGED BY</h2>
                                         <img src="img/portfolio/details/dorchester-collection-logo.png" alt="DORCHESTER COLLECTION" class="w-100 mb-30">
                                         -->
-                                        <h2 class="text-black text-uppercase tss-mb fs-20 mb-10"> {{$amenities_facilities->title}} </h2>
+                                        <h2 class="text-black text-uppercase tss-mb fs-20 mb-10"> {{$amenities_facilities->title ?? 'Amenities and Facilities'}} </h2>
                                         <?php echo $amenities_facilities->description_1; ?>
                                         <?php 
                                             $amenities = array_filter(explode(',',$amenities_facilities->amenities));
@@ -256,8 +261,9 @@
                             </div>
                         </div>
                     </div>
-                    @if(count($amenities_facilities_gallery) > 0)
-                        <div class="hcarousel right">
+                    <div class="hcarousel right">
+                        @if(count($amenities_facilities_gallery) > 0)
+                            
                             <div class="wrap">
                                 <ul>
                                     @foreach($amenities_facilities_gallery as $afgvalue)
@@ -267,10 +273,10 @@
                                     @endforeach
                                 </ul>
                             </div>
-                        </div>
-                    @endif
+                            
+                        @endif
+                    </div>
                 </section>
-
             </div>
         @endif
 
@@ -284,11 +290,8 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-7 col-centered">
-                                <div class="desc text-center px-45 inner-page">
-                                    @if(isset($gallery->title))
-                                        <h2 class="text-black text-uppercase tss-mb fs-20 mb-10">{{$gallery->title}}</h2>
-                                    @endif
-
+                                <div class="desc text-center px-45 ">
+                                    <h2 class="text-black text-uppercase tss-mb fs-20 mb-10">{{$gallery->title ?? 'Gallery'}}</h2>
                                     @if(isset($gallery->description_1))
                                         <?php echo $gallery->description_1; ?>
                                     @endif
@@ -297,14 +300,13 @@
                         </div>
                     </div>
 
-                    @if(count($gallery_images) > 0)
-                        <div class="gallery">
+                    <div class="gallery mCustomScrollbar" data-mcs-theme="dark">
+                        @if(count($gallery_images) > 0)
                             <section class="section">
                                 @foreach($gallery_images as $key => $giValue)
                                     <img src="{{asset($giValue->image)}}" alt="{{$giValue->title}}">
                                 @endforeach
                             </section>
-
                             <div class="lightbox">
                                 <div class="title"></div>
                                 <div class="filter"></div>
@@ -312,12 +314,12 @@
                                 <div class="arrowl"></div>
                                 <div class="close"></div>
                             </div>
-                        </div>
-                    @endif
+                        @endif
+                    </div>
                 </section>
             </div>
         @endif
-
+       
         @if(isset($enquire))
             <div id="enquire" class="tab-pane fade">
                 <section class="w-100 bg_img enquire_sec anwa_enquire_sec">
