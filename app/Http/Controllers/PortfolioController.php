@@ -99,7 +99,7 @@ class PortfolioController extends Controller
                         $about_project_logo = '';
                     endif;
                     //'bg_image_position'=>$request->about_image_position,
-                    $about = PortfolioDetails::create(['portfolio_id' => $portfolio,'tab_name'=> 'About','theme_color'=>$request->about_theme_color,'text_alignment'=>$request->about_text_alignment,'background_image'=>$about_background_picture,'logo'=>$about_project_logo,'title'=>$request->about_title_name,'description_1'=>$request->about_description,'description_2'=>$request->about_description_2])->id;
+                    $about = PortfolioDetails::create(['portfolio_id' => $portfolio,'tab_name'=> 'About','theme_color'=>$request->about_theme_color,'text_alignment'=>$request->about_text_alignment,'grid_position'=>$request->about_grid_position,'background_image'=>$about_background_picture,'logo'=>$about_project_logo,'title'=>$request->about_title_name,'description_1'=>$request->about_description,'description_2'=>$request->about_description_2])->id;
                 endif;
 
                 //Location Tab

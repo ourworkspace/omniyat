@@ -100,6 +100,15 @@
                                                 @endforeach
                                             </select>
                                         </div>
+                                        <div class="col-md-4 form-group">
+                                            <label for="aboutGridPosition">Alignment Position <span class="text-danger">*</span></label>
+                                            <select class="form-control" required name="about_grid_position">
+                                                <option value="">Select Alignment Position</option>
+                                                @foreach($gridAlignmentOptions as $gvalue)
+                                                    <option value="{{strtolower($gvalue)}}">{{$gvalue}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                         <!-- <div class="col-md-4">
                                             <label for="aboutThemeColor">Image Alignment <span class="text-danger">*</span></label>
                                             <select class="form-control" required name="about_image_position">
