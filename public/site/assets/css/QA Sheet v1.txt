@@ -1,0 +1,44 @@
+Home Page
+
+1: Add K9 button on menu
+2: "A trusted WatchDog® provides an alert!​" section container need to fix on small resolution
+*3: buttons link need to b update
+4: "News" section need to change the heading with " Latest News: " 
+
+
+
+/leadership/
+1: "Who We Are And What We Stand For" section button link change
+2: "our team page" need to create the detail page
+3: "Leading the Change" need to add the button.
+
+/company-milestones/
+
+/our-clients/
+
+/the-need/
+1: "The Well-Being of Your Wells" section need to add tagline
+2: "Making Routine Well Site Visits a Thing of the Past" container need to fix on small resolution
+
+
+/the-product/
+1: "Oil Well Surveillance" section need to add tagline
+2: left space issue
+3: "The Top Dog in Water Injection System Pipeline Monitoring" left space issue
+4: button need to clickable "Bring WatchDog Home Today"
+
+/support/
+1: bordr need to center
+
+/hiring/
+1: section need to add tagline
+2: need to add space in bottom and remove space in section one bottom
+
+/contact-us/
+1: space should be equal top bottom, need to reduce the space
+2: button color need to match the theme buttons
+
+
+/news/
+1: need to fix header
+

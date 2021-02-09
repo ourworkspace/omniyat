@@ -140,7 +140,7 @@
         </div>
     </section>
     
-    <div id="footer"></div>
+    @include('website.layouts.footer')
     
 </div>
     

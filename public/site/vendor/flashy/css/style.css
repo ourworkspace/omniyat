@@ -1,0 +1,97 @@
+
+
+.gallery_detail_page .vertical_text p.press_releases_section{
+    top: 157px;
+    left: -155px;
+}
+.gallery_detail_page .vertical_text p.latest_updates_section{
+    top: 160px;
+    left: -155px;
+}
+
+/*
+a.gallery:hover {
+	transition:all .3s;
+	transform:scale(1.1);
+}
+*/
+/*
+a.gallery img {
+	height:225px;border-radius:0px;width:100%;object-fit: fill;
+}
+*/
+a.custom {
+	display:inline-block;
+	padding:10px;
+	color:#fff;
+	background:#000;
+	border:3px solid #fff;
+	box-shadow:0 0 10px rgba(0,0,0,0.2);
+	text-decoration:none;
+}
+/*
+a.custom:hover {
+	transition:all .3s;
+	transform:scale(1.1);
+}
+*/
+#inline,
+.inline {
+	padding:15px;
+	text-align:left;
+}
+a.gallery.video{position: relative;}
+a.gallery.video:after{
+    position: absolute;
+    content: "";
+    width:60px;
+    height:60px;
+    background-image: url(video_media_play.png);
+    background-repeat: no-repeat;
+    left: calc(50% - 30px);
+    top: calc(50% - 30px);background-size: cover;
+}
+
+a.gallery.image{position: relative;}
+a.gallery.image:after{
+    position: absolute;
+    content: "";
+    width:60px;
+    height:60px;
+    background-image: url(img_view.png);
+    background-repeat: no-repeat;
+    left: calc(50% - 30px);
+    top: calc(50% - 30px);background-size: cover;
+    opacity: 0;transition: 0.3s;
+}
+a.gallery.image:hover:after{opacity: 1;}
+
+a.gallery:before{
+    position: absolute;content: "";width: 100%;height: 100%;top:0;left: 0;background: rgba(0,0,0,0.3);opacity: 0;transition: 0.3s;
+}
+a.gallery:hover:before{opacity: 1;}
+
+.gallery_detail_page .breadcrumb{background: none;max-width: 1100px;margin: 0 auto 0 auto;}
+.gallery_detail_page .breadcrumb li a{color: #fff;}
+.gallery_detail_page .breadcrumb li.active a{color: #777;}
+
+
+
+
+/*===========================================
+ * Media
+ *===========================================*/
+@media only screen and (max-width: 1024px) {
+}
+
+@media only screen and (max-width: 768px) {
+     a.gallery{width:50%;padding: 15px;margin: 0;}
+}
+
+@media only screen and (max-width: 480px) {
+    .gallery_detail_page .top_div{position: relative;}
+    a.gallery{width: 100%;padding: 15px;margin: 0;}
+    .gallery_detail_page .top_div h3{display: block;font-size: 20px;width: calc(100% - 110px);}
+    .gallery_detail_page .top_div a{padding: 8px 6px 8px 41px;margin-top:0;background-position: 10px center;position: absolute;top:0;right: 0;}
+    
+}

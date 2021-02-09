@@ -19,6 +19,7 @@
                 </div>
                 <div class="col-md-7 col-lg-5">
                     <form id="SubscribeNewsLetters">
+                        {{csrf_field()}}
                         <div class="input-group">
                             <input type="email" class="form-control" name="email" required placeholder="Enter email">
                             <span class="input-group-btn">
@@ -180,13 +181,13 @@
         event.preventDefault();
         alert('Save subscribe news letters');
         $("#SubscribeNewsLetterBtn").text('Subscribing...');
-        /*$.ajax({
+        $.ajax({
             type: "POST",
-            url: "subscribe_newsletters.php",
+            url: "{{route('save.subscribe.news.letters')}}",
             data: $("#SubscribeNewsLetters").serialize(),
             dataType: "JSON",
             success: function (res) {
-                //alert(response);
+                console.log(res);
                 $("#SubscribeNewsLetterBtn").text('Subscribe');
                 if(res.response == true){
                     swal({
@@ -203,6 +204,6 @@
                 }
                 $("#SubscribeNewsLetters").trigger('reset');
             }
-        });*/
+        });
     });
 </script>

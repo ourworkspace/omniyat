@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dwsync>
+<file name="DKIM.phps" server="findlogics.in//" local="131701684625100619" remote="131701195800000000" Dst="0" />
+<file name="contactform.phps" server="findlogics.in//" local="131701684627859354" remote="131701195800000000" Dst="0" />
+<file name="code_generator.phps" server="findlogics.in//" local="131701684628584553" remote="131701195800000000" Dst="0" />
+<file name="contents.html" server="findlogics.in//" local="131701684630797206" remote="131701195800000000" Dst="0" />
+<file name="exceptions.phps" server="findlogics.in//" local="131701684631799623" remote="131701195800000000" Dst="0" />
+<file name="contentsutf8.html" server="findlogics.in//" local="131701684631959619" remote="131701195800000000" Dst="0" />
+<file name="gmail.phps" server="findlogics.in//" local="131701684634605273" remote="131701195800000000" Dst="0" />
+<file name="gmail_xoauth.phps" server="findlogics.in//" local="131701684635425504" remote="131701195800000000" Dst="0" />
+<file name="mail.phps" server="findlogics.in//" local="131701684638805340" remote="131701195800000000" Dst="0" />
+<file name="index.html" server="findlogics.in//" local="131701684639960666" remote="131701195800000000" Dst="0" />
+<file name="mailing_list.phps" server="findlogics.in//" local="131701684645124137" remote="131701195800000000" Dst="0" />
+<file name="pop_before_smtp.phps" server="findlogics.in//" local="131701684646126764" remote="131701195800000000" Dst="0" />
+<file name="send_file_upload.phps" server="findlogics.in//" local="131701684653060195" remote="131701195800000000" Dst="0" />
+<file name="send_multiple_file_upload.phps" server="findlogics.in//" local="131701684654136349" remote="131701195800000000" Dst="0" />
+<file name="sendmail.phps" server="findlogics.in//" local="131701684655341351" remote="131701195800000000" Dst="0" />
+<file name="smtp.phps" server="findlogics.in//" local="131701684656653394" remote="131701195800000000" Dst="0" />
+<file name="signed-mail.phps" server="findlogics.in//" local="131701684656823488" remote="131701195800000000" Dst="0" />
+<file name="smtp_check.phps" server="findlogics.in//" local="131701684658506886" remote="131701195800000000" Dst="0" />
+<file name="smtp_no_auth.phps" server="findlogics.in//" local="131701684659379828" remote="131701195800000000" Dst="0" />
+<file name="ssl_options.phps" server="findlogics.in//" local="131701684659649964" remote="131701195800000000" Dst="0" />
+<file name="DKIM.phps" server="findlogics.in//public_html/find-logics/" local="131701713260008240" remote="131701195800000000" Dst="0" />
+<file name="code_generator.phps" server="findlogics.in//public_html/find-logics/" local="131701713262384457" remote="131701195800000000" Dst="0" />
+<file name="contactform.phps" server="findlogics.in//public_html/find-logics/" local="131701713262953374" remote="131701195800000000" Dst="0" />
+<file name="contents.html" server="findlogics.in//public_html/find-logics/" local="131701713264682040" remote="131701195800000000" Dst="0" />
+<file name="exceptions.phps" server="findlogics.in//public_html/find-logics/" local="131701713266168380" remote="131701195800000000" Dst="0" />
+<file name="contentsutf8.html" server="findlogics.in//public_html/find-logics/" local="131701713267161080" remote="131701195800000000" Dst="0" />
+<file name="gmail.phps" server="findlogics.in//public_html/find-logics/" local="131701713268015792" remote="131701195800000000" Dst="0" />
+<file name="gmail_xoauth.phps" server="findlogics.in//public_html/find-logics/" local="131701713268860392" remote="131701195800000000" Dst="0" />
+<file name="index.html" server="findlogics.in//public_html/find-logics/" local="131701713272770661" remote="131701195800000000" Dst="0" />
+<file name="mail.phps" server="findlogics.in//public_html/find-logics/" local="131701713273016687" remote="131701195800000000" Dst="0" />
+<file name="mailing_list.phps" server="findlogics.in//public_html/find-logics/" local="131701713274217622" remote="131701195800000000" Dst="0" />
+<file name="pop_before_smtp.phps" server="findlogics.in//public_html/find-logics/" local="131701713276395702" remote="131701195800000000" Dst="0" />
+<file name="send_multiple_file_upload.phps" server="findlogics.in//public_html/find-logics/" local="131701713283705601" remote="131701195800000000" Dst="0" />
+<file name="send_file_upload.phps" server="findlogics.in//public_html/find-logics/" local="131701713283861927" remote="131701195800000000" Dst="0" />
+<file name="sendmail.phps" server="findlogics.in//public_html/find-logics/" local="131701713286098147" remote="131701195800000000" Dst="0" />
+<file name="signed-mail.phps" server="findlogics.in//public_html/find-logics/" local="131701713286608483" remote="131701195800000000" Dst="0" />
+<file name="smtp.phps" server="findlogics.in//public_html/find-logics/" local="131701713286956926" remote="131701195800000000" Dst="0" />
+<file name="smtp_check.phps" server="findlogics.in//public_html/find-logics/" local="131701713289192198" remote="131701195800000000" Dst="0" />
+<file name="smtp_no_auth.phps" server="findlogics.in//public_html/find-logics/" local="131701713289347639" remote="131701195800000000" Dst="0" />
+<file name="ssl_options.phps" server="findlogics.in//public_html/find-logics/" local="131701713289347639" remote="131701195800000000" Dst="0" />
+</dwsync>

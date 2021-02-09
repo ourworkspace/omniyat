@@ -34,6 +34,8 @@ Route::get('/csr_details/{id}/detail', 'WebsiteController@csrdetails')->name('si
 Route::get('/terms_and_conditions', 'WebsiteController@TermsAndConductions')->name('site.terms.and.conditions');
 Route::get('/privacy_policy', 'WebsiteController@PrivacyPolicy')->name('site.privacy.policy');
 
+Route::post('save-subscribe-newsletters','WebsiteController@saveSubscribeNewsLetters')->name('save.subscribe.news.letters');
+Route::get('subscribe-newsletters/verify','WebsiteController@verifySubscribeNewsLetters')->name('verify.subscribe.news.letters');
 Route::post('save-inquireform-details','WebsiteController@saveContactdetails')->name('save.contact.inquire.details');
 Route::get('download/{floorplan_id}/floorplan/files','WebsiteController@floorPlanFilesDownload')->name('download.floorplan.files');
 Route::get('download/{brochure_id}/brochure/files','WebsiteController@brochureFilesDownload')->name('download.brochure.files');

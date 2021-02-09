@@ -65,7 +65,7 @@
                 <a href="{{ $about_data->button_url }}" class="btn btn-red-bg btn-auto text-uppercase tss-msb px-45 py-15 fs-15">{{ $about_data->button_text }}</a>
             </div>
         </section>
-        @include('website.layouts.footer')
+        @include('website.layouts.mobile_footer')
     </div>
     
 @endsection
