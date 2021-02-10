@@ -1,10 +1,20 @@
 <style>
-.enquire_sec .form-group .form-control{
-    color:#000 !important;
-}
-.portfolio_detail_innnerpage.desktop_view{
-    overflow-x: unset !important;
-}
+    .enquire_sec .form-group .form-control{color:#000 !important;}
+    .portfolio_detail_innnerpage.desktop_view{overflow-x: unset !important;}
+
+    .theme-light{background: #ffffff !important;}
+    .theme-light .theme-light-header-container{color: #000000 !important;}
+    .theme-light .theme-light-header-container .logo{}
+    .theme-light .theme-light-header-container .title_color{color: #000000 !important;}
+    .theme-light .theme-light-header-container .content_color, .theme-light .theme-light-header-container .content_color p,.theme-light .theme-light-header-container p{color: #000000 !important;}
+    .theme-light .theme-light-header-container form .form-group .form-control::-webkit-input-placeholder{color: #968a8a !important;}
+
+    .theme-dark {background: #000000 !important;}
+    .theme-dark .theme-dark-header-container{color: #ffffff !important;}
+    .theme-dark .theme-dark-header-container .logo{}
+    .theme-dark .theme-dark-header-container .title_color{color: #ffffff !important;}
+    .theme-dark .theme-dark-header-container .content_color, .theme-dark .theme-dark-header-container .content_color p,.theme-dark .theme-dark-header-container p{color: #ffffff !important;}
+    .theme-dark .theme-dark-header-container form .form-group .form-control::-webkit-input-placeholder{color: #968a8a !important;}
 </style>
 <div class="inner-page mt-0 portfolio_detail_innnerpage desktop_view">
     @include('website.layouts.portfolio_inner_bottom_tabs')
@@ -14,7 +24,7 @@
         @if(isset($about))
             <div id="about" class="tab-pane fade in active">
                 <!--<section class="about w-100 bg_img about_sec" style="background-image: url(img/portfolio/details/about_bg.png)">-->
-                <section class="about w-100 bg_img about_sec tr_about_sec">
+                <section class="about w-100 bg_img about_sec tr_about_sec theme-{{$about->theme_color??'light'}} ">
                     
                     @if(isset($about->background_image) && file_exists($about->background_image))
                         <img src="{{asset($about->background_image)}}" class="tr_about">
@@ -22,7 +32,7 @@
 
                     
                     
-                    <div class="header-container {{$about->text_alignment??'container-vertical-middle'}}">
+                    <div class="header-container theme-{{$about->theme_color??'light'}}-header-container {{$about->text_alignment??'container-vertical-middle'}}">
                         <!--<div class="logo text-center mb-15 mt-45"><img src="img/portfolio/details/opg_gold.png" alt="logo" style="margin-top: -5em;"></div> style="position: absolute;left: 50%;top: 72px;width: 100%;transform: translate(-50%, 0px);"-->
                         @if(isset($about->logo) && file_exists($about->logo))
                             <div class="logo text-center mb-15 mt-45 tr_about_logo_div">
@@ -33,12 +43,12 @@
                         <div class="row">
                             <div class="col-md-6 {{$about->grid_position??'pull-left'}} pt-30 pl-0">
                                 @if(isset($about->title) && !empty($about->title))
-                                    <h2 class="text-black text-uppercase tss-mb fs-16 mb-15 ls-1 tr_about_title">{{$about->title}}</h2>
+                                    <h2 class="text-black title_color text-uppercase tss-mb fs-16 mb-15 ls-1 tr_about_title">{{$about->title}}</h2>
                                 @endif
                                 
                                 @if(isset($about->description_1) && !empty($about->description_1))
                                     <!-- <p class="text-black tss-mr fs-11 tss-lh-1-4 text-justify">ANWA by Omniyat is the first freehold residential property located near the historic Bur Dubai area. It’s a luxury waterfront development and will act as the prime residential area for people working in the areas of DMC, Jebel Ali, Mina Rashid and Bur Dubai.</p> -->
-                                    <div class="tr_about_description_one">
+                                    <div class="tr_about_description_one content_color">
                                         <?php echo $about->description_1; ?>
                                     </div>
                                 @endif
@@ -60,19 +70,19 @@
 
         @if(isset($location))
             <div id="location" class="tab-pane fade">
-                <section class="w-100 bg_img location_sec anwa_location_sec tr_location_sec">
+                <section class="w-100 bg_img location_sec anwa_location_sec tr_location_sec theme-{{$location->theme_color??'light'}}">
                     @if(isset($location->background_image) && file_exists($location->background_image))
                         <img src="{{asset($location->background_image)}}" class="anwa_location tr_location">
                     @endif
-                    <div class="header-container {{$location->text_alignment??'container-vertical-left-bottom'}}">
+                    <div class="header-container theme-{{$location->theme_color??'light'}}-header-container {{$location->text_alignment??'container-vertical-left-bottom'}}">
                         <div class="row">
-                            <div class="col-md-6 {{$about->grid_position??'pull-left'}}">
+                            <div class="col-md-6 {{$location->grid_position??'pull-left'}}">
                                 @if(isset($location->title))
-                                    <h2 class="text-white text-uppercase tss-mb fs-20 mb-15 mt-0 ls-1 tss-lh-1-3 pr-30 tr_location_title">{{$location->title}}</h2>
+                                    <h2 class="text-white title_color text-uppercase tss-mb fs-20 mb-15 mt-0 ls-1 tss-lh-1-3 pr-30 tr_location_title">{{$location->title}}</h2>
                                 @endif
 
                                 @if(isset($location->description_1))   
-                                    <div class="tr_location_description_one"> 
+                                    <div class="tr_location_description_one content_color"> 
                                         <?php echo $location->description_1; ?>
                                     </div>
                                 @endif  
@@ -322,17 +332,17 @@
        
         @if(isset($enquire))
             <div id="enquire" class="tab-pane fade">
-                <section class="w-100 bg_img enquire_sec anwa_enquire_sec">
+                <section class="w-100 bg_img enquire_sec anwa_enquire_sec theme-{{$enquire->theme_color??'light'}}">
                     @if(isset($enquire->background_image))
                         <img src="{{asset($enquire->background_image)}}" class="anwa_enquire">
                     @endif
-                    <div class="header-container {{$enquire->text_alignment ?? 'container-vertical-top-right' }}">
+                    <div class="header-container theme-{{$enquire->theme_color??'light'}}-header-container {{$enquire->text_alignment??'container-vertical-top-right' }}">
 
                         <div class="row">
 
                             <div class="col-md-4 text-center {{$enquire->grid_position??'float-left'}} pl-30">
 
-                                <h3 class="text-black text-uppercase tss-mb fs-20 m-0 my-15 ">Register your interest</h3>
+                                <h3 class="text-black text-uppercase title_color tss-mb fs-20 m-0 my-15 ">Register your interest</h3>
                                 <div id="FeedbackEnquerymessage"></div>
                                 <form method="POST" id="contactFormSubmit" action="javascript:0;">
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
